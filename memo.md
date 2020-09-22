@@ -171,7 +171,7 @@ docker rmi zipcodes-vault:1.0.0
 
 ```
 docker build -t zipcodes-spring:1.0.0 -f ./Dockerfile.spring .
-docker run -d -p 8080:8080 --name=zipcodes-spring --network=zipcodes-network zipcodes-spring:1.0.0 --spring.profiles.active=docker_vault
+docker run -d -p 8080:8080 --name=zipcodes-spring --network=zipcodes-network -v /opt/zipcodes/logs:/app/logs zipcodes-spring:1.0.0 --spring.profiles.active=docker_vault
 
 docker logs zipcodes-spring
 
