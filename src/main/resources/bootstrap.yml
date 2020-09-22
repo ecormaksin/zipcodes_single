@@ -1,0 +1,26 @@
+spring.cloud.vault:
+  fail-fast: true
+  authentication: TOKEN
+  token: ${VAULT_TOKEN}
+  scheme: http
+  host: localhost
+  port: 8200
+  kv:
+    enabled: true
+    application-name: zipcodes
+
+---
+
+spring:
+  profiles: docker_vault
+  cloud:
+    vault:
+      host: zipcodes-vault
+
+---
+
+spring:
+  profiles: local_dev
+  cloud:
+    vault:
+      enabled: false
