@@ -12,7 +12,9 @@ COPY src src
 COPY libs libs
 
 RUN ./gradlew -q bootJar -x test
-RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../../build/libs/*.jar)
+COPY build/libs/*.jar app.jar
+RUN java -Djarmode=layertools -jar app.jar extract
+#RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../../build/libs/*.jar)
 
 FROM openjdk:8-jre-alpine
 WORKDIR /app
@@ -27,10 +29,11 @@ COPY ./docker/spring/vault /usr/bin/
 RUN chmod +x /app/start_app.sh
 RUN mkdir -p ./logs
 
-ARG DEPENDENCY=/workspace/app/target/dependency
-COPY --from=build ${DEPENDENCY}/BOOT-INF/lib ./lib
-COPY --from=build ${DEPENDENCY}/META-INF ./META-INF
-COPY --from=build ${DEPENDENCY}/BOOT-INF/classes ./
+ARG DEPENDENCY=/workspace/app
+COPY --from=build ${DEPENDENCY}/dependencies ./
+COPY --from=build ${DEPENDENCY}/snapshot-dependencies ./
+COPY --from=build ${DEPENDENCY}/spring-boot-loader ./
+COPY --from=build ${DEPENDENCY}/application ./
 RUN addgroup -S spring && adduser -S spring -G spring
 RUN chown -R spring:spring /app/
 USER spring

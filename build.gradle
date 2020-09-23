@@ -11,6 +11,7 @@ sourceCompatibility = JavaVersion.VERSION_1_8
 
 bootJar {
     archiveFileName = "zipcodes.jar"
+    layered()
 }
 
 sourceSets {
@@ -49,7 +50,7 @@ dependencies {
 		exclude group: 'joda-time', module: 'joda-time'
 	}
 	implementation (
-        //"org.springframework.boot:spring-boot-loader:${springBoot}",
+        "org.springframework.boot:spring-boot-loader:${springBoot}",
 		'org.springframework.boot:spring-boot-starter-data-jpa',
 		'org.springframework.boot:spring-boot-starter-web',
 		'org.springframework.cloud:spring-cloud-starter-vault-config',

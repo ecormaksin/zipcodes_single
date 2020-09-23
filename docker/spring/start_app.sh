@@ -28,5 +28,5 @@ vault login "${VAULT_TOKEN}"
 
 vault kv put secret/zipcodes/docker_vault @secrets.json
 
-exec java ${JAVA_OPTS} -cp /app:/app/lib/* com.example.zipcodes.ZipcodesApplication ${@}
-# exec java ${JAVA_OPTS} org.springframework.boot.loader.JarLauncher ${@}
+# exec java ${JAVA_OPTS} -cp /app:/app/lib/* com.example.zipcodes.ZipcodesApplication ${@}
+exec java ${JAVA_OPTS} org.springframework.boot.loader.JarLauncher ${@}
