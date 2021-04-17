@@ -16,9 +16,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @Target(TYPE)
 @Documented
 @Inherited
-@SpringBootApplication(scanBasePackages = {"com.example.zipcodes.infra"})
-@EntityScan(basePackages = {"com.example.zipcodes.infra.db.jpa.view"})
-@EnableJpaRepositories(basePackages = {"com.example.zipcodes.infra.db.jpa.repository"})
+@SpringBootApplication(scanBasePackages = { "com.example.zipcodes.infra" })
+@EntityScan(basePackages = { "com.example.zipcodes.infra.db.jpa.view" })
+@EnableJpaRepositories(basePackages = { "com.example.zipcodes.infra.db.jpa.repository" })
 public @interface CustomJpaTest {
 
 }

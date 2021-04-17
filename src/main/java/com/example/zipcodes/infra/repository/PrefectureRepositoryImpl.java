@@ -21,40 +21,40 @@ import lombok.RequiredArgsConstructor;
 public class PrefectureRepositoryImpl implements PrefectureRepository {
 
     private final EntityManager entityManager;
-	private final PrefectureEntityMapper prefectureMapper;
+    private final PrefectureEntityMapper prefectureMapper;
 
     private JPAQueryFactory queryFactory;
 
-	private QPrefecture qPrefecture = QPrefecture.prefecture;
+    private QPrefecture qPrefecture = QPrefecture.prefecture;
 
-	@PostConstruct
+    @PostConstruct
     void postConstruct() {
         queryFactory = new JPAQueryFactory(entityManager);
     }
 
-	@Override
-	public List<DmEtPrefecture> findAll() {
+    @Override
+    public List<DmEtPrefecture> findAll() {
 
-		// @formatter:off
+        // @formatter:off
 		List<Prefecture> entityList = queryFactory
 				.selectFrom(qPrefecture)
 				.orderBy(qPrefecture.prefectureCode.asc())
 				.fetch();
 		// @formatter:on
 
-		return prefectureMapper.fromEntityListToDomainObjectList(entityList);
-	}
+        return prefectureMapper.fromEntityListToDomainObjectList(entityList);
+    }
 
-	@Override
-	public DmEtPrefecture findByPrefectureCode(final String prefectureCode) {
+    @Override
+    public DmEtPrefecture findByPrefectureCode(final String prefectureCode) {
 
-		// @formatter:off
+        // @formatter:off
 		Prefecture prefecture = queryFactory
 				.selectFrom(qPrefecture)
 				.where( qPrefecture.prefectureCode.eq(prefectureCode) )
 				.fetchOne();
 		// @formatter:on
 
-		return prefectureMapper.fromEntityToDomainObject(prefecture);
-	}
+        return prefectureMapper.fromEntityToDomainObject(prefecture);
+    }
 }

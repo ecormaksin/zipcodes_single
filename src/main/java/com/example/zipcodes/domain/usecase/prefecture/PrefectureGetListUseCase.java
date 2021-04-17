@@ -13,10 +13,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PrefectureGetListUseCase {
 
-	private final PrefectureRepository prefectureRepository;
+    private final PrefectureRepository prefectureRepository;
 
-	public List<DmEtPrefecture> findAll() {
+    public List<DmEtPrefecture> findAll() {
 
-		return prefectureRepository.findAll();
-	}
+        return prefectureRepository.findAll();
+    }
 }

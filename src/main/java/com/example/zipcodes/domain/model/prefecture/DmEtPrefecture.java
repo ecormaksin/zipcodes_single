@@ -13,32 +13,32 @@ import lombok.Setter;
 @Getter
 public class DmEtPrefecture {
 
-	@Valid
-	@NotNull
-	private PrefectureCode code;
+    @Valid
+    @NotNull
+    private PrefectureCode code;
 
-	@Setter
-	@Valid
-	@NotNull
-	private PrefectureKanjiName kanjiName;
+    @Setter
+    @Valid
+    @NotNull
+    private PrefectureKanjiName kanjiName;
 
-	@Setter
-	@Valid
-	@NotNull
-	private PrefectureHiraganaName hiraganaName;
+    @Setter
+    @Valid
+    @NotNull
+    private PrefectureHiraganaName hiraganaName;
 
-	@Setter
-	@Valid
-	@NotNull
-	private PrefectureKatakanaFullwidthName katakanaFullwidthName;
+    @Setter
+    @Valid
+    @NotNull
+    private PrefectureKatakanaFullwidthName katakanaFullwidthName;
 
-	@Setter
-	@Valid
-	@NotNull
-	private PrefectureKatakanaHalfwidthName katakanaHalfwidthName;
+    @Setter
+    @Valid
+    @NotNull
+    private PrefectureKatakanaHalfwidthName katakanaHalfwidthName;
 
-	public String toString() {
-		// @formatter:off
+    public String toString() {
+        // @formatter:off
 		return String.format(
 				"\"dmEtPrefecture\": {\"code\": \"%s\", "
 				+ "\"kanjiName\": \"%s\", "
@@ -51,5 +51,5 @@ public class DmEtPrefecture {
 				, katakanaFullwidthName.getValue()
 				, katakanaHalfwidthName.getValue());
 		// @formatter:on
-	}
+    }
 }

@@ -10,18 +10,12 @@ import lombok.Builder;
 import lombok.Data;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-    "code",
-    "kanjiName",
-    "hiraganaName",
-    "katakanaFullwidthName",
-    "katakanaHalfwidthName"
-})
+@JsonPropertyOrder({ "code", "kanjiName", "hiraganaName", "katakanaFullwidthName", "katakanaHalfwidthName" })
 @Data
 @Builder
 public class PrefectureDto implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     @JsonProperty("code")
     private String code;

@@ -19,16 +19,16 @@ import com.ibm.icu.text.Transliterator;
 @Mapper(injectionStrategy = InjectionStrategy.CONSTRUCTOR)
 public interface PrefectureEntityMapper {
 
-	default DmEtPrefecture fromEntityToDomainObject(Prefecture entity) {
+    default DmEtPrefecture fromEntityToDomainObject(Prefecture entity) {
 
-		final Transliterator hiraganaTransliterator = Transliterator.getInstance("Katakana-Hiragana");
-		final Transliterator katakanaTransliterator = Transliterator.getInstance("Halfwidth-Fullwidth");
+        final Transliterator hiraganaTransliterator = Transliterator.getInstance("Katakana-Hiragana");
+        final Transliterator katakanaTransliterator = Transliterator.getInstance("Halfwidth-Fullwidth");
 
-		final String kanaHalfwidth = entity.getPrefectureNameKana();
-		final String kanaFullwidth = katakanaTransliterator.transliterate(kanaHalfwidth);
-		final String hiragana = hiraganaTransliterator.transliterate(kanaFullwidth);
+        final String kanaHalfwidth = entity.getPrefectureNameKana();
+        final String kanaFullwidth = katakanaTransliterator.transliterate(kanaHalfwidth);
+        final String hiragana = hiraganaTransliterator.transliterate(kanaFullwidth);
 
-		// @formatter:off
+        // @formatter:off
 		return DmEtPrefecture.builder()
 				.code(new PrefectureCode(entity.getPrefectureCode()))
 				.kanjiName(new PrefectureKanjiName(entity.getPrefectureName()))
@@ -37,7 +37,7 @@ public interface PrefectureEntityMapper {
 				.katakanaHalfwidthName(new PrefectureKatakanaHalfwidthName(kanaHalfwidth))
 				.build();
 		// @formatter:on
-	}
+    }
 
-	List<DmEtPrefecture> fromEntityListToDomainObjectList(List<Prefecture> entityList);
+    List<DmEtPrefecture> fromEntityListToDomainObjectList(List<Prefecture> entityList);
 }

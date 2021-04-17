@@ -12,9 +12,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AddressRepositoryImpl {
 
-	public List<Address> findAll() {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
-	}
+    public List<Address> findAll() {
+        // TODO 自動生成されたメソッド・スタブ
+        return null;
+    }
 
 }

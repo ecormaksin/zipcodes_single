@@ -10,7 +10,7 @@ import lombok.Getter;
 @EqualsAndHashCode(callSuper = false)
 abstract class PrefectureKanaName extends ValidationConcern {
 
-	public static final int LENGTH_MAX = 10;
+    public static final int LENGTH_MAX = 10;
 
     @NotAllBlank(max = LENGTH_MAX)
     protected final String value;

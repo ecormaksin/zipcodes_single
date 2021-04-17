@@ -22,6 +22,6 @@ import lombok.extern.slf4j.Slf4j;
 @AutoConfigureTestEntityManager
 class AddressRepositoryImplTest {
 
-	@Autowired
-	private AddressRepositoryImpl addressRepositoryImpl;
+    @Autowired
+    private AddressRepositoryImpl addressRepositoryImpl;
 }

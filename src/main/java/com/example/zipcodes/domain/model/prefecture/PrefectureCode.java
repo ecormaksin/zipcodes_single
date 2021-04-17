@@ -10,7 +10,7 @@ import lombok.Getter;
 @EqualsAndHashCode(callSuper = false)
 public class PrefectureCode extends ValidationConcern {
 
-	public static final int LENGTH = 2;
+    public static final int LENGTH = 2;
 
     @NotAllBlank(min = LENGTH, max = LENGTH)
     private final String value;

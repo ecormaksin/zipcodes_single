@@ -12,9 +12,9 @@ import com.example.zipcodes.domain.model.prefecture.DmEtPrefecture;
 @Mapper(injectionStrategy = InjectionStrategy.CONSTRUCTOR)
 public interface PrefectureDtoMapper {
 
-	default PrefectureDto fromDomainObjectToDto(DmEtPrefecture entity) {
+    default PrefectureDto fromDomainObjectToDto(DmEtPrefecture entity) {
 
-		// @formatter:off
+        // @formatter:off
 		return PrefectureDto.builder()
 				.code( entity.getCode().getValue() )
 				.kanjiName( entity.getKanjiName().getValue() )
@@ -23,7 +23,7 @@ public interface PrefectureDtoMapper {
 				.katakanaHalfwidthName( entity.getKatakanaHalfwidthName().getValue() )
 				.build();
 		// @formatter:on
-	}
+    }
 
-	List<PrefectureDto> fromDomainObjectListToDtoList(List<DmEtPrefecture> entityList);
+    List<PrefectureDto> fromDomainObjectListToDtoList(List<DmEtPrefecture> entityList);
 }

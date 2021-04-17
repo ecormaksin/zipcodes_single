@@ -22,36 +22,36 @@ import lombok.extern.slf4j.Slf4j;
 @AutoConfigureTestEntityManager
 class PrefectureRepositoryImplTest {
 
-	@Autowired
-	private PrefectureRepository prefectureRepositoryImpl;
+    @Autowired
+    private PrefectureRepository prefectureRepositoryImpl;
 
-	@CustomJpaTest
-	static class TestConfiguration {
-	}
+    @CustomJpaTest
+    static class TestConfiguration {
+    }
 
-	@Test
-	void 都道府県リストは47件() {
+    @Test
+    void 都道府県リストは47件() {
 
-		List<DmEtPrefecture> list = prefectureRepositoryImpl.findAll();
+        List<DmEtPrefecture> list = prefectureRepositoryImpl.findAll();
 
-		assertEquals(47, list.size());
+        assertEquals(47, list.size());
 
-		for (DmEtPrefecture obj : list) {
-			log.info(obj.toString());
-		}
-	}
+        for (DmEtPrefecture obj : list) {
+            log.info(obj.toString());
+        }
+    }
 
-	@Test
-	void 都道府県コード13は東京都() throws Exception {
+    @Test
+    void 都道府県コード13は東京都() throws Exception {
 
-		DmEtPrefecture prefecture = prefectureRepositoryImpl.findByPrefectureCode("13");
+        DmEtPrefecture prefecture = prefectureRepositoryImpl.findByPrefectureCode("13");
 
-		assertNotNull(prefecture);
-		assertEquals("13", prefecture.getCode().getValue());
-		assertEquals("東京都", prefecture.getKanjiName().getValue());
-		assertEquals("とうきょうと", prefecture.getHiraganaName().getValue());
-		assertEquals("トウキョウト", prefecture.getKatakanaFullwidthName().getValue());
-		assertEquals("ﾄｳｷｮｳﾄ", prefecture.getKatakanaHalfwidthName().getValue());
-	}
+        assertNotNull(prefecture);
+        assertEquals("13", prefecture.getCode().getValue());
+        assertEquals("東京都", prefecture.getKanjiName().getValue());
+        assertEquals("とうきょうと", prefecture.getHiraganaName().getValue());
+        assertEquals("トウキョウト", prefecture.getKatakanaFullwidthName().getValue());
+        assertEquals("ﾄｳｷｮｳﾄ", prefecture.getKatakanaHalfwidthName().getValue());
+    }
 
 }
