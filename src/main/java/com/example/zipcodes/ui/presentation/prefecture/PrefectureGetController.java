@@ -23,7 +23,7 @@ public class PrefectureGetController {
     private final PrefectureGetUseCase prefectureGetUseCase;
     private final PrefectureDtoMapper prefectureMapper;
 
-    @GetMapping("/" + RequestPaths.PREFECTURES + "/{prefectureCode}")
+    @GetMapping(RequestPaths.PREFECTURE_GET)
     public ResponseEntity<PrefectureDto> get(@PathVariable String prefectureCode) {
 
         DmEtPrefecture domainEntity = prefectureGetUseCase.get(prefectureCode);

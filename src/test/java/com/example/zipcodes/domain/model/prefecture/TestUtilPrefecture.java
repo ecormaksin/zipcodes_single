@@ -1,13 +1,6 @@
-package com.example.zipcodes.ui.presentation.prefecture;
+package com.example.zipcodes.domain.model.prefecture;
 
-import com.example.zipcodes.domain.model.prefecture.DmEtPrefecture;
-import com.example.zipcodes.domain.model.prefecture.PrefectureCode;
-import com.example.zipcodes.domain.model.prefecture.PrefectureHiraganaName;
-import com.example.zipcodes.domain.model.prefecture.PrefectureKanjiName;
-import com.example.zipcodes.domain.model.prefecture.PrefectureKatakanaFullwidthName;
-import com.example.zipcodes.domain.model.prefecture.PrefectureKatakanaHalfwidthName;
-
-public class PrefectureControllerTestUtil {
+public class TestUtilPrefecture {
 
     public static final String PREFECTURE_CODE_TOKYO = "13";
     public static final String PREFECTURE_CODE_KYOTO = "26";

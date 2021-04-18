@@ -23,7 +23,7 @@ public class PrefectureGetListController {
     private final PrefectureGetListUseCase prefectureGetListUseCase;
     private final PrefectureDtoMapper prefectureMapper;
 
-    @GetMapping("/" + RequestPaths.PREFECTURES)
+    @GetMapping(RequestPaths.PREFECTURES_GET_LIST)
     public ResponseEntity<List<PrefectureDto>> getList() {
 
         List<DmEtPrefecture> domainEntities = prefectureGetListUseCase.findAll();

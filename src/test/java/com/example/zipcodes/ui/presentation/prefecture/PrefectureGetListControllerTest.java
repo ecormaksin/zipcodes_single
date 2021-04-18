@@ -17,6 +17,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.example.zipcodes.domain.model.prefecture.DmEtPrefecture;
+import com.example.zipcodes.domain.model.prefecture.TestUtilPrefecture;
 import com.example.zipcodes.domain.usecase.prefecture.PrefectureGetListUseCase;
 import com.example.zipcodes.ui.presentation.RequestPaths;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -43,10 +44,10 @@ class PrefectureGetListControllerTest {
     @BeforeEach
     void beforeEach() {
 
-		tokyoto = PrefectureControllerTestUtil.domainEntityTokyo();
+		tokyoto = TestUtilPrefecture.domainEntityTokyo();
 		tokyotoDto = prefectureMapper.fromDomainObjectToDto(tokyoto);
 
-		kyotofu = PrefectureControllerTestUtil.domainEntityKyoto();
+		kyotofu = TestUtilPrefecture.domainEntityKyoto();
 		kyotofuDto = prefectureMapper.fromDomainObjectToDto(kyotofu);
     }
 
@@ -67,7 +68,7 @@ class PrefectureGetListControllerTest {
         when(prefectureGetListUseCase.findAll()).thenReturn(dmEtList);
 
         // @formatter:off
-        mockMvc.perform(get("/" + RequestPaths.PREFECTURES))
+        mockMvc.perform(get(RequestPaths.PREFECTURES_GET_LIST))
             .andExpect(status().isOk())
             .andExpect(content().string(expectedString));
         // @formatter:on

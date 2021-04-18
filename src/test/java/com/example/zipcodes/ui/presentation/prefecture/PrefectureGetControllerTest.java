@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.example.zipcodes.domain.model.prefecture.DmEtPrefecture;
+import com.example.zipcodes.domain.model.prefecture.TestUtilPrefecture;
 import com.example.zipcodes.domain.usecase.prefecture.PrefectureGetUseCase;
 import com.example.zipcodes.ui.presentation.RequestPaths;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,7 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Import(PrefectureDtoMapperImpl.class)
 class PrefectureGetControllerTest {
 
-    private static final String PREFECTURE_CODE_TOKYO = PrefectureControllerTestUtil.PREFECTURE_CODE_TOKYO;
+    private static final String PREFECTURE_CODE_TOKYO = TestUtilPrefecture.PREFECTURE_CODE_TOKYO;
     
     @Autowired
     private MockMvc mockMvc;
@@ -39,7 +40,7 @@ class PrefectureGetControllerTest {
     @BeforeEach
     void beforeEach() {
 
-        tokyoto = PrefectureControllerTestUtil.domainEntityTokyo();
+        tokyoto = TestUtilPrefecture.domainEntityTokyo();
 		tokyotoDto = prefectureMapper.fromDomainObjectToDto(tokyoto);
     }
 
@@ -52,7 +53,7 @@ class PrefectureGetControllerTest {
         when(prefectureGetUseCase.get(PREFECTURE_CODE_TOKYO)).thenReturn(tokyoto);
 		
 		// @formatter:off
-		mockMvc.perform(get("/" + RequestPaths.PREFECTURES + "/" + PREFECTURE_CODE_TOKYO))
+		mockMvc.perform(get(RequestPaths.PREFECTURES_GET_LIST + "/" + PREFECTURE_CODE_TOKYO))
 			.andExpect(status().isOk())
 			.andExpect(content().string(expectedString));
 		// @formatter:on
