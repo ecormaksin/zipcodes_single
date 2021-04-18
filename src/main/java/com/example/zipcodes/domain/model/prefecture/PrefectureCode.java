@@ -12,6 +12,8 @@ public class PrefectureCode extends ValidationConcern {
 
     public static final int LENGTH = 2;
 
+    private static final long serialVersionUID = 1L;
+
     @NotAllBlank(min = LENGTH, max = LENGTH)
     private final String value;
 

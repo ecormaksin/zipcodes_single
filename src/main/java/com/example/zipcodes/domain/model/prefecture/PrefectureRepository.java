@@ -6,5 +6,5 @@ public interface PrefectureRepository {
 
     List<DmEtPrefecture> findAll();
 
-    DmEtPrefecture findByPrefectureCode(String string);
+    DmEtPrefecture findByPrefectureCode(PrefectureCode prefectureCode) throws PrefectureNotFoundException;
 }

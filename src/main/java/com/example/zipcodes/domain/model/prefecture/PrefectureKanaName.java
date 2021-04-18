@@ -12,6 +12,8 @@ abstract class PrefectureKanaName extends ValidationConcern {
 
     public static final int LENGTH_MAX = 10;
 
+    private static final long serialVersionUID = 1L;
+
     @NotAllBlank(max = LENGTH_MAX)
     protected final String value;
 

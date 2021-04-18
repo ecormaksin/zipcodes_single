@@ -1,7 +1,6 @@
-package com.example.zipcodes.infra.db.repository;
+package com.example.zipcodes.usecase.prefecture;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
@@ -13,28 +12,23 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.zipcodes.domain.model.prefecture.DmEtPrefecture;
-import com.example.zipcodes.domain.model.prefecture.PrefectureRepository;
-import com.example.zipcodes.domain.model.prefecture.TestUtilPrefecture;
+import com.example.zipcodes.domain.usecase.prefecture.PrefectureGetListUseCase;
 
 import lombok.extern.slf4j.Slf4j;
 
 @SpringBootTest(webEnvironment = WebEnvironment.NONE)
 @Transactional
-@Slf4j
 @AutoConfigureTestEntityManager
-class PrefectureRepositoryImplTest {
+@Slf4j
+class PrefectureGetListUseCaseTest {
 
     @Autowired
-    private PrefectureRepository prefectureRepositoryImpl;
-
-    @CustomJpaTest
-    static class TestConfiguration {
-    }
+    private PrefectureGetListUseCase prefectureGetListUseCase;
 
     @Test
     void 都道府県リストは47件() {
 
-        List<DmEtPrefecture> list = prefectureRepositoryImpl.findAll();
+        List<DmEtPrefecture> list = prefectureGetListUseCase.findAll();
 
         assertEquals(47, list.size());
 
@@ -42,14 +36,4 @@ class PrefectureRepositoryImplTest {
             log.info(obj.toString());
         }
     }
-
-    @Test
-    void 都道府県コード13は東京都() throws Exception {
-
-        DmEtPrefecture expected = TestUtilPrefecture.domainEntityTokyo();
-        DmEtPrefecture actual = prefectureRepositoryImpl.findByPrefectureCode(TestUtilPrefecture.PREFECTURE_CODE_TOKYO);
-
-        assertTrue(actual.equals(expected));
-    }
-
 }

@@ -19,7 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.example.zipcodes.domain.model.prefecture.DmEtPrefecture;
 import com.example.zipcodes.domain.model.prefecture.TestUtilPrefecture;
 import com.example.zipcodes.domain.usecase.prefecture.PrefectureGetListUseCase;
-import com.example.zipcodes.ui.presentation.RequestPaths;
+import com.example.zipcodes.ui.presentation.EndpointUrls;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @WebMvcTest(PrefectureGetListController.class)
@@ -68,7 +68,7 @@ class PrefectureGetListControllerTest {
         when(prefectureGetListUseCase.findAll()).thenReturn(dmEtList);
 
         // @formatter:off
-        mockMvc.perform(get(RequestPaths.PREFECTURES_GET_LIST))
+        mockMvc.perform(get(EndpointUrls.PREFECTURES_GET_LIST))
             .andExpect(status().isOk())
             .andExpect(content().string(expectedString));
         // @formatter:on

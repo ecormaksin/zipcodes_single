@@ -1,12 +1,22 @@
 package com.example.zipcodes.domain.usecase.prefecture;
 
-import com.example.zipcodes.domain.model.prefecture.DmEtPrefecture;
+import org.springframework.stereotype.Service;
 
+import com.example.zipcodes.domain.model.prefecture.DmEtPrefecture;
+import com.example.zipcodes.domain.model.prefecture.PrefectureCode;
+import com.example.zipcodes.domain.model.prefecture.PrefectureNotFoundException;
+import com.example.zipcodes.domain.model.prefecture.PrefectureRepository;
+
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
 public class PrefectureGetUseCase {
 
-    public DmEtPrefecture get(String string) {
-        // TODO Auto-generated method stub
-        return null;
-    }
+    private final PrefectureRepository prefectureRepository;
 
+    public DmEtPrefecture get(final PrefectureCode prefectureCode) throws PrefectureNotFoundException {
+
+        return prefectureRepository.findByPrefectureCode(prefectureCode);
+    }
 }

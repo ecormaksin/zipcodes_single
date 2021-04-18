@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.zipcodes.domain.model.prefecture.DmEtPrefecture;
 import com.example.zipcodes.domain.usecase.prefecture.PrefectureGetListUseCase;
-import com.example.zipcodes.ui.presentation.RequestPaths;
+import com.example.zipcodes.ui.presentation.EndpointUrls;
 
 import lombok.RequiredArgsConstructor;
 
@@ -23,7 +23,7 @@ public class PrefectureGetListController {
     private final PrefectureGetListUseCase prefectureGetListUseCase;
     private final PrefectureDtoMapper prefectureMapper;
 
-    @GetMapping(RequestPaths.PREFECTURES_GET_LIST)
+    @GetMapping(EndpointUrls.PREFECTURES_GET_LIST)
     public ResponseEntity<List<PrefectureDto>> getList() {
 
         List<DmEtPrefecture> domainEntities = prefectureGetListUseCase.findAll();

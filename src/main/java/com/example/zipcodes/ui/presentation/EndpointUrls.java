@@ -1,6 +1,6 @@
 package com.example.zipcodes.ui.presentation;
 
-public final class RequestPaths {
+public final class EndpointUrls {
 
     public static final String PREFECTURES_GET_LIST = "/prefectures";
 
