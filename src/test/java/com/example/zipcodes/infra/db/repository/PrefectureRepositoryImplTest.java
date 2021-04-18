@@ -1,6 +1,7 @@
 package com.example.zipcodes.infra.db.repository;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.zipcodes.domain.model.prefecture.DmEtPrefecture;
 import com.example.zipcodes.domain.model.prefecture.PrefectureRepository;
+import com.example.zipcodes.domain.model.prefecture.TestUtilPrefecture;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -44,14 +46,10 @@ class PrefectureRepositoryImplTest {
     @Test
     void 都道府県コード13は東京都() throws Exception {
 
-        DmEtPrefecture prefecture = prefectureRepositoryImpl.findByPrefectureCode("13");
+        DmEtPrefecture expected = TestUtilPrefecture.domainEntityTokyo();
+        DmEtPrefecture actual = prefectureRepositoryImpl.findByPrefectureCode(TestUtilPrefecture.PREFECTURE_CODE_TOKYO);
 
-        assertNotNull(prefecture);
-        assertEquals("13", prefecture.getCode().getValue());
-        assertEquals("東京都", prefecture.getKanjiName().getValue());
-        assertEquals("とうきょうと", prefecture.getHiraganaName().getValue());
-        assertEquals("トウキョウト", prefecture.getKatakanaFullwidthName().getValue());
-        assertEquals("ﾄｳｷｮｳﾄ", prefecture.getKatakanaHalfwidthName().getValue());
+        assertTrue(actual.equals(expected));
     }
 
 }

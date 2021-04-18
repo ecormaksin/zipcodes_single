@@ -37,6 +37,7 @@ public class DmEtPrefecture {
     @NotNull
     private PrefectureKatakanaHalfwidthName katakanaHalfwidthName;
 
+    @Override
     public String toString() {
         // @formatter:off
 		return String.format(
@@ -51,5 +52,24 @@ public class DmEtPrefecture {
 				, katakanaFullwidthName.getValue()
 				, katakanaHalfwidthName.getValue());
 		// @formatter:on
+    }
+
+    @Override
+    public boolean equals(Object other) {
+
+        if (null == other) {
+            return false;
+        }
+        if (!(other instanceof DmEtPrefecture)) {
+            return false;
+        }
+
+        DmEtPrefecture otherPrefecture = (DmEtPrefecture) other;
+        return this.code.getValue().equals(otherPrefecture.code.getValue());
+    }
+
+    @Override
+    public int hashCode() {
+        return this.code.getValue().hashCode();
     }
 }
