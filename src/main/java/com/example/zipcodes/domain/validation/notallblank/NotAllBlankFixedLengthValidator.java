@@ -3,12 +3,12 @@ package com.example.zipcodes.domain.validation.notallblank;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class NotAllBlankValidator implements ConstraintValidator<NotAllBlank, String> {
+public class NotAllBlankFixedLengthValidator implements ConstraintValidator<NotAllBlankFixedLength, String> {
 
-    private NotAllBlank constraintAnnotation;
+    private NotAllBlankFixedLength constraintAnnotation;
 
     @Override
-    public void initialize(NotAllBlank constraintAnnotation) {
+    public void initialize(NotAllBlankFixedLength constraintAnnotation) {
         this.constraintAnnotation = constraintAnnotation;
     }
 
@@ -17,7 +17,6 @@ public class NotAllBlankValidator implements ConstraintValidator<NotAllBlank, St
         if (value == null) {
             return false;
         }
-        final int length = ValidValueLengthGetter.length(value);
-        return constraintAnnotation.min() <= length && length <= constraintAnnotation.max();
+        return ValidValueLengthGetter.length(value) == constraintAnnotation.length();
     }
 }

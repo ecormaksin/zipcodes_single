@@ -3,6 +3,8 @@ package com.example.zipcodes.domain.model.prefecture;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,43 +17,36 @@ public class DmEtPrefecture {
 
     @Valid
     @NotNull
-    private PrefectureCode code;
+    private PrefectureCode prefectureCode;
 
     @Setter
     @Valid
     @NotNull
-    private PrefectureKanjiName kanjiName;
+    private PrefectureKanjiName prefectureKanjiName;
 
     @Setter
     @Valid
     @NotNull
-    private PrefectureHiraganaName hiraganaName;
+    private PrefectureHiraganaName prefectureHiraganaName;
 
     @Setter
     @Valid
     @NotNull
-    private PrefectureKatakanaFullwidthName katakanaFullwidthName;
+    private PrefectureKatakanaFullwidthName prefectureKatakanaFullwidthName;
 
     @Setter
     @Valid
     @NotNull
-    private PrefectureKatakanaHalfwidthName katakanaHalfwidthName;
+    private PrefectureKatakanaHalfwidthName prefectureKatakanaHalfwidthName;
 
     @Override
     public String toString() {
-        // @formatter:off
-		return String.format(
-				"\"dmEtPrefecture\": {\"code\": \"%s\", "
-				+ "\"kanjiName\": \"%s\", "
-				+ "\"hiraganaFullwidthName\": \"%s\"}"
-				+ "\"katakanaHalfwidthName\": \"%s\"}"
-				+ "\"katakanaHalfwidthName\": \"%s\"}"
-				, code.getValue()
-				, kanjiName.getValue()
-				, hiraganaName.getValue()
-				, katakanaFullwidthName.getValue()
-				, katakanaHalfwidthName.getValue());
-		// @formatter:on
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            return "\"dmEtPrefecture\": " + objectMapper.writeValueAsString(this);
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     @Override
@@ -65,11 +60,11 @@ public class DmEtPrefecture {
         }
 
         DmEtPrefecture otherPrefecture = (DmEtPrefecture) other;
-        return this.code.getValue().equals(otherPrefecture.code.getValue());
+        return this.prefectureCode.getValue().equals(otherPrefecture.prefectureCode.getValue());
     }
 
     @Override
     public int hashCode() {
-        return this.code.getValue().hashCode();
+        return this.prefectureCode.getValue().hashCode();
     }
 }

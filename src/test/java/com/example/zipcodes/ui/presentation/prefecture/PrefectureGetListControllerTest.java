@@ -17,9 +17,9 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.example.zipcodes.domain.model.prefecture.DmEtPrefecture;
-import com.example.zipcodes.domain.model.prefecture.TestUtilPrefecture;
-import com.example.zipcodes.domain.usecase.prefecture.PrefectureGetListUseCase;
+import com.example.zipcodes.domain.model.prefecture.PrefectureTestUtil;
 import com.example.zipcodes.ui.presentation.EndpointUrls;
+import com.example.zipcodes.usecase.prefecture.PrefectureGetListUseCase;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @WebMvcTest(PrefectureGetListController.class)
@@ -44,10 +44,10 @@ class PrefectureGetListControllerTest {
     @BeforeEach
     void beforeEach() {
 
-		tokyoto = TestUtilPrefecture.domainEntityTokyo();
+		tokyoto = PrefectureTestUtil.domainEntityTokyo();
 		tokyotoDto = prefectureMapper.fromDomainObjectToDto(tokyoto);
 
-		kyotofu = TestUtilPrefecture.domainEntityKyoto();
+		kyotofu = PrefectureTestUtil.domainEntityKyoto();
 		kyotofuDto = prefectureMapper.fromDomainObjectToDto(kyotofu);
     }
 

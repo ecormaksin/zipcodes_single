@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.zipcodes.domain.model.prefecture.DmEtPrefecture;
 import com.example.zipcodes.domain.model.prefecture.PrefectureCode;
 import com.example.zipcodes.domain.model.prefecture.PrefectureNotFoundException;
-import com.example.zipcodes.domain.usecase.prefecture.PrefectureGetUseCase;
 import com.example.zipcodes.ui.presentation.EndpointUrls;
+import com.example.zipcodes.usecase.prefecture.PrefectureGetUseCase;
 
 import lombok.RequiredArgsConstructor;
 

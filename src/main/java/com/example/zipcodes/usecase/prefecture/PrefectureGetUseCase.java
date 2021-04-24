@@ -1,4 +1,4 @@
-package com.example.zipcodes.domain.usecase.prefecture;
+package com.example.zipcodes.usecase.prefecture;
 
 import org.springframework.stereotype.Service;
 

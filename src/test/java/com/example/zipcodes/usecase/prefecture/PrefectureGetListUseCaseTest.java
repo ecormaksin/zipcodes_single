@@ -12,7 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.zipcodes.domain.model.prefecture.DmEtPrefecture;
-import com.example.zipcodes.domain.usecase.prefecture.PrefectureGetListUseCase;
 
 import lombok.extern.slf4j.Slf4j;
 

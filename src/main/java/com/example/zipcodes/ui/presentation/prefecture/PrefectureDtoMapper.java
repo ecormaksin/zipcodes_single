@@ -16,11 +16,11 @@ public interface PrefectureDtoMapper {
 
         // @formatter:off
 		return PrefectureDto.builder()
-				.code( entity.getCode().getValue() )
-				.kanjiName( entity.getKanjiName().getValue() )
-				.hiraganaName( entity.getHiraganaName().getValue() )
-				.katakanaFullwidthName( entity.getKatakanaFullwidthName().getValue() )
-				.katakanaHalfwidthName( entity.getKatakanaHalfwidthName().getValue() )
+				.code( entity.getPrefectureCode().getValue() )
+				.kanjiName( entity.getPrefectureKanjiName().getValue() )
+				.hiraganaName( entity.getPrefectureHiraganaName().getValue() )
+				.katakanaFullwidthName( entity.getPrefectureKatakanaFullwidthName().getValue() )
+				.katakanaHalfwidthName( entity.getPrefectureKatakanaHalfwidthName().getValue() )
 				.build();
 		// @formatter:on
     }

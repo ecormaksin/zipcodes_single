@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.zipcodes.domain.model.prefecture.DmEtPrefecture;
-import com.example.zipcodes.domain.usecase.prefecture.PrefectureGetListUseCase;
 import com.example.zipcodes.ui.presentation.EndpointUrls;
+import com.example.zipcodes.usecase.prefecture.PrefectureGetListUseCase;
 
 import lombok.RequiredArgsConstructor;
 

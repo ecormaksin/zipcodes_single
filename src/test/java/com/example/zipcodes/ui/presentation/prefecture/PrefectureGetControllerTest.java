@@ -17,19 +17,19 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.example.zipcodes.domain.model.prefecture.DmEtPrefecture;
 import com.example.zipcodes.domain.model.prefecture.PrefectureCode;
 import com.example.zipcodes.domain.model.prefecture.PrefectureNotFoundException;
-import com.example.zipcodes.domain.model.prefecture.TestUtilPrefecture;
-import com.example.zipcodes.domain.usecase.prefecture.PrefectureGetUseCase;
+import com.example.zipcodes.domain.model.prefecture.PrefectureTestUtil;
 import com.example.zipcodes.ui.presentation.EndpointUrls;
+import com.example.zipcodes.usecase.prefecture.PrefectureGetUseCase;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @WebMvcTest(PrefectureGetController.class)
 @Import(PrefectureDtoMapperImpl.class)
 class PrefectureGetControllerTest {
 
-    private static final PrefectureCode PREFECTURE_CODE_TOKYO = TestUtilPrefecture.PREFECTURE_CODE_TOKYO;
+    private static final PrefectureCode PREFECTURE_CODE_TOKYO = PrefectureTestUtil.PREFECTURE_CODE_TOKYO;
     private static final String PREFECTURE_CODE_TOKYO_STR = PREFECTURE_CODE_TOKYO.getValue();
 
-    private static final PrefectureCode PREFECTURE_CODE_UNKNOWN = TestUtilPrefecture.PREFECTURE_CODE_NOT_EXIST;
+    private static final PrefectureCode PREFECTURE_CODE_UNKNOWN = PrefectureTestUtil.PREFECTURE_CODE_NOT_EXIST;
     private static final String PREFECTURE_CODE_UNKNOWN_STR = PREFECTURE_CODE_UNKNOWN.getValue();
     
     @Autowired
@@ -39,7 +39,7 @@ class PrefectureGetControllerTest {
     private PrefectureGetUseCase prefectureGetUseCase;
 
     @Autowired
-    private PrefectureDtoMapper prefectureMapper;
+    private PrefectureDtoMapper prefectureDtoMapper;
 
     private DmEtPrefecture tokyoto;
     private PrefectureDto tokyotoDto;
@@ -47,8 +47,8 @@ class PrefectureGetControllerTest {
     @BeforeEach
     void beforeEach() {
 
-        tokyoto = TestUtilPrefecture.domainEntityTokyo();
-		tokyotoDto = prefectureMapper.fromDomainObjectToDto(tokyoto);
+        tokyoto = PrefectureTestUtil.domainEntityTokyo();
+		tokyotoDto = prefectureDtoMapper.fromDomainObjectToDto(tokyoto);
     }
 
     @Test
