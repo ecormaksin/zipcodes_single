@@ -63,9 +63,8 @@ public class PrefectureRepositoryImpl implements PrefectureRepository {
 		// @formatter:on
 
         if (null == prefecture) {
-            throw new PrefectureNotFoundException(
-                    messageSource.getMessage("message.prefecture.not.found", new Object[] { prefecutureCodeStr },
-                            Locale.getDefault()));
+            throw new PrefectureNotFoundException(messageSource.getMessage("message.prefecture.not.found",
+                    new Object[] { prefecutureCodeStr }, Locale.getDefault()));
         }
 
         return prefectureMapper.fromEntityToDomainObject(prefecture);

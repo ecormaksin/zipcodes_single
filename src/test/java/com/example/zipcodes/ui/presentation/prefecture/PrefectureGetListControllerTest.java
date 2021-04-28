@@ -44,11 +44,11 @@ class PrefectureGetListControllerTest {
     @BeforeEach
     void beforeEach() {
 
-		tokyoto = PrefectureTestUtil.domainEntityTokyo();
-		tokyotoDto = prefectureMapper.fromDomainObjectToDto(tokyoto);
+        tokyoto = PrefectureTestUtil.domainEntityTokyo();
+        tokyotoDto = prefectureMapper.fromDomainObjectToDto(tokyoto);
 
-		kyotofu = PrefectureTestUtil.domainEntityKyoto();
-		kyotofuDto = prefectureMapper.fromDomainObjectToDto(kyotofu);
+        kyotofu = PrefectureTestUtil.domainEntityKyoto();
+        kyotofuDto = prefectureMapper.fromDomainObjectToDto(kyotofu);
     }
 
     @Test

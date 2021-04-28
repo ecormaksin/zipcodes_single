@@ -31,7 +31,7 @@ class PrefectureGetControllerTest {
 
     private static final PrefectureCode PREFECTURE_CODE_UNKNOWN = PrefectureTestUtil.PREFECTURE_CODE_NOT_EXIST;
     private static final String PREFECTURE_CODE_UNKNOWN_STR = PREFECTURE_CODE_UNKNOWN.getValue();
-    
+
     @Autowired
     private MockMvc mockMvc;
 
@@ -48,18 +48,18 @@ class PrefectureGetControllerTest {
     void beforeEach() {
 
         tokyoto = PrefectureTestUtil.domainEntityTokyo();
-		tokyotoDto = prefectureDtoMapper.fromDomainObjectToDto(tokyoto);
+        tokyotoDto = prefectureDtoMapper.fromDomainObjectToDto(tokyoto);
     }
 
     @Test
-	void 都道府県コード13を指定した場合は東京都1件が返ってくる() throws Exception {
-		
-		ObjectMapper objectMapper = new ObjectMapper();
-		final String expectedString = objectMapper.writeValueAsString(tokyotoDto);
-		
+    void 都道府県コード13を指定した場合は東京都1件が返ってくる() throws Exception {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        final String expectedString = objectMapper.writeValueAsString(tokyotoDto);
+
         when(prefectureGetUseCase.get(PREFECTURE_CODE_TOKYO)).thenReturn(tokyoto);
-		
-		// @formatter:off
+
+        // @formatter:off
 		mockMvc.perform(get(EndpointUrls.PREFECTURES_GET_LIST + "/" + PREFECTURE_CODE_TOKYO_STR))
 			.andExpect(status().isOk())
 			.andExpect(content().string(expectedString));
@@ -69,11 +69,9 @@ class PrefectureGetControllerTest {
     @Test
     void 存在しない都道府県コードを指定した場合は例外が発生する() throws Exception {
 
-        when(prefectureGetUseCase.get(PREFECTURE_CODE_UNKNOWN))
-                .thenThrow(
-                        new PrefectureNotFoundException(
-                                String.format("都道府県コード: %s に対応する情報はありません。", PREFECTURE_CODE_UNKNOWN_STR)));
-        
+        when(prefectureGetUseCase.get(PREFECTURE_CODE_UNKNOWN)).thenThrow(new PrefectureNotFoundException(
+                String.format("都道府県コード: %s に対応する情報はありません。", PREFECTURE_CODE_UNKNOWN_STR)));
+
         // @formatter:off
         mockMvc.perform(get(EndpointUrls.PREFECTURES_GET_LIST + "/" + PREFECTURE_CODE_UNKNOWN_STR))
             .andExpect(status().isNotFound())

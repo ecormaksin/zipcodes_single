@@ -26,7 +26,7 @@ class CityGetControllerTest {
     private static final JapaneseLocalGovernmentCode JP_LOCAL_GOV_CODE_TOKYOTO_SHINJUKUKU = CityTestUtil.JP_LOCAL_GOV_CODE_TOKYOTO_SHINJUKUKU;
     private static final String JP_LOCAL_GOV_CODE_TOKYOTO_SHINJUKUKU_STR = JP_LOCAL_GOV_CODE_TOKYOTO_SHINJUKUKU
             .getValue();
-    
+
     @Autowired
     private MockMvc mockMvc;
 
