@@ -22,7 +22,7 @@ import com.example.zipcodes.domain.model.prefecture.PrefectureTestUtil;
 class PrefectureGetUseCaseTest {
 
     private static final PrefectureCode PREFECTURE_CODE_TOKYO = PrefectureTestUtil.PREFECTURE_CODE_TOKYO;
-    private static final PrefectureCode PREFECTURE_CODE_NOT_EXIST = PrefectureTestUtil.PREFECTURE_CODE_UNKNOWN;
+    private static final PrefectureCode PREFECTURE_CODE_NOT_EXIST = PrefectureTestUtil.PREFECTURE_CODE_NOT_EXIST;
 
     @Autowired
     private PrefectureGetUseCase prefectureGetUseCase;
@@ -37,7 +37,7 @@ class PrefectureGetUseCaseTest {
     }
 
     @Test
-    void 存在しない都道府県コードを指定した場合は例外発生() {
+    void 存在しない都道府県コードを指定した場合は例外が発生する() {
 
         // @formatter:off
         PrefectureNotFoundException exception = assertThrows(PrefectureNotFoundException.class, () -> {

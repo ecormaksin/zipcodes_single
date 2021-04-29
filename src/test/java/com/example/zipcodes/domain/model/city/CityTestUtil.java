@@ -11,7 +11,7 @@ public final class CityTestUtil {
     // @formatter:off
     public static final JapaneseLocalGovernmentCode JP_LOCAL_GOV_CODE_TOKYOTO_SHINJUKUKU
         = new JapaneseLocalGovernmentCode("13104");
-    public static final JapaneseLocalGovernmentCode JP_LOCAL_GOV_CODE_UNKNOWN
+    public static final JapaneseLocalGovernmentCode JP_LOCAL_GOV_CODE_NOT_EXIST
     = new JapaneseLocalGovernmentCode("99999");
     // @formatter:on
 
@@ -35,12 +35,12 @@ public final class CityTestUtil {
     public static City unknown() {
         // @formatter:off
         return City.builder()
-            .prefectureCode(PrefectureTestUtil.PREFECTURE_CODE_UNKNOWN)
+            .prefectureCode(PrefectureTestUtil.PREFECTURE_CODE_NOT_EXIST)
             .prefectureKanjiName(new PrefectureKanjiName("不明"))
             .prefectureHiraganaName(new PrefectureHiraganaName("ふめい"))
             .prefectureKatakanaFullwidthName(new PrefectureKatakanaFullwidthName("フメイ"))
             .prefectureKatakanaHalfwidthName(new PrefectureKatakanaHalfwidthName("ﾌﾒｲ"))
-            .japaneseLocalGovernmentCode(JP_LOCAL_GOV_CODE_UNKNOWN)
+            .japaneseLocalGovernmentCode(JP_LOCAL_GOV_CODE_NOT_EXIST)
             .cityKanjiName(new CityKanjiName("不明"))
             .cityHiraganaName(new CityHiraganaName("ふめい"))
             .cityKatakanaFullwidthName(new CityKatakanaFullwidthName("フメイ"))

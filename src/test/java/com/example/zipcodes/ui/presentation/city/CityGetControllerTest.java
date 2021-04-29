@@ -30,9 +30,9 @@ class CityGetControllerTest {
     private static final String JP_LOCAL_GOV_CODE_TOKYOTO_SHINJUKUKU_STR
         = JP_LOCAL_GOV_CODE_TOKYOTO_SHINJUKUKU.getValue();
 
-    private static final JapaneseLocalGovernmentCode JP_LOCAL_GOV_CODE_UNKNOWN = CityTestUtil.JP_LOCAL_GOV_CODE_UNKNOWN;
-    private static final String JP_LOCAL_GOV_CODE_UNKNOWN_STR
-        = JP_LOCAL_GOV_CODE_UNKNOWN.getValue();
+    private static final JapaneseLocalGovernmentCode JP_LOCAL_GOV_CODE_NOT_EXIST = CityTestUtil.JP_LOCAL_GOV_CODE_NOT_EXIST;
+    private static final String JP_LOCAL_GOV_CODE_NOT_EXIST_STR
+        = JP_LOCAL_GOV_CODE_NOT_EXIST.getValue();
     // @formatter:on
 
     @Autowired
@@ -66,10 +66,10 @@ class CityGetControllerTest {
     void 存在しない地方自治体コード99999を指定した場合は例外が発生する() throws Exception {
 
         // @formatter:off
-        when(cityGetUseCase.get(JP_LOCAL_GOV_CODE_UNKNOWN))
-            .thenThrow(new CityNotFoundException(String.format("地方自治体コード: %s に対応する情報はありません。", JP_LOCAL_GOV_CODE_UNKNOWN_STR)));
+        when(cityGetUseCase.get(JP_LOCAL_GOV_CODE_NOT_EXIST))
+            .thenThrow(new CityNotFoundException(String.format("地方自治体コード: %s に対応する情報はありません。", JP_LOCAL_GOV_CODE_NOT_EXIST_STR)));
 
-        mockMvc.perform(get(EndpointUrls.CITIES_GET_LIST + "/" + JP_LOCAL_GOV_CODE_UNKNOWN_STR))
+        mockMvc.perform(get(EndpointUrls.CITIES_GET_LIST + "/" + JP_LOCAL_GOV_CODE_NOT_EXIST_STR))
             .andExpect(status().isNotFound())
             .andDo(print());
         // @formatter:on

@@ -4,7 +4,7 @@ public final class PrefectureTestUtil {
 
     public static final PrefectureCode PREFECTURE_CODE_TOKYO = new PrefectureCode("13");
     public static final PrefectureCode PREFECTURE_CODE_KYOTO = new PrefectureCode("26");
-    public static final PrefectureCode PREFECTURE_CODE_UNKNOWN = new PrefectureCode("99");
+    public static final PrefectureCode PREFECTURE_CODE_NOT_EXIST = new PrefectureCode("99");
 
     public static Prefecture tokyoto() {
 

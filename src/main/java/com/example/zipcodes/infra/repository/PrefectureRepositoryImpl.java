@@ -25,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 public class PrefectureRepositoryImpl implements PrefectureRepository {
 
     private final EntityManager entityManager;
-    private final PrefectureEntityMapper prefectureMapper;
+    private final PrefectureEntityMapper prefectureEntityMapper;
     private final MessageSource messageSource;
 
     private JPAQueryFactory queryFactory;
@@ -47,7 +47,7 @@ public class PrefectureRepositoryImpl implements PrefectureRepository {
 				.fetch();
 		// @formatter:on
 
-        return prefectureMapper.fromEntityListToDomainObjectList(entityList);
+        return prefectureEntityMapper.fromEntityListToDomainObjectList(entityList);
     }
 
     @Override
@@ -67,6 +67,6 @@ public class PrefectureRepositoryImpl implements PrefectureRepository {
                     new Object[] { prefecutureCodeStr }, Locale.getDefault()));
         }
 
-        return prefectureMapper.fromEntityToDomainObject(prefecture);
+        return prefectureEntityMapper.fromEntityToDomainObject(prefecture);
     }
 }

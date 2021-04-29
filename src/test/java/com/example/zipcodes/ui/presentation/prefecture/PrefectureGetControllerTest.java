@@ -28,8 +28,8 @@ class PrefectureGetControllerTest {
     private static final PrefectureCode PREFECTURE_CODE_TOKYO = PrefectureTestUtil.PREFECTURE_CODE_TOKYO;
     private static final String PREFECTURE_CODE_TOKYO_STR = PREFECTURE_CODE_TOKYO.getValue();
 
-    private static final PrefectureCode PREFECTURE_CODE_UNKNOWN = PrefectureTestUtil.PREFECTURE_CODE_UNKNOWN;
-    private static final String PREFECTURE_CODE_UNKNOWN_STR = PREFECTURE_CODE_UNKNOWN.getValue();
+    private static final PrefectureCode PREFECTURE_CODE_NOT_EXIST = PrefectureTestUtil.PREFECTURE_CODE_NOT_EXIST;
+    private static final String PREFECTURE_CODE_NOT_EXIST_STR = PREFECTURE_CODE_NOT_EXIST.getValue();
 
     @Autowired
     private MockMvc mockMvc;
@@ -61,11 +61,11 @@ class PrefectureGetControllerTest {
     @Test
     void 存在しない都道府県コードを指定した場合は例外が発生する() throws Exception {
 
-        when(prefectureGetUseCase.get(PREFECTURE_CODE_UNKNOWN)).thenThrow(new PrefectureNotFoundException(
-                String.format("都道府県コード: %s に対応する情報はありません。", PREFECTURE_CODE_UNKNOWN_STR)));
+        when(prefectureGetUseCase.get(PREFECTURE_CODE_NOT_EXIST)).thenThrow(new PrefectureNotFoundException(
+                String.format("都道府県コード: %s に対応する情報はありません。", PREFECTURE_CODE_NOT_EXIST_STR)));
 
         // @formatter:off
-        mockMvc.perform(get(EndpointUrls.PREFECTURES_GET_LIST + "/" + PREFECTURE_CODE_UNKNOWN_STR))
+        mockMvc.perform(get(EndpointUrls.PREFECTURES_GET_LIST + "/" + PREFECTURE_CODE_NOT_EXIST_STR))
             .andExpect(status().isNotFound())
             .andDo(print());
         // @formatter:on
