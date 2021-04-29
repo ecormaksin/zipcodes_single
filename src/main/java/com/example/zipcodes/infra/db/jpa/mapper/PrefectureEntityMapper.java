@@ -6,20 +6,20 @@ import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
 
-import com.example.zipcodes.domain.model.prefecture.DmEtPrefecture;
+import com.example.zipcodes.domain.model.prefecture.Prefecture;
 import com.example.zipcodes.domain.model.prefecture.PrefectureCode;
 import com.example.zipcodes.domain.model.prefecture.PrefectureHiraganaName;
 import com.example.zipcodes.domain.model.prefecture.PrefectureKanjiName;
 import com.example.zipcodes.domain.model.prefecture.PrefectureKatakanaFullwidthName;
 import com.example.zipcodes.domain.model.prefecture.PrefectureKatakanaHalfwidthName;
-import com.example.zipcodes.infra.db.jpa.view.Prefecture;
+import com.example.zipcodes.infra.db.jpa.view.PrefectureResource;
 import com.ibm.icu.text.Transliterator;
 
 @Component
 @Mapper(injectionStrategy = InjectionStrategy.CONSTRUCTOR)
 public interface PrefectureEntityMapper {
 
-    default DmEtPrefecture fromEntityToDomainObject(Prefecture entity) {
+    default Prefecture fromEntityToDomainObject(PrefectureResource entity) {
 
         final Transliterator hiraganaTransliterator = Transliterator.getInstance("Katakana-Hiragana");
         final Transliterator katakanaTransliterator = Transliterator.getInstance("Halfwidth-Fullwidth");
@@ -29,7 +29,7 @@ public interface PrefectureEntityMapper {
         final String hiragana = hiraganaTransliterator.transliterate(kanaFullwidth);
 
         // @formatter:off
-		return DmEtPrefecture.builder()
+		return Prefecture.builder()
 				.prefectureCode(new PrefectureCode(entity.getPrefectureCode()))
 				.prefectureKanjiName(new PrefectureKanjiName(entity.getPrefectureName()))
 				.prefectureHiraganaName(new PrefectureHiraganaName(hiragana))
@@ -39,5 +39,5 @@ public interface PrefectureEntityMapper {
 		// @formatter:on
     }
 
-    List<DmEtPrefecture> fromEntityListToDomainObjectList(List<Prefecture> entityList);
+    List<Prefecture> fromEntityListToDomainObjectList(List<PrefectureResource> entityList);
 }

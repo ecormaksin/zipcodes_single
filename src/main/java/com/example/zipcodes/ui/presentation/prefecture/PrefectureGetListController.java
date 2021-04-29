@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.zipcodes.domain.model.prefecture.DmEtPrefecture;
+import com.example.zipcodes.domain.model.prefecture.Prefecture;
 import com.example.zipcodes.ui.presentation.EndpointUrls;
 import com.example.zipcodes.usecase.prefecture.PrefectureGetListUseCase;
 
@@ -26,7 +26,7 @@ public class PrefectureGetListController {
     @GetMapping(EndpointUrls.PREFECTURES_GET_LIST)
     public ResponseEntity<List<PrefectureDto>> getList() {
 
-        List<DmEtPrefecture> domainEntities = prefectureGetListUseCase.findAll();
+        List<Prefecture> domainEntities = prefectureGetListUseCase.findAll();
 
         List<PrefectureDto> list = prefectureMapper.fromDomainObjectListToDtoList(domainEntities);
 

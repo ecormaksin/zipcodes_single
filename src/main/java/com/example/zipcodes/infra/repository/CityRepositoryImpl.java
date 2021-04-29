@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 import com.example.zipcodes.domain.model.city.CityNotFoundException;
 import com.example.zipcodes.domain.model.city.CityRepository;
-import com.example.zipcodes.domain.model.city.DmEtCity;
+import com.example.zipcodes.domain.model.city.City;
 import com.example.zipcodes.domain.model.city.JapaneseLocalGovernmentCode;
 import com.example.zipcodes.domain.model.prefecture.PrefectureCode;
 
@@ -17,13 +17,13 @@ import lombok.RequiredArgsConstructor;
 public class CityRepositoryImpl implements CityRepository {
 
     @Override
-    public List<DmEtCity> findByPrefectureCode(PrefectureCode prefectureCode) {
+    public List<City> findByPrefectureCode(PrefectureCode prefectureCode) {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public DmEtCity findByJapaneseLocalGovernmentCode(JapaneseLocalGovernmentCode japaneseLocalGovernmentCode)
+    public City findByJapaneseLocalGovernmentCode(JapaneseLocalGovernmentCode japaneseLocalGovernmentCode)
             throws CityNotFoundException {
         // TODO Auto-generated method stub
         return null;

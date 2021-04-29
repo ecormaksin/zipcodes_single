@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.example.zipcodes.domain.model.prefecture.DmEtPrefecture;
+import com.example.zipcodes.domain.model.prefecture.Prefecture;
 import com.example.zipcodes.domain.model.prefecture.PrefectureRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -15,7 +15,7 @@ public class PrefectureGetListUseCase {
 
     private final PrefectureRepository prefectureRepository;
 
-    public List<DmEtPrefecture> findAll() {
+    public List<Prefecture> findAll() {
 
         return prefectureRepository.findAll();
     }

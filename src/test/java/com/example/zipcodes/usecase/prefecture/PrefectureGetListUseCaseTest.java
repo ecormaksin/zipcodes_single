@@ -11,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.zipcodes.domain.model.prefecture.DmEtPrefecture;
+import com.example.zipcodes.domain.model.prefecture.Prefecture;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,11 +27,11 @@ class PrefectureGetListUseCaseTest {
     @Test
     void 都道府県リストは47件() {
 
-        List<DmEtPrefecture> list = prefectureGetListUseCase.findAll();
+        List<Prefecture> list = prefectureGetListUseCase.findAll();
 
         assertEquals(47, list.size());
 
-        for (DmEtPrefecture obj : list) {
+        for (Prefecture obj : list) {
             log.info(obj.toString());
         }
     }

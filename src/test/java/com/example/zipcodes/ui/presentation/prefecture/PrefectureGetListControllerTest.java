@@ -16,7 +16,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.example.zipcodes.domain.model.prefecture.DmEtPrefecture;
+import com.example.zipcodes.domain.model.prefecture.Prefecture;
 import com.example.zipcodes.domain.model.prefecture.PrefectureTestUtil;
 import com.example.zipcodes.ui.presentation.EndpointUrls;
 import com.example.zipcodes.usecase.prefecture.PrefectureGetListUseCase;
@@ -35,26 +35,26 @@ class PrefectureGetListControllerTest {
     @Autowired
     private PrefectureDtoMapper prefectureMapper;
 
-    private DmEtPrefecture tokyoto;
+    private Prefecture tokyoto;
     private PrefectureDto tokyotoDto;
 
-    private DmEtPrefecture kyotofu;
+    private Prefecture kyotofu;
     private PrefectureDto kyotofuDto;
 
     @BeforeEach
     void beforeEach() {
 
-        tokyoto = PrefectureTestUtil.domainEntityTokyo();
+        tokyoto = PrefectureTestUtil.tokyoto();
         tokyotoDto = prefectureMapper.fromDomainObjectToDto(tokyoto);
 
-        kyotofu = PrefectureTestUtil.domainEntityKyoto();
+        kyotofu = PrefectureTestUtil.kyotofu();
         kyotofuDto = prefectureMapper.fromDomainObjectToDto(kyotofu);
     }
 
     @Test
     void 都道府県コード指定なしの時はリストが返ってくる() throws Exception {
 
-        List<DmEtPrefecture> dmEtList = new ArrayList<>();
+        List<Prefecture> dmEtList = new ArrayList<>();
         dmEtList.add(tokyoto);
         dmEtList.add(kyotofu);
 

@@ -18,7 +18,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @Getter
-public class DmEtCity {
+public class City {
 
     @Valid
     @NotNull
@@ -84,11 +84,11 @@ public class DmEtCity {
         if (null == other) {
             return false;
         }
-        if (!(other instanceof DmEtCity)) {
+        if (!(other instanceof City)) {
             return false;
         }
 
-        DmEtCity otherCity = (DmEtCity) other;
+        City otherCity = (City) other;
         return this.japaneseLocalGovernmentCode.getValue().equals(otherCity.japaneseLocalGovernmentCode.getValue());
     }
 

@@ -1,16 +1,21 @@
 package com.example.zipcodes.infra.db.jpa.view;
 
 import java.io.Serializable;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 /**
  * The persistent class for the CITIES database table.
  * 
  */
-@Entity
+@Entity(name = "City")
 @Table(name = "CITIES")
 @NamedQuery(name = "City.findAll", query = "SELECT c FROM City c")
-public class City implements Serializable {
+public class CityResource implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Column(name = "CITY_NAME", insertable = false, updatable = false)
@@ -32,7 +37,7 @@ public class City implements Serializable {
     @Column(name = "PREFECTURE_NAME_KANA")
     private String prefectureNameKana;
 
-    public City() {
+    public CityResource() {
     }
 
     public String getCityName() {

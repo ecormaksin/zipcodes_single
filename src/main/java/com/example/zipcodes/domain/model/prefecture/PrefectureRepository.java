@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface PrefectureRepository {
 
-    List<DmEtPrefecture> findAll();
+    List<Prefecture> findAll();
 
-    DmEtPrefecture findByPrefectureCode(PrefectureCode prefectureCode) throws PrefectureNotFoundException;
+    Prefecture findByPrefectureCode(PrefectureCode prefectureCode) throws PrefectureNotFoundException;
 }

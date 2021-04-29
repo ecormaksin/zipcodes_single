@@ -2,6 +2,7 @@ package com.example.zipcodes.ui.presentation.city;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -12,8 +13,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.example.zipcodes.domain.model.city.City;
+import com.example.zipcodes.domain.model.city.CityNotFoundException;
 import com.example.zipcodes.domain.model.city.CityTestUtil;
-import com.example.zipcodes.domain.model.city.DmEtCity;
 import com.example.zipcodes.domain.model.city.JapaneseLocalGovernmentCode;
 import com.example.zipcodes.ui.presentation.EndpointUrls;
 import com.example.zipcodes.usecase.city.CityGetUseCase;
@@ -23,9 +25,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Import(CityDtoMapperImpl.class)
 class CityGetControllerTest {
 
+    // @formatter:off
     private static final JapaneseLocalGovernmentCode JP_LOCAL_GOV_CODE_TOKYOTO_SHINJUKUKU = CityTestUtil.JP_LOCAL_GOV_CODE_TOKYOTO_SHINJUKUKU;
-    private static final String JP_LOCAL_GOV_CODE_TOKYOTO_SHINJUKUKU_STR = JP_LOCAL_GOV_CODE_TOKYOTO_SHINJUKUKU
-            .getValue();
+    private static final String JP_LOCAL_GOV_CODE_TOKYOTO_SHINJUKUKU_STR
+        = JP_LOCAL_GOV_CODE_TOKYOTO_SHINJUKUKU.getValue();
+
+    private static final JapaneseLocalGovernmentCode JP_LOCAL_GOV_CODE_UNKNOWN = CityTestUtil.JP_LOCAL_GOV_CODE_UNKNOWN;
+    private static final String JP_LOCAL_GOV_CODE_UNKNOWN_STR
+        = JP_LOCAL_GOV_CODE_UNKNOWN.getValue();
+    // @formatter:on
 
     @Autowired
     private MockMvc mockMvc;
@@ -39,7 +47,7 @@ class CityGetControllerTest {
     @Test
     void 地方自治体コード13104を指定した場合は東京都新宿区が返ってくる() throws Exception {
 
-        DmEtCity tokyotoShinjukuku = CityTestUtil.tokyotoShinjukuku();
+        City tokyotoShinjukuku = CityTestUtil.tokyotoShinjukuku();
         CityDto tokyotoShinjukukuDto = cityDtoMapper.fromDomainObjectToDto(tokyotoShinjukuku);
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -51,6 +59,19 @@ class CityGetControllerTest {
         mockMvc.perform(get(EndpointUrls.CITIES_GET_LIST + "/" + JP_LOCAL_GOV_CODE_TOKYOTO_SHINJUKUKU_STR))
             .andExpect(status().isOk())
             .andExpect(content().string(expectedString));
+        // @formatter:on
+    }
+
+    @Test
+    void 存在しない地方自治体コード99999を指定した場合は例外が発生する() throws Exception {
+
+        // @formatter:off
+        when(cityGetUseCase.get(JP_LOCAL_GOV_CODE_UNKNOWN))
+            .thenThrow(new CityNotFoundException(String.format("地方自治体コード: %s に対応する情報はありません。", JP_LOCAL_GOV_CODE_UNKNOWN_STR)));
+
+        mockMvc.perform(get(EndpointUrls.CITIES_GET_LIST + "/" + JP_LOCAL_GOV_CODE_UNKNOWN_STR))
+            .andExpect(status().isNotFound())
+            .andDo(print());
         // @formatter:on
     }
 

@@ -6,13 +6,13 @@ import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
 
-import com.example.zipcodes.domain.model.prefecture.DmEtPrefecture;
+import com.example.zipcodes.domain.model.prefecture.Prefecture;
 
 @Component
 @Mapper(injectionStrategy = InjectionStrategy.CONSTRUCTOR)
 public interface PrefectureDtoMapper {
 
-    default PrefectureDto fromDomainObjectToDto(DmEtPrefecture entity) {
+    default PrefectureDto fromDomainObjectToDto(Prefecture entity) {
 
         // @formatter:off
 		return PrefectureDto.builder()
@@ -25,5 +25,5 @@ public interface PrefectureDtoMapper {
 		// @formatter:on
     }
 
-    List<PrefectureDto> fromDomainObjectListToDtoList(List<DmEtPrefecture> entityList);
+    List<PrefectureDto> fromDomainObjectListToDtoList(List<Prefecture> entityList);
 }

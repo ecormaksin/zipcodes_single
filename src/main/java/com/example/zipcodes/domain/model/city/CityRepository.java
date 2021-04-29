@@ -6,8 +6,8 @@ import com.example.zipcodes.domain.model.prefecture.PrefectureCode;
 
 public interface CityRepository {
 
-    List<DmEtCity> findByPrefectureCode(PrefectureCode prefectureCode);
+    List<City> findByPrefectureCode(PrefectureCode prefectureCode);
 
-    DmEtCity findByJapaneseLocalGovernmentCode(JapaneseLocalGovernmentCode japaneseLocalGovernmentCode)
+    City findByJapaneseLocalGovernmentCode(JapaneseLocalGovernmentCode japaneseLocalGovernmentCode)
             throws CityNotFoundException;
 }

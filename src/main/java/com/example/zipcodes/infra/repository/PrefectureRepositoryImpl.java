@@ -9,13 +9,13 @@ import javax.persistence.EntityManager;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
-import com.example.zipcodes.domain.model.prefecture.DmEtPrefecture;
+import com.example.zipcodes.domain.model.prefecture.Prefecture;
 import com.example.zipcodes.domain.model.prefecture.PrefectureCode;
 import com.example.zipcodes.domain.model.prefecture.PrefectureNotFoundException;
 import com.example.zipcodes.domain.model.prefecture.PrefectureRepository;
 import com.example.zipcodes.infra.db.jpa.mapper.PrefectureEntityMapper;
-import com.example.zipcodes.infra.db.jpa.view.Prefecture;
-import com.example.zipcodes.infra.db.jpa.view.QPrefecture;
+import com.example.zipcodes.infra.db.jpa.view.PrefectureResource;
+import com.example.zipcodes.infra.db.jpa.view.QPrefectureResource;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import lombok.RequiredArgsConstructor;
@@ -30,7 +30,7 @@ public class PrefectureRepositoryImpl implements PrefectureRepository {
 
     private JPAQueryFactory queryFactory;
 
-    private QPrefecture qPrefecture = QPrefecture.prefecture;
+    private QPrefectureResource qPrefecture = QPrefectureResource.prefectureResource;
 
     @PostConstruct
     void postConstruct() {
@@ -38,10 +38,10 @@ public class PrefectureRepositoryImpl implements PrefectureRepository {
     }
 
     @Override
-    public List<DmEtPrefecture> findAll() {
+    public List<Prefecture> findAll() {
 
         // @formatter:off
-		List<Prefecture> entityList = queryFactory
+		List<PrefectureResource> entityList = queryFactory
 				.selectFrom(qPrefecture)
 				.orderBy(qPrefecture.prefectureCode.asc())
 				.fetch();
@@ -51,12 +51,12 @@ public class PrefectureRepositoryImpl implements PrefectureRepository {
     }
 
     @Override
-    public DmEtPrefecture findByPrefectureCode(final PrefectureCode prefectureCode) throws PrefectureNotFoundException {
+    public Prefecture findByPrefectureCode(final PrefectureCode prefectureCode) throws PrefectureNotFoundException {
 
         final String prefecutureCodeStr = prefectureCode.getValue();
 
         // @formatter:off
-		Prefecture prefecture = queryFactory
+		PrefectureResource prefecture = queryFactory
 				.selectFrom(qPrefecture)
 				.where( qPrefecture.prefectureCode.eq(prefecutureCodeStr) )
 				.fetchOne();

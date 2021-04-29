@@ -6,7 +6,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -14,7 +13,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.example.zipcodes.domain.model.prefecture.DmEtPrefecture;
+import com.example.zipcodes.domain.model.prefecture.Prefecture;
 import com.example.zipcodes.domain.model.prefecture.PrefectureCode;
 import com.example.zipcodes.domain.model.prefecture.PrefectureNotFoundException;
 import com.example.zipcodes.domain.model.prefecture.PrefectureTestUtil;
@@ -29,7 +28,7 @@ class PrefectureGetControllerTest {
     private static final PrefectureCode PREFECTURE_CODE_TOKYO = PrefectureTestUtil.PREFECTURE_CODE_TOKYO;
     private static final String PREFECTURE_CODE_TOKYO_STR = PREFECTURE_CODE_TOKYO.getValue();
 
-    private static final PrefectureCode PREFECTURE_CODE_UNKNOWN = PrefectureTestUtil.PREFECTURE_CODE_NOT_EXIST;
+    private static final PrefectureCode PREFECTURE_CODE_UNKNOWN = PrefectureTestUtil.PREFECTURE_CODE_UNKNOWN;
     private static final String PREFECTURE_CODE_UNKNOWN_STR = PREFECTURE_CODE_UNKNOWN.getValue();
 
     @Autowired
@@ -41,18 +40,11 @@ class PrefectureGetControllerTest {
     @Autowired
     private PrefectureDtoMapper prefectureDtoMapper;
 
-    private DmEtPrefecture tokyoto;
-    private PrefectureDto tokyotoDto;
-
-    @BeforeEach
-    void beforeEach() {
-
-        tokyoto = PrefectureTestUtil.domainEntityTokyo();
-        tokyotoDto = prefectureDtoMapper.fromDomainObjectToDto(tokyoto);
-    }
-
     @Test
     void 都道府県コード13を指定した場合は東京都1件が返ってくる() throws Exception {
+
+        Prefecture tokyoto = PrefectureTestUtil.tokyoto();
+        PrefectureDto tokyotoDto = prefectureDtoMapper.fromDomainObjectToDto(tokyoto);
 
         ObjectMapper objectMapper = new ObjectMapper();
         final String expectedString = objectMapper.writeValueAsString(tokyotoDto);

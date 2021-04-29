@@ -12,10 +12,10 @@ import javax.persistence.Table;
  * The persistent class for the ADDRESSES database table.
  *
  */
-@Entity
+@Entity(name = "Address")
 @Table(name = "ADDRESSES")
 @NamedQuery(name = "Address.findAll", query = "SELECT a FROM Address a")
-public class Address implements Serializable {
+public class AddressResource implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -43,7 +43,7 @@ public class Address implements Serializable {
     @Column(name = "ZIP_CODE", insertable = false, updatable = false)
     private String zipCode;
 
-    public Address() {
+    public AddressResource() {
     }
 
     public String getCityName() {

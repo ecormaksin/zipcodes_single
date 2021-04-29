@@ -13,7 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @Getter
-public class DmEtPrefecture {
+public class Prefecture {
 
     @Valid
     @NotNull
@@ -55,11 +55,11 @@ public class DmEtPrefecture {
         if (null == other) {
             return false;
         }
-        if (!(other instanceof DmEtPrefecture)) {
+        if (!(other instanceof Prefecture)) {
             return false;
         }
 
-        DmEtPrefecture otherPrefecture = (DmEtPrefecture) other;
+        Prefecture otherPrefecture = (Prefecture) other;
         return this.prefectureCode.getValue().equals(otherPrefecture.prefectureCode.getValue());
     }
 
