@@ -13,13 +13,11 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.example.zipcodes.domain.model.prefecture.Prefecture;
 import com.example.zipcodes.domain.model.prefecture.PrefectureCode;
 import com.example.zipcodes.domain.model.prefecture.PrefectureNotFoundException;
 import com.example.zipcodes.domain.model.prefecture.PrefectureTestUtil;
 import com.example.zipcodes.ui.presentation.EndpointUrls;
 import com.example.zipcodes.usecase.prefecture.PrefectureGetUseCase;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @WebMvcTest(PrefectureGetController.class)
 @Import(PrefectureDtoMapperImpl.class)
@@ -37,19 +35,20 @@ class PrefectureGetControllerTest {
     @MockBean
     private PrefectureGetUseCase prefectureGetUseCase;
 
-    @Autowired
-    private PrefectureDtoMapper prefectureDtoMapper;
-
     @Test
     void 都道府県コード13を指定した場合は東京都1件が返ってくる() throws Exception {
 
-        Prefecture tokyoto = PrefectureTestUtil.tokyoto();
-        PrefectureDto tokyotoDto = prefectureDtoMapper.fromDomainObjectToDto(tokyoto);
+        // @formatter:off
+        final String expectedString = "{"
+                + "\"code\":\"13\"" 
+                + ",\"kanjiName\":\"東京都\""
+                + ",\"hiraganaName\":\"とうきょうと\""
+                + ",\"katakanaFullwidthName\":\"トウキョウト\""
+                + ",\"katakanaHalfwidthName\":\"ﾄｳｷｮｳﾄ\""
+                + "}";
+        // @formatter:on
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        final String expectedString = objectMapper.writeValueAsString(tokyotoDto);
-
-        when(prefectureGetUseCase.get(PREFECTURE_CODE_TOKYO)).thenReturn(tokyoto);
+        when(prefectureGetUseCase.get(PREFECTURE_CODE_TOKYO)).thenReturn(PrefectureTestUtil.tokyoto());
 
         // @formatter:off
 		mockMvc.perform(get(EndpointUrls.PREFECTURES_GET_LIST + "/" + PREFECTURE_CODE_TOKYO_STR))

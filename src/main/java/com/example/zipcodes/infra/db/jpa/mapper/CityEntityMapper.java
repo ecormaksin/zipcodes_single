@@ -37,16 +37,12 @@ public interface CityEntityMapper {
 
         // @formatter:off
 		return City.builder()
-				.prefectureCode(prefecture.getPrefectureCode())
-				.prefectureKanjiName(prefecture.getPrefectureKanjiName())
-				.prefectureHiraganaName(prefecture.getPrefectureHiraganaName())
-				.prefectureKatakanaFullwidthName(prefecture.getPrefectureKatakanaFullwidthName())
-				.prefectureKatakanaHalfwidthName(prefecture.getPrefectureKatakanaHalfwidthName())
+				.prefectureCode(prefecture.getCode())
 	            .japaneseLocalGovernmentCode(new JapaneseLocalGovernmentCode(entity.getJapaneseLocalGovermentCode()))
-	            .cityKanjiName(new CityKanjiName(entity.getCityName()))
-	            .cityHiraganaName(new CityHiraganaName(hiragana))
-	            .cityKatakanaFullwidthName(new CityKatakanaFullwidthName(kanaFullwidth))
-	            .cityKatakanaHalfwidthName(new CityKatakanaHalfwidthName(kanaHalfwidth))
+	            .kanjiName(new CityKanjiName(entity.getCityName()))
+	            .hiraganaName(new CityHiraganaName(hiragana))
+	            .katakanaFullwidthName(new CityKatakanaFullwidthName(kanaFullwidth))
+	            .katakanaHalfwidthName(new CityKatakanaHalfwidthName(kanaHalfwidth))
 				.build();
 		// @formatter:on
     }

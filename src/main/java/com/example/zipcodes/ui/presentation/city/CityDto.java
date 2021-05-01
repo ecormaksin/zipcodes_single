@@ -10,43 +10,32 @@ import lombok.Builder;
 import lombok.Data;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "prefectureCode", "prefectureKanjiName", "prefectureHiraganaName",
-        "prefectureKatakanaFullwidthName", "prefectureKatakanaHalfwidthName", "japaneseLocalGovernmentCode",
-        "cityKanjiName", "cityHiraganaName", "cityKatakanaFullwidthName",
-        "cityKatakanaHalfwidthName" })
+// @formatter:off
+@JsonPropertyOrder({ 
+    "japaneseLocalGovernmentCode"
+    , "kanjiName"
+    , "hiraganaName"
+    , "katakanaFullwidthName"
+    , "katakanaHalfwidthName" })
+// @formatter:on
 @Data
 @Builder
 public class CityDto implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @JsonProperty("prefectureCode")
-    private String prefectureCode;
-
-    @JsonProperty("prefectureKanjiName")
-    private String prefectureKanjiName;
-
-    @JsonProperty("prefectureHiraganaName")
-    private String prefectureHiraganaName;
-
-    @JsonProperty("prefectureKatakanaFullwidthName")
-    private String prefectureKatakanaFullwidthName;
-
-    @JsonProperty("prefectureKatakanaHalfwidthName")
-    private String prefectureKatakanaHalfwidthName;
-
     @JsonProperty("japaneseLocalGovernmentCode")
     private String japaneseLocalGovernmentCode;
 
-    @JsonProperty("cityKanjiName")
-    private String cityKanjiName;
+    @JsonProperty("kanjiName")
+    private String kanjiName;
 
-    @JsonProperty("cityHiraganaName")
-    private String cityHiraganaName;
+    @JsonProperty("hiraganaName")
+    private String hiraganaName;
 
-    @JsonProperty("cityKatakanaFullwidthName")
-    private String cityKatakanaFullwidthName;
+    @JsonProperty("katakanaFullwidthName")
+    private String katakanaFullwidthName;
 
-    @JsonProperty("cityKatakanaHalfwidthName")
-    private String cityKatakanaHalfwidthName;
+    @JsonProperty("katakanaHalfwidthName")
+    private String katakanaHalfwidthName;
 }

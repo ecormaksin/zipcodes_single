@@ -10,11 +10,11 @@ public final class PrefectureTestUtil {
 
         // @formatter:off
     	return Prefecture.builder()
-    	    .prefectureCode(PREFECTURE_CODE_TOKYO)
-	        .prefectureKanjiName(new PrefectureKanjiName("東京都"))
-	        .prefectureHiraganaName(new PrefectureHiraganaName("とうきょうと"))
-	        .prefectureKatakanaFullwidthName(new PrefectureKatakanaFullwidthName("トウキョウト"))
-	        .prefectureKatakanaHalfwidthName(new PrefectureKatakanaHalfwidthName("ﾄｳｷｮｳﾄ"))
+    	    .code(PREFECTURE_CODE_TOKYO)
+	        .kanjiName(new PrefectureKanjiName("東京都"))
+	        .hiraganaName(new PrefectureHiraganaName("とうきょうと"))
+	        .katakanaFullwidthName(new PrefectureKatakanaFullwidthName("トウキョウト"))
+	        .katakanaHalfwidthName(new PrefectureKatakanaHalfwidthName("ﾄｳｷｮｳﾄ"))
 	        .build();
     	// @formatter:on
     }
@@ -23,11 +23,11 @@ public final class PrefectureTestUtil {
 
         // @formatter:off
         return Prefecture.builder()
-            .prefectureCode( PREFECTURE_CODE_KYOTO )
-            .prefectureKanjiName( new PrefectureKanjiName("京都府") )
-            .prefectureHiraganaName( new PrefectureHiraganaName("きょうとふ") )
-            .prefectureKatakanaFullwidthName( new PrefectureKatakanaFullwidthName("キョウトフ") )
-            .prefectureKatakanaHalfwidthName( new PrefectureKatakanaHalfwidthName("ｷｮｳﾄﾌ") )
+            .code( PREFECTURE_CODE_KYOTO )
+            .kanjiName( new PrefectureKanjiName("京都府") )
+            .hiraganaName( new PrefectureHiraganaName("きょうとふ") )
+            .katakanaFullwidthName( new PrefectureKatakanaFullwidthName("キョウトフ") )
+            .katakanaHalfwidthName( new PrefectureKatakanaHalfwidthName("ｷｮｳﾄﾌ") )
             .build();
         // @formatter:on
     }

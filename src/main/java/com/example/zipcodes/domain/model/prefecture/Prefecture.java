@@ -17,33 +17,33 @@ public class Prefecture {
 
     @Valid
     @NotNull
-    private PrefectureCode prefectureCode;
+    private PrefectureCode code;
 
     @Setter
     @Valid
     @NotNull
-    private PrefectureKanjiName prefectureKanjiName;
+    private PrefectureKanjiName kanjiName;
 
     @Setter
     @Valid
     @NotNull
-    private PrefectureHiraganaName prefectureHiraganaName;
+    private PrefectureHiraganaName hiraganaName;
 
     @Setter
     @Valid
     @NotNull
-    private PrefectureKatakanaFullwidthName prefectureKatakanaFullwidthName;
+    private PrefectureKatakanaFullwidthName katakanaFullwidthName;
 
     @Setter
     @Valid
     @NotNull
-    private PrefectureKatakanaHalfwidthName prefectureKatakanaHalfwidthName;
+    private PrefectureKatakanaHalfwidthName katakanaHalfwidthName;
 
     @Override
     public String toString() {
-        ObjectMapper objectMapper = new ObjectMapper();
         try {
-            return "\"dmEtPrefecture\": " + objectMapper.writeValueAsString(this);
+            ObjectMapper objectMapper = new ObjectMapper();
+            return "\"prefecture\": " + objectMapper.writeValueAsString(this);
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
@@ -60,11 +60,11 @@ public class Prefecture {
         }
 
         Prefecture otherPrefecture = (Prefecture) other;
-        return this.prefectureCode.getValue().equals(otherPrefecture.prefectureCode.getValue());
+        return this.code.getValue().equals(otherPrefecture.code.getValue());
     }
 
     @Override
     public int hashCode() {
-        return this.prefectureCode.getValue().hashCode();
+        return this.code.getValue().hashCode();
     }
 }

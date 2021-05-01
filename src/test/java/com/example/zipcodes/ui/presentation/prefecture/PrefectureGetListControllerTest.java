@@ -5,10 +5,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -35,37 +34,31 @@ class PrefectureGetListControllerTest {
     @Autowired
     private PrefectureDtoMapper prefectureMapper;
 
-    private Prefecture tokyoto;
-    private PrefectureDto tokyotoDto;
-
-    private Prefecture kyotofu;
-    private PrefectureDto kyotofuDto;
-
-    @BeforeEach
-    void beforeEach() {
-
-        tokyoto = PrefectureTestUtil.tokyoto();
-        tokyotoDto = prefectureMapper.fromDomainObjectToDto(tokyoto);
-
-        kyotofu = PrefectureTestUtil.kyotofu();
-        kyotofuDto = prefectureMapper.fromDomainObjectToDto(kyotofu);
-    }
-
     @Test
     void 都道府県コード指定なしの時はリストが返ってくる() throws Exception {
 
-        List<Prefecture> dmEtList = new ArrayList<>();
-        dmEtList.add(tokyoto);
-        dmEtList.add(kyotofu);
+        Prefecture tokyoto = PrefectureTestUtil.tokyoto();
+        Prefecture kyotofu = PrefectureTestUtil.kyotofu();
+        // @formatter:off
+        List<Prefecture> prefectures = Arrays.asList(
+                tokyoto
+                , kyotofu
+                );
+        // @formatter:on
 
-        List<PrefectureDto> expected = new ArrayList<>();
-        expected.add(tokyotoDto);
-        expected.add(kyotofuDto);
+        PrefectureDto tokyotoDto = prefectureMapper.fromDomainObjectToDto(tokyoto);
+        PrefectureDto kyotofuDto = prefectureMapper.fromDomainObjectToDto(kyotofu);
+        // @formatter:off
+        List<PrefectureDto> dtos = Arrays.asList(
+                tokyotoDto
+                , kyotofuDto
+            );
+        // @formatter:on
 
         ObjectMapper objectMapper = new ObjectMapper();
-        final String expectedString = objectMapper.writeValueAsString(expected);
+        final String expectedString = objectMapper.writeValueAsString(dtos);
 
-        when(prefectureGetListUseCase.findAll()).thenReturn(dmEtList);
+        when(prefectureGetListUseCase.findAll()).thenReturn(prefectures);
 
         // @formatter:off
         mockMvc.perform(get(EndpointUrls.PREFECTURES_GET_LIST))

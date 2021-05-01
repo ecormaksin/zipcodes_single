@@ -17,10 +17,10 @@ public interface CityDtoMapper {
         // @formatter:off
         return CityDto.builder()
                 .japaneseLocalGovernmentCode( entity.getJapaneseLocalGovernmentCode().getValue() )
-                .cityKanjiName( entity.getCityKanjiName().getValue() )
-                .cityHiraganaName( entity.getCityHiraganaName().getValue() )
-                .cityKatakanaFullwidthName( entity.getCityKatakanaFullwidthName().getValue() )
-                .cityKatakanaHalfwidthName( entity.getCityKatakanaHalfwidthName().getValue() )
+                .kanjiName( entity.getKanjiName().getValue() )
+                .hiraganaName( entity.getHiraganaName().getValue() )
+                .katakanaFullwidthName( entity.getKatakanaFullwidthName().getValue() )
+                .katakanaHalfwidthName( entity.getKatakanaHalfwidthName().getValue() )
                 .build();
         // @formatter:on
     }

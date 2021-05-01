@@ -33,11 +33,11 @@ public interface PrefectureEntityMapper {
 
         // @formatter:off
 		return Prefecture.builder()
-				.prefectureCode(new PrefectureCode(entity.getPrefectureCode()))
-				.prefectureKanjiName(new PrefectureKanjiName(entity.getPrefectureName()))
-				.prefectureHiraganaName(new PrefectureHiraganaName(hiragana))
-				.prefectureKatakanaFullwidthName(new PrefectureKatakanaFullwidthName(kanaFullwidth))
-				.prefectureKatakanaHalfwidthName(new PrefectureKatakanaHalfwidthName(kanaHalfwidth))
+				.code(new PrefectureCode(entity.getPrefectureCode()))
+				.kanjiName(new PrefectureKanjiName(entity.getPrefectureName()))
+				.hiraganaName(new PrefectureHiraganaName(hiragana))
+				.katakanaFullwidthName(new PrefectureKatakanaFullwidthName(kanaFullwidth))
+				.katakanaHalfwidthName(new PrefectureKatakanaHalfwidthName(kanaHalfwidth))
 				.build();
 		// @formatter:on
     }

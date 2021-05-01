@@ -22,7 +22,7 @@ import com.example.zipcodes.domain.model.city.JapaneseLocalGovernmentCode;
 class CityGetUseCaseTest {
 
     // @formatter:off
-    private static final JapaneseLocalGovernmentCode JP_LOCAL_GOV_CODE_TOKYOTO_SHINJUKUKU = CityTestUtil.JP_LOCAL_GOV_CODE_TOKYOTO_SHINJUKUKU;
+    private static final JapaneseLocalGovernmentCode JP_LOCAL_GOV_CODE_SHINJUKUKU = CityTestUtil.JP_LOCAL_GOV_CODE_SHINJUKUKU;
     private static final JapaneseLocalGovernmentCode JP_LOCAL_GOV_CODE_NOT_EXIST = CityTestUtil.JP_LOCAL_GOV_CODE_NOT_EXIST;
     // @formatter:on
 
@@ -32,8 +32,8 @@ class CityGetUseCaseTest {
     @Test
     void 地方自治体コード13104を指定した場合は東京都新宿区が返ってくる() throws Exception {
 
-        City expected = CityTestUtil.tokyotoShinjukuku();
-        City actual = cityGetUseCase.get(JP_LOCAL_GOV_CODE_TOKYOTO_SHINJUKUKU);
+        City expected = CityTestUtil.shinjukuku();
+        City actual = cityGetUseCase.get(JP_LOCAL_GOV_CODE_SHINJUKUKU);
 
         assertTrue(actual.equals(expected));
     }
