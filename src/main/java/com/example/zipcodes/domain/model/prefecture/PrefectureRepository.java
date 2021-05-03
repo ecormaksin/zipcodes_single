@@ -1,10 +1,11 @@
 package com.example.zipcodes.domain.model.prefecture;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface PrefectureRepository {
 
     List<Prefecture> findAll();
 
-    Prefecture findByPrefectureCode(PrefectureCode prefectureCode) throws PrefectureNotFoundException;
+    Optional<Prefecture> findByPrefectureCode(PrefectureCode prefectureCode);
 }

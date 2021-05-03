@@ -1,16 +1,14 @@
 package com.example.zipcodes.infra.repository;
 
 import java.util.List;
-import java.util.Locale;
+import java.util.Optional;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 
-import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
 import com.example.zipcodes.domain.model.city.City;
-import com.example.zipcodes.domain.model.city.CityNotFoundException;
 import com.example.zipcodes.domain.model.city.CityRepository;
 import com.example.zipcodes.domain.model.city.JapaneseLocalGovernmentCode;
 import com.example.zipcodes.domain.model.prefecture.PrefectureCode;
@@ -27,7 +25,6 @@ public class CityRepositoryImpl implements CityRepository {
 
     private final EntityManager entityManager;
     private final CityEntityMapper cityEntityMapper;
-    private final MessageSource messageSource;
 
     private JPAQueryFactory queryFactory;
 
@@ -45,8 +42,7 @@ public class CityRepositoryImpl implements CityRepository {
     }
 
     @Override
-    public City findByJapaneseLocalGovernmentCode(JapaneseLocalGovernmentCode japaneseLocalGovernmentCode)
-            throws CityNotFoundException {
+    public Optional<City> findByJapaneseLocalGovernmentCode(JapaneseLocalGovernmentCode japaneseLocalGovernmentCode) {
 
         final String jpLocalGovCodeStr = japaneseLocalGovernmentCode.getValue();
 
@@ -58,11 +54,10 @@ public class CityRepositoryImpl implements CityRepository {
         // @formatter:on
 
         if (null == city) {
-            throw new CityNotFoundException(messageSource.getMessage("message.city.not.found",
-                    new Object[] { jpLocalGovCodeStr }, Locale.getDefault()));
+            return Optional.empty();
         }
 
-        return cityEntityMapper.fromEntityToDomainObject(city);
+        return Optional.of(cityEntityMapper.fromEntityToDomainObject(city));
     }
 
 }

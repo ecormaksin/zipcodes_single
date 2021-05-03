@@ -1,10 +1,9 @@
 package com.example.zipcodes.ui.presentation.prefecture;
 
-import java.nio.charset.StandardCharsets;
+import static com.example.zipcodes.ui.presentation.PathVariableNames.PREFECTURE_CODE;
 
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
+import java.util.Optional;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.zipcodes.domain.model.prefecture.Prefecture;
 import com.example.zipcodes.domain.model.prefecture.PrefectureCode;
-import com.example.zipcodes.domain.model.prefecture.PrefectureNotFoundException;
+import com.example.zipcodes.ui.presentation.ControllerUtil;
 import com.example.zipcodes.ui.presentation.EndpointUrls;
 import com.example.zipcodes.usecase.prefecture.PrefectureGetUseCase;
 
@@ -24,22 +23,17 @@ public class PrefectureGetController {
 
     private final PrefectureGetUseCase prefectureGetUseCase;
     private final PrefectureDtoMapper prefectureDtoMapper;
+    private final ControllerUtil controllerUtil;
 
     @GetMapping(EndpointUrls.PREFECTURE_GET)
-    public ResponseEntity<?> get(@PathVariable String prefectureCode) {
+    public ResponseEntity<?> get(@PathVariable(name = PREFECTURE_CODE) final String prefectureCodeStr) {
 
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.setContentType(new MediaType(MediaType.APPLICATION_JSON, StandardCharsets.UTF_8));
+        Optional<Prefecture> optionalPrefecture = prefectureGetUseCase.get(new PrefectureCode(prefectureCodeStr));
 
-        try {
-            Prefecture prefecture = prefectureGetUseCase.get(new PrefectureCode(prefectureCode));
-
-            PrefectureDto prefectureDto = prefectureDtoMapper.fromDomainObjectToDto(prefecture);
-
-            return new ResponseEntity<>(prefectureDto, httpHeaders, HttpStatus.OK);
-
-        } catch (PrefectureNotFoundException ex) {
-            return new ResponseEntity<>(ex.getMessage(), httpHeaders, HttpStatus.NOT_FOUND);
+        if (optionalPrefecture.isPresent()) {
+            return controllerUtil.ok(prefectureDtoMapper.fromDomainObjectToDto(optionalPrefecture.get()));
         }
+
+        return controllerUtil.notFoundErrorResponse("message.prefecture.not.found", new Object[] { prefectureCodeStr });
     }
 }

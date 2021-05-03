@@ -6,6 +6,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -13,26 +15,15 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.example.zipcodes.domain.model.city.City;
-import com.example.zipcodes.domain.model.city.CityNotFoundException;
 import com.example.zipcodes.domain.model.city.CityTestUtil;
 import com.example.zipcodes.domain.model.city.JapaneseLocalGovernmentCode;
+import com.example.zipcodes.ui.presentation.ControllerUtil;
 import com.example.zipcodes.ui.presentation.EndpointUrls;
 import com.example.zipcodes.usecase.city.CityGetUseCase;
 
 @WebMvcTest(CityGetController.class)
-@Import(CityDtoMapperImpl.class)
+@Import(value = { CityDtoMapperImpl.class, ControllerUtil.class })
 class CityGetControllerTest {
-
-    // @formatter:off
-    private static final JapaneseLocalGovernmentCode JP_LOCAL_GOV_CODE_SHINJUKUKU = CityTestUtil.JP_LOCAL_GOV_CODE_SHINJUKUKU;
-    private static final String JP_LOCAL_GOV_CODE_SHINJUKUKU_STR
-        = JP_LOCAL_GOV_CODE_SHINJUKUKU.getValue();
-
-    private static final JapaneseLocalGovernmentCode JP_LOCAL_GOV_CODE_NOT_EXIST = CityTestUtil.JP_LOCAL_GOV_CODE_NOT_EXIST;
-    private static final String JP_LOCAL_GOV_CODE_NOT_EXIST_STR
-        = JP_LOCAL_GOV_CODE_NOT_EXIST.getValue();
-    // @formatter:on
 
     @Autowired
     private MockMvc mockMvc;
@@ -43,8 +34,7 @@ class CityGetControllerTest {
     @Test
     void 地方自治体コード13104を指定した場合は東京都新宿区が返ってくる() throws Exception {
 
-        City tokyotoShinjukuku = CityTestUtil.shinjukuku();
-
+        // 便宜的に都庁所在地1件をサンプルとして返す
         // @formatter:off
         final String expectedString = "{"
                 + "\"japaneseLocalGovernmentCode\":\"13104\"" 
@@ -55,24 +45,33 @@ class CityGetControllerTest {
                 + "}";
         // @formatter:on
 
-        when(cityGetUseCase.get(JP_LOCAL_GOV_CODE_SHINJUKUKU)).thenReturn(tokyotoShinjukuku);
+        final JapaneseLocalGovernmentCode JP_LOCAL_GOV_CODE_SHINJUKUKU = CityTestUtil.JP_LOCAL_GOV_CODE_SHINJUKUKU;
+        when(cityGetUseCase.get(JP_LOCAL_GOV_CODE_SHINJUKUKU)).thenReturn(Optional.of(CityTestUtil.shinjukuku()));
 
         // @formatter:off
-        mockMvc.perform(get(EndpointUrls.CITIES_GET_LIST + "/" + JP_LOCAL_GOV_CODE_SHINJUKUKU_STR))
+        mockMvc.perform(get(EndpointUrls.CITIES_GET_LIST + "/" + JP_LOCAL_GOV_CODE_SHINJUKUKU.getValue()))
             .andExpect(status().isOk())
-            .andExpect(content().string(expectedString));
+            .andExpect(content().string(expectedString))
+            .andDo(print());
         // @formatter:on
     }
 
     @Test
-    void 存在しない地方自治体コード99999を指定した場合は例外が発生する() throws Exception {
+    void 存在しない地方自治体コード99999を指定した場合は404エラーが返ってくる() throws Exception {
 
         // @formatter:off
-        when(cityGetUseCase.get(JP_LOCAL_GOV_CODE_NOT_EXIST))
-            .thenThrow(new CityNotFoundException(String.format("地方自治体コード: %s に対応する情報はありません。", JP_LOCAL_GOV_CODE_NOT_EXIST_STR)));
+        final String expectedString = "{"
+                + "\"errorMessage\":\"地方自治体コード: 99999 に対応する情報はありません。\"" 
+                + "}";
+        // @formatter:on
 
-        mockMvc.perform(get(EndpointUrls.CITIES_GET_LIST + "/" + JP_LOCAL_GOV_CODE_NOT_EXIST_STR))
+        final JapaneseLocalGovernmentCode JP_LOCAL_GOV_CODE_NOT_EXIST = CityTestUtil.JP_LOCAL_GOV_CODE_NOT_EXIST;
+        when(cityGetUseCase.get(JP_LOCAL_GOV_CODE_NOT_EXIST)).thenReturn(Optional.empty());
+
+        // @formatter:off
+        mockMvc.perform(get(EndpointUrls.CITIES_GET_LIST + "/" + JP_LOCAL_GOV_CODE_NOT_EXIST.getValue()))
             .andExpect(status().isNotFound())
+            .andExpect(content().string(expectedString))
             .andDo(print());
         // @formatter:on
     }

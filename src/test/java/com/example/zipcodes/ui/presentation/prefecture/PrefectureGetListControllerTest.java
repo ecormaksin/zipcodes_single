@@ -5,6 +5,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,12 +18,13 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.example.zipcodes.domain.model.prefecture.Prefecture;
 import com.example.zipcodes.domain.model.prefecture.PrefectureTestUtil;
+import com.example.zipcodes.ui.presentation.ControllerUtil;
 import com.example.zipcodes.ui.presentation.EndpointUrls;
 import com.example.zipcodes.usecase.prefecture.PrefectureGetListUseCase;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @WebMvcTest(PrefectureGetListController.class)
-@Import(PrefectureDtoMapperImpl.class)
+@Import(value = { PrefectureDtoMapperImpl.class, ControllerUtil.class })
 class PrefectureGetListControllerTest {
 
     @Autowired
@@ -32,38 +34,34 @@ class PrefectureGetListControllerTest {
     private PrefectureGetListUseCase prefectureGetListUseCase;
 
     @Autowired
-    private PrefectureDtoMapper prefectureMapper;
+    private PrefectureDtoMapper prefectureDtoMapper;
 
     @Test
     void 都道府県コード指定なしの時はリストが返ってくる() throws Exception {
 
-        Prefecture tokyoto = PrefectureTestUtil.tokyoto();
-        Prefecture kyotofu = PrefectureTestUtil.kyotofu();
+        // 便宜的に東西の都を2件サンプルとして返す
         // @formatter:off
         List<Prefecture> prefectures = Arrays.asList(
-                tokyoto
-                , kyotofu
+                PrefectureTestUtil.tokyoto()
+                , PrefectureTestUtil.kyotofu()
                 );
         // @formatter:on
 
-        PrefectureDto tokyotoDto = prefectureMapper.fromDomainObjectToDto(tokyoto);
-        PrefectureDto kyotofuDto = prefectureMapper.fromDomainObjectToDto(kyotofu);
+        List<PrefectureDto> dtos = new ArrayList<>();
         // @formatter:off
-        List<PrefectureDto> dtos = Arrays.asList(
-                tokyotoDto
-                , kyotofuDto
-            );
+        prefectures.stream()
+            .forEach(prefecture -> {
+                dtos.add(prefectureDtoMapper.fromDomainObjectToDto(prefecture));
+            });
         // @formatter:on
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        final String expectedString = objectMapper.writeValueAsString(dtos);
 
         when(prefectureGetListUseCase.findAll()).thenReturn(prefectures);
 
+        ObjectMapper objectMapper = new ObjectMapper();
         // @formatter:off
         mockMvc.perform(get(EndpointUrls.PREFECTURES_GET_LIST))
             .andExpect(status().isOk())
-            .andExpect(content().string(expectedString));
+            .andExpect(content().string(objectMapper.writeValueAsString(dtos)));
         // @formatter:on
     }
 }

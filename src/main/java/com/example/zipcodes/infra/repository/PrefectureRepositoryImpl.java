@@ -1,17 +1,15 @@
 package com.example.zipcodes.infra.repository;
 
 import java.util.List;
-import java.util.Locale;
+import java.util.Optional;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 
-import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
 import com.example.zipcodes.domain.model.prefecture.Prefecture;
 import com.example.zipcodes.domain.model.prefecture.PrefectureCode;
-import com.example.zipcodes.domain.model.prefecture.PrefectureNotFoundException;
 import com.example.zipcodes.domain.model.prefecture.PrefectureRepository;
 import com.example.zipcodes.infra.db.jpa.mapper.PrefectureEntityMapper;
 import com.example.zipcodes.infra.db.jpa.view.PrefectureResource;
@@ -26,7 +24,6 @@ public class PrefectureRepositoryImpl implements PrefectureRepository {
 
     private final EntityManager entityManager;
     private final PrefectureEntityMapper prefectureEntityMapper;
-    private final MessageSource messageSource;
 
     private JPAQueryFactory queryFactory;
 
@@ -51,7 +48,7 @@ public class PrefectureRepositoryImpl implements PrefectureRepository {
     }
 
     @Override
-    public Prefecture findByPrefectureCode(final PrefectureCode prefectureCode) throws PrefectureNotFoundException {
+    public Optional<Prefecture> findByPrefectureCode(final PrefectureCode prefectureCode) {
 
         final String prefecutureCodeStr = prefectureCode.getValue();
 
@@ -63,10 +60,9 @@ public class PrefectureRepositoryImpl implements PrefectureRepository {
 		// @formatter:on
 
         if (null == prefecture) {
-            throw new PrefectureNotFoundException(messageSource.getMessage("message.prefecture.not.found",
-                    new Object[] { prefecutureCodeStr }, Locale.getDefault()));
+            return Optional.empty();
         }
 
-        return prefectureEntityMapper.fromEntityToDomainObject(prefecture);
+        return Optional.of(prefectureEntityMapper.fromEntityToDomainObject(prefecture));
     }
 }
