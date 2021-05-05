@@ -31,7 +31,7 @@ public final class ControllerUtil {
         return new ResponseEntity<>(object, jsonHttpHeaders(), HttpStatus.OK);
     }
 
-    public ResponseEntity<GeneralErrorResponseEntity> notFoundErrorResponse(final String messageCode,
+    public ResponseEntity<GeneralErrorResponseEntity> notFound(final String messageCode,
             @Nullable Object[] messageArgs) {
 
         final String errorMessage = messageSource.getMessage(messageCode, messageArgs, Locale.getDefault());

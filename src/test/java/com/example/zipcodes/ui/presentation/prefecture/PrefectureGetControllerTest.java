@@ -37,7 +37,7 @@ class PrefectureGetControllerTest {
         // 便宜的に首都1件をサンプルとして返す
         // @formatter:off
         final String expectedString = "{"
-                + "\"code\":\"13\"" 
+                + "\"prefectureCode\":\"13\"" 
                 + ",\"kanjiName\":\"東京都\""
                 + ",\"hiraganaName\":\"とうきょうと\""
                 + ",\"katakanaFullwidthName\":\"トウキョウト\""

@@ -1,5 +1,11 @@
 package com.example.zipcodes.ui.presentation.prefecture;
 
+import static com.example.zipcodes.ui.presentation.Names.HIRAGANA_NAME;
+import static com.example.zipcodes.ui.presentation.Names.KANJI_NAME;
+import static com.example.zipcodes.ui.presentation.Names.KATAKANA_FULLWIDTH_NAME;
+import static com.example.zipcodes.ui.presentation.Names.KATAKANA_HALFWIDTH_NAME;
+import static com.example.zipcodes.ui.presentation.Names.PREFECTURE_CODE;
+
 import java.io.Serializable;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -12,11 +18,11 @@ import lombok.Data;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 // @formatter:off
 @JsonPropertyOrder({ 
-    "code"
-    , "kanjiName"
-    , "hiraganaName"
-    , "katakanaFullwidthName"
-    , "katakanaHalfwidthName" })
+    PREFECTURE_CODE
+    , KANJI_NAME
+    , HIRAGANA_NAME
+    , KATAKANA_FULLWIDTH_NAME
+    , KATAKANA_HALFWIDTH_NAME })
 // @formatter:on
 @Data
 @Builder
@@ -24,18 +30,18 @@ public class PrefectureDto implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @JsonProperty("code")
+    @JsonProperty(PREFECTURE_CODE)
     private String code;
 
-    @JsonProperty("kanjiName")
+    @JsonProperty(KANJI_NAME)
     private String kanjiName;
 
-    @JsonProperty("hiraganaName")
+    @JsonProperty(HIRAGANA_NAME)
     private String hiraganaName;
 
-    @JsonProperty("katakanaFullwidthName")
+    @JsonProperty(KATAKANA_FULLWIDTH_NAME)
     private String katakanaFullwidthName;
 
-    @JsonProperty("katakanaHalfwidthName")
+    @JsonProperty(KATAKANA_HALFWIDTH_NAME)
     private String katakanaHalfwidthName;
 }

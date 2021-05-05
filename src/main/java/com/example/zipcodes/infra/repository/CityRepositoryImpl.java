@@ -44,12 +44,10 @@ public class CityRepositoryImpl implements CityRepository {
     @Override
     public Optional<City> findByJapaneseLocalGovernmentCode(JapaneseLocalGovernmentCode japaneseLocalGovernmentCode) {
 
-        final String jpLocalGovCodeStr = japaneseLocalGovernmentCode.getValue();
-
         // @formatter:off
         CityResource city = queryFactory
                 .selectFrom(qCity)
-                .where( qCity.japaneseLocalGovermentCode.eq(jpLocalGovCodeStr) )
+                .where( qCity.japaneseLocalGovermentCode.eq(japaneseLocalGovernmentCode.getValue()) )
                 .fetchOne();
         // @formatter:on
 

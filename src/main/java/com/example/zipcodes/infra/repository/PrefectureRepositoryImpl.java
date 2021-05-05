@@ -50,12 +50,10 @@ public class PrefectureRepositoryImpl implements PrefectureRepository {
     @Override
     public Optional<Prefecture> findByPrefectureCode(final PrefectureCode prefectureCode) {
 
-        final String prefecutureCodeStr = prefectureCode.getValue();
-
         // @formatter:off
 		PrefectureResource prefecture = queryFactory
 				.selectFrom(qPrefecture)
-				.where( qPrefecture.prefectureCode.eq(prefecutureCodeStr) )
+				.where( qPrefecture.prefectureCode.eq(prefectureCode.getValue()) )
 				.fetchOne();
 		// @formatter:on
 

@@ -1,5 +1,7 @@
 package com.example.zipcodes.ui.presentation.city;
 
+import static com.example.zipcodes.ui.presentation.Names.JAPANESE_LOCAL_GOVERNMENT_CODE;
+
 import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
@@ -24,15 +26,14 @@ public class CityGetController {
     private final ControllerUtil controllerUtil;
 
     @GetMapping(EndpointUrls.CITY_GET)
-    public ResponseEntity<?> get(@PathVariable String japaneseLocalGovernmentCode) {
+    public ResponseEntity<?> get(@PathVariable(name = JAPANESE_LOCAL_GOVERNMENT_CODE) final String jpLocalGovCodeStr) {
 
-        Optional<City> optionalCity = cityGetUseCase.get(new JapaneseLocalGovernmentCode(japaneseLocalGovernmentCode));
+        Optional<City> optionalCity = cityGetUseCase.get(new JapaneseLocalGovernmentCode(jpLocalGovCodeStr));
 
-        if (optionalCity.isPresent()) {
-            return controllerUtil.ok(cityDtoMapper.fromDomainObjectToDto(optionalCity.get()));
-        }
-
-        return controllerUtil.notFoundErrorResponse("message.city.not.found",
-                new Object[] { japaneseLocalGovernmentCode });
+        // @formatter:off
+        return optionalCity.isPresent() ? 
+                controllerUtil.ok(cityDtoMapper.fromDomainObjectToDto(optionalCity.get()))
+                : controllerUtil.notFound("message.city.not.found", new Object[] { jpLocalGovCodeStr });
+        // @formatter:on
     }
 }

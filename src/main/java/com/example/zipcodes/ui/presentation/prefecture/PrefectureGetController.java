@@ -1,6 +1,6 @@
 package com.example.zipcodes.ui.presentation.prefecture;
 
-import static com.example.zipcodes.ui.presentation.PathVariableNames.PREFECTURE_CODE;
+import static com.example.zipcodes.ui.presentation.Names.PREFECTURE_CODE;
 
 import java.util.Optional;
 
@@ -30,10 +30,10 @@ public class PrefectureGetController {
 
         Optional<Prefecture> optionalPrefecture = prefectureGetUseCase.get(new PrefectureCode(prefectureCodeStr));
 
-        if (optionalPrefecture.isPresent()) {
-            return controllerUtil.ok(prefectureDtoMapper.fromDomainObjectToDto(optionalPrefecture.get()));
-        }
-
-        return controllerUtil.notFoundErrorResponse("message.prefecture.not.found", new Object[] { prefectureCodeStr });
+        // @formatter:off
+        return optionalPrefecture.isPresent() ?
+            controllerUtil.ok(prefectureDtoMapper.fromDomainObjectToDto(optionalPrefecture.get()))
+            : controllerUtil.notFound("message.prefecture.not.found", new Object[] { prefectureCodeStr });
+        // @formatter:on
     }
 }
