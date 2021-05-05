@@ -1,5 +1,6 @@
 package com.example.zipcodes.ui.presentation.prefecture;
 
+import static com.example.zipcodes.ui.presentation.EndpointUrls.PREFECTURES_GET_LIST;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -18,7 +19,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.example.zipcodes.domain.model.prefecture.PrefectureCode;
 import com.example.zipcodes.domain.model.prefecture.PrefectureTestUtil;
 import com.example.zipcodes.ui.presentation.ControllerUtil;
-import com.example.zipcodes.ui.presentation.EndpointUrls;
 import com.example.zipcodes.usecase.prefecture.PrefectureGetUseCase;
 
 @WebMvcTest(PrefectureGetController.class)
@@ -49,7 +49,7 @@ class PrefectureGetControllerTest {
         when(prefectureGetUseCase.get(PREFECTURE_CODE_TOKYO)).thenReturn(Optional.of(PrefectureTestUtil.tokyoto()));
 
         // @formatter:off
-		mockMvc.perform(get(EndpointUrls.PREFECTURES_GET_LIST + "/" + PREFECTURE_CODE_TOKYO.getValue()))
+		mockMvc.perform(get(PREFECTURES_GET_LIST + "/" + PREFECTURE_CODE_TOKYO.getValue()))
 			.andExpect(status().isOk())
 			.andExpect(content().string(expectedString))
 			.andDo(print());
@@ -69,7 +69,7 @@ class PrefectureGetControllerTest {
         when(prefectureGetUseCase.get(PREFECTURE_CODE_NOT_EXIST)).thenReturn(Optional.empty());
 
         // @formatter:off
-        mockMvc.perform(get(EndpointUrls.PREFECTURES_GET_LIST + "/" + PREFECTURE_CODE_NOT_EXIST.getValue()))
+        mockMvc.perform(get(PREFECTURES_GET_LIST + "/" + PREFECTURE_CODE_NOT_EXIST.getValue()))
             .andExpect(status().isNotFound())
             .andExpect(content().string(expectedString))
             .andDo(print());

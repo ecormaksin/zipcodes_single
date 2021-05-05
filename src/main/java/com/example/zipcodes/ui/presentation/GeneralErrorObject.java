@@ -17,7 +17,7 @@ import lombok.Data;
 // @formatter:on
 @Data
 @Builder
-public class GeneralErrorResponseEntity implements Serializable {
+public class GeneralErrorObject implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

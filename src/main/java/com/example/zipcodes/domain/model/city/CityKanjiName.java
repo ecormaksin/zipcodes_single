@@ -10,7 +10,7 @@ import lombok.Getter;
 @EqualsAndHashCode(callSuper = false)
 public class CityKanjiName extends ValidationConcern {
 
-    public static final int LENGTH_MAX = 5;
+    public static final int LENGTH_MAX = 20;
 
     private static final long serialVersionUID = 1L;
 

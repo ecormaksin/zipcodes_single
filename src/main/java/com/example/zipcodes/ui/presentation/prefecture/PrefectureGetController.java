@@ -1,5 +1,6 @@
 package com.example.zipcodes.ui.presentation.prefecture;
 
+import static com.example.zipcodes.ui.presentation.EndpointUrls.PREFECTURE_GET;
 import static com.example.zipcodes.ui.presentation.Names.PREFECTURE_CODE;
 
 import java.util.Optional;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.zipcodes.domain.model.prefecture.Prefecture;
 import com.example.zipcodes.domain.model.prefecture.PrefectureCode;
 import com.example.zipcodes.ui.presentation.ControllerUtil;
-import com.example.zipcodes.ui.presentation.EndpointUrls;
 import com.example.zipcodes.usecase.prefecture.PrefectureGetUseCase;
 
 import lombok.RequiredArgsConstructor;
@@ -25,7 +25,7 @@ public class PrefectureGetController {
     private final PrefectureDtoMapper prefectureDtoMapper;
     private final ControllerUtil controllerUtil;
 
-    @GetMapping(EndpointUrls.PREFECTURE_GET)
+    @GetMapping(PREFECTURE_GET)
     public ResponseEntity<?> get(@PathVariable(name = PREFECTURE_CODE) final String prefectureCodeStr) {
 
         Optional<Prefecture> optionalPrefecture = prefectureGetUseCase.get(new PrefectureCode(prefectureCodeStr));

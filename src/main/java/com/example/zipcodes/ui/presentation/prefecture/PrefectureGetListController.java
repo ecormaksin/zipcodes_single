@@ -1,5 +1,7 @@
 package com.example.zipcodes.ui.presentation.prefecture;
 
+import static com.example.zipcodes.ui.presentation.EndpointUrls.PREFECTURES_GET_LIST;
+
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -8,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.zipcodes.domain.model.prefecture.Prefecture;
 import com.example.zipcodes.ui.presentation.ControllerUtil;
-import com.example.zipcodes.ui.presentation.EndpointUrls;
 import com.example.zipcodes.usecase.prefecture.PrefectureGetListUseCase;
 
 import lombok.RequiredArgsConstructor;
@@ -22,8 +23,8 @@ public class PrefectureGetListController {
     private final ControllerUtil controllerUtil;
 
     @SuppressWarnings("unchecked")
-    @GetMapping(EndpointUrls.PREFECTURES_GET_LIST)
-    public ResponseEntity<List<PrefectureDto>> getList() {
+    @GetMapping(PREFECTURES_GET_LIST)
+    public ResponseEntity<List<PrefectureDto>> findAll() {
 
         List<Prefecture> entities = prefectureGetListUseCase.findAll();
 

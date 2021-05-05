@@ -1,5 +1,6 @@
 package com.example.zipcodes.ui.presentation.prefecture;
 
+import static com.example.zipcodes.ui.presentation.EndpointUrls.PREFECTURES_GET_LIST;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -19,7 +20,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.example.zipcodes.domain.model.prefecture.Prefecture;
 import com.example.zipcodes.domain.model.prefecture.PrefectureTestUtil;
 import com.example.zipcodes.ui.presentation.ControllerUtil;
-import com.example.zipcodes.ui.presentation.EndpointUrls;
 import com.example.zipcodes.usecase.prefecture.PrefectureGetListUseCase;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -59,7 +59,7 @@ class PrefectureGetListControllerTest {
 
         ObjectMapper objectMapper = new ObjectMapper();
         // @formatter:off
-        mockMvc.perform(get(EndpointUrls.PREFECTURES_GET_LIST))
+        mockMvc.perform(get(PREFECTURES_GET_LIST))
             .andExpect(status().isOk())
             .andExpect(content().string(objectMapper.writeValueAsString(dtos)));
         // @formatter:on

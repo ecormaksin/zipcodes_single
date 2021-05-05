@@ -7,5 +7,6 @@ public final class Names {
     public static final String KANJI_NAME = "kanjiName";
     public static final String KATAKANA_FULLWIDTH_NAME = "katakanaFullwidthName";
     public static final String KATAKANA_HALFWIDTH_NAME = "katakanaHalfwidthName";
+    public static final String KEYWORDS = "keywords";
     public static final String PREFECTURE_CODE = "prefectureCode";
 }

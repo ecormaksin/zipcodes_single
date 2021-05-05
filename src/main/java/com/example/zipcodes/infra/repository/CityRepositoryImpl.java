@@ -37,8 +37,18 @@ public class CityRepositoryImpl implements CityRepository {
 
     @Override
     public List<City> findByPrefectureCode(PrefectureCode prefectureCode) {
-        // TODO Auto-generated method stub
-        return null;
+
+        // @formatter:off
+        List<CityResource> cities = queryFactory
+                .selectFrom(qCity)
+                .where( qCity.prefectureCode.eq(prefectureCode.getValue()) )
+                .orderBy( 
+                        qCity.prefectureCode.asc()
+                        , qCity.japaneseLocalGovermentCode.asc() 
+                ).fetch();
+        // @formatter:on
+
+        return cityEntityMapper.fromEntityListToDomainObjectList(cities);
     }
 
     @Override
@@ -49,13 +59,11 @@ public class CityRepositoryImpl implements CityRepository {
                 .selectFrom(qCity)
                 .where( qCity.japaneseLocalGovermentCode.eq(japaneseLocalGovernmentCode.getValue()) )
                 .fetchOne();
+        
+        return null == city ?
+                Optional.empty()
+                : Optional.of(cityEntityMapper.fromEntityToDomainObject(city));
         // @formatter:on
-
-        if (null == city) {
-            return Optional.empty();
-        }
-
-        return Optional.of(cityEntityMapper.fromEntityToDomainObject(city));
     }
 
 }

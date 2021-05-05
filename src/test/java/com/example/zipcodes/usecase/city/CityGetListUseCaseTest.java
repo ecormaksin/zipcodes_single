@@ -1,4 +1,4 @@
-package com.example.zipcodes.usecase.prefecture;
+package com.example.zipcodes.usecase.city;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -11,7 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.zipcodes.domain.model.prefecture.Prefecture;
+import com.example.zipcodes.domain.model.city.City;
+import com.example.zipcodes.domain.model.prefecture.PrefectureTestUtil;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,23 +20,24 @@ import lombok.extern.slf4j.Slf4j;
 @Transactional
 @AutoConfigureTestEntityManager
 @Slf4j
-class PrefectureGetListUseCaseTest {
+class CityGetListUseCaseTest {
 
     @Autowired
-    private PrefectureGetListUseCase prefectureGetListUseCase;
+    private CityGetListUseCase cityGetListUseCase;
 
     @Test
-    void 都道府県リストは47件() {
+    void 東京都の市区町村は62件() {
 
-        List<Prefecture> prefectures = prefectureGetListUseCase.findAll();
+        List<City> cities = cityGetListUseCase.findByPrefectureCode(PrefectureTestUtil.PREFECTURE_CODE_TOKYO);
 
-        assertEquals(47, prefectures.size());
+        assertEquals(62, cities.size());
 
         // @formatter:off
-        prefectures.stream()
-            .forEach(prefecture -> {
-                log.info(prefecture.toString());
+        cities.stream()
+            .forEach(city -> {
+                log.info(city.toString());
             });
         // @formatter:on
     }
+
 }

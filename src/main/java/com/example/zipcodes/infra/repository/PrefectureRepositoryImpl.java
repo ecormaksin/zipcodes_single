@@ -38,11 +38,11 @@ public class PrefectureRepositoryImpl implements PrefectureRepository {
     public List<Prefecture> findAll() {
 
         // @formatter:off
-		List<PrefectureResource> entityList = queryFactory
-				.selectFrom(qPrefecture)
-				.orderBy(qPrefecture.prefectureCode.asc())
-				.fetch();
-		// @formatter:on
+        List<PrefectureResource> entityList = queryFactory
+                .selectFrom(qPrefecture)
+                .orderBy(qPrefecture.prefectureCode.asc())
+                .fetch();
+        // @formatter:on
 
         return prefectureEntityMapper.fromEntityListToDomainObjectList(entityList);
     }
@@ -51,16 +51,15 @@ public class PrefectureRepositoryImpl implements PrefectureRepository {
     public Optional<Prefecture> findByPrefectureCode(final PrefectureCode prefectureCode) {
 
         // @formatter:off
-		PrefectureResource prefecture = queryFactory
-				.selectFrom(qPrefecture)
-				.where( qPrefecture.prefectureCode.eq(prefectureCode.getValue()) )
-				.fetchOne();
-		// @formatter:on
+        PrefectureResource prefecture = queryFactory
+                .selectFrom(qPrefecture)
+                .where( qPrefecture.prefectureCode.eq(prefectureCode.getValue()) )
+                .fetchOne();
 
-        if (null == prefecture) {
-            return Optional.empty();
-        }
+        return null == prefecture ? 
+                Optional.empty()
+                : Optional.of(prefectureEntityMapper.fromEntityToDomainObject(prefecture));
+        // @formatter:on
 
-        return Optional.of(prefectureEntityMapper.fromEntityToDomainObject(prefecture));
     }
 }

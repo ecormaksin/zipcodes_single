@@ -19,7 +19,7 @@ public final class ControllerUtil {
 
     private final MessageSource messageSource;
 
-    private static HttpHeaders jsonHttpHeaders() {
+    public static HttpHeaders jsonHttpHeaders() {
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(new MediaType(MediaType.APPLICATION_JSON, StandardCharsets.UTF_8));
@@ -31,16 +31,26 @@ public final class ControllerUtil {
         return new ResponseEntity<>(object, jsonHttpHeaders(), HttpStatus.OK);
     }
 
-    public ResponseEntity<GeneralErrorResponseEntity> notFound(final String messageCode,
-            @Nullable Object[] messageArgs) {
+    public GeneralErrorObject generalErrorObject(final String messageCode, @Nullable Object[] messageArgs) {
 
         final String errorMessage = messageSource.getMessage(messageCode, messageArgs, Locale.getDefault());
         // @formatter:off
-        GeneralErrorResponseEntity errorResponse = GeneralErrorResponseEntity.builder()
-                .errorMessage(errorMessage)
-                .build();
+        return GeneralErrorObject.builder()
+            .errorMessage(errorMessage)
+            .build();
         // @formatter:on
+    }
 
-        return new ResponseEntity<>(errorResponse, jsonHttpHeaders(), HttpStatus.NOT_FOUND);
+    private ResponseEntity<GeneralErrorObject> generalErrorResponseEntity(final String messageCode,
+            @Nullable Object[] messageArgs, HttpStatus httpStatus) {
+
+        GeneralErrorObject errorResponse = generalErrorObject(messageCode, messageArgs);
+
+        return new ResponseEntity<>(errorResponse, jsonHttpHeaders(), httpStatus);
+    }
+
+    public ResponseEntity<GeneralErrorObject> notFound(final String messageCode, @Nullable Object[] messageArgs) {
+
+        return generalErrorResponseEntity(messageCode, messageArgs, HttpStatus.NOT_FOUND);
     }
 }
