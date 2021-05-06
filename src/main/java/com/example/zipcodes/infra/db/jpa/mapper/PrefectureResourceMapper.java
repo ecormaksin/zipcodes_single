@@ -18,9 +18,9 @@ import com.ibm.icu.text.Transliterator;
 
 @Component
 @Mapper(injectionStrategy = InjectionStrategy.CONSTRUCTOR)
-public interface PrefectureEntityMapper {
+public interface PrefectureResourceMapper {
 
-    PrefectureEntityMapper INSTANCE = Mappers.getMapper(PrefectureEntityMapper.class);
+    PrefectureResourceMapper INSTANCE = Mappers.getMapper(PrefectureResourceMapper.class);
 
     default Prefecture fromEntityToDomainObject(PrefectureResource entity) {
 

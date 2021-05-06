@@ -12,9 +12,11 @@ import com.example.zipcodes.domain.model.city.City;
 import com.example.zipcodes.domain.model.city.CityRepository;
 import com.example.zipcodes.domain.model.city.JapaneseLocalGovernmentCode;
 import com.example.zipcodes.domain.model.prefecture.PrefectureCode;
-import com.example.zipcodes.infra.db.jpa.mapper.CityEntityMapper;
+import com.example.zipcodes.infra.db.jpa.mapper.CityResourceMapper;
 import com.example.zipcodes.infra.db.jpa.view.CityResource;
 import com.example.zipcodes.infra.db.jpa.view.QCityResource;
+import com.ibm.icu.text.Transliterator;
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import lombok.RequiredArgsConstructor;
@@ -24,7 +26,7 @@ import lombok.RequiredArgsConstructor;
 public class CityRepositoryImpl implements CityRepository {
 
     private final EntityManager entityManager;
-    private final CityEntityMapper cityEntityMapper;
+    private final CityResourceMapper cityResourceMapper;
 
     private JPAQueryFactory queryFactory;
 
@@ -36,7 +38,7 @@ public class CityRepositoryImpl implements CityRepository {
     }
 
     @Override
-    public List<City> findByPrefectureCode(PrefectureCode prefectureCode) {
+    public List<City> findByPrefectureCode(final PrefectureCode prefectureCode) {
 
         // @formatter:off
         List<CityResource> cities = queryFactory
@@ -48,11 +50,12 @@ public class CityRepositoryImpl implements CityRepository {
                 ).fetch();
         // @formatter:on
 
-        return cityEntityMapper.fromEntityListToDomainObjectList(cities);
+        return cityResourceMapper.fromEntityListToDomainObjectList(cities);
     }
 
     @Override
-    public Optional<City> findByJapaneseLocalGovernmentCode(JapaneseLocalGovernmentCode japaneseLocalGovernmentCode) {
+    public Optional<City> findByJapaneseLocalGovernmentCode(
+            final JapaneseLocalGovernmentCode japaneseLocalGovernmentCode) {
 
         // @formatter:off
         CityResource city = queryFactory
@@ -62,8 +65,39 @@ public class CityRepositoryImpl implements CityRepository {
         
         return null == city ?
                 Optional.empty()
-                : Optional.of(cityEntityMapper.fromEntityToDomainObject(city));
+                : Optional.of(cityResourceMapper.fromEntityToDomainObject(city));
         // @formatter:on
+    }
+
+    @Override
+    public List<City> findByKeywords(final String keywords) {
+
+        final Transliterator hiraganaTransliterator = Transliterator.getInstance("Hiragana-Katakana");
+        final Transliterator katakanaTransliterator = Transliterator.getInstance("Fullwidth-Halfwidth");
+
+        final String[] keywordArray = keywords.split(" ");
+
+        BooleanBuilder cityNameCondition = new BooleanBuilder();
+        BooleanBuilder cityNameKanaCondition = new BooleanBuilder();
+        for (String keyword : keywordArray) {
+            cityNameCondition.and(qCity.cityName.like("%" + keyword + "%"));
+
+            final String katakanaKeyword = katakanaTransliterator
+                    .transliterate(hiraganaTransliterator.transliterate(keyword));
+            cityNameKanaCondition.and(qCity.cityNameKana.like("%" + katakanaKeyword + "%"));
+        }
+
+        // @formatter:off
+        List<CityResource> cities = queryFactory
+                .selectFrom(qCity)
+                .where( cityNameCondition.or(cityNameKanaCondition) )
+                .orderBy( 
+                        qCity.prefectureCode.asc()
+                        , qCity.japaneseLocalGovermentCode.asc() 
+                ).fetch();
+        // @formatter:on
+
+        return cityResourceMapper.fromEntityListToDomainObjectList(cities);
     }
 
 }

@@ -16,14 +16,14 @@ public class CityGetListUseCase {
 
     private final CityRepository cityRepository;
 
-    public List<City> findByPrefectureCode(PrefectureCode prefectureCode) {
+    public List<City> findByPrefectureCode(final PrefectureCode prefectureCode) {
 
         return cityRepository.findByPrefectureCode(prefectureCode);
     }
 
-    public List<City> findByKeywords(String keywords) {
-        // TODO Auto-generated method stub
-        return null;
+    public List<City> findByKeywords(final String keywords) {
+
+        return cityRepository.findByKeywords(keywords);
     }
 
 }

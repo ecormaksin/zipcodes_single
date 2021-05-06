@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import com.example.zipcodes.domain.model.prefecture.Prefecture;
 import com.example.zipcodes.domain.model.prefecture.PrefectureCode;
 import com.example.zipcodes.domain.model.prefecture.PrefectureRepository;
-import com.example.zipcodes.infra.db.jpa.mapper.PrefectureEntityMapper;
+import com.example.zipcodes.infra.db.jpa.mapper.PrefectureResourceMapper;
 import com.example.zipcodes.infra.db.jpa.view.PrefectureResource;
 import com.example.zipcodes.infra.db.jpa.view.QPrefectureResource;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -23,7 +23,7 @@ import lombok.RequiredArgsConstructor;
 public class PrefectureRepositoryImpl implements PrefectureRepository {
 
     private final EntityManager entityManager;
-    private final PrefectureEntityMapper prefectureEntityMapper;
+    private final PrefectureResourceMapper prefectureResourceMapper;
 
     private JPAQueryFactory queryFactory;
 
@@ -44,7 +44,7 @@ public class PrefectureRepositoryImpl implements PrefectureRepository {
                 .fetch();
         // @formatter:on
 
-        return prefectureEntityMapper.fromEntityListToDomainObjectList(entityList);
+        return prefectureResourceMapper.fromEntityListToDomainObjectList(entityList);
     }
 
     @Override
@@ -58,7 +58,7 @@ public class PrefectureRepositoryImpl implements PrefectureRepository {
 
         return null == prefecture ? 
                 Optional.empty()
-                : Optional.of(prefectureEntityMapper.fromEntityToDomainObject(prefecture));
+                : Optional.of(prefectureResourceMapper.fromEntityToDomainObject(prefecture));
         // @formatter:on
 
     }

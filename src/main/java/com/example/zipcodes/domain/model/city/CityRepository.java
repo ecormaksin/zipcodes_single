@@ -10,4 +10,6 @@ public interface CityRepository {
     List<City> findByPrefectureCode(PrefectureCode prefectureCode);
 
     Optional<City> findByJapaneseLocalGovernmentCode(JapaneseLocalGovernmentCode japaneseLocalGovernmentCode);
+
+    List<City> findByKeywords(String keywords);
 }
