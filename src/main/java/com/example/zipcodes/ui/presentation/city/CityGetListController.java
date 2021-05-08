@@ -40,14 +40,17 @@ public class CityGetListController {
         return (ResponseEntity<List<CityDto>>) controllerUtil.ok(dtos);
     }
 
-    @SuppressWarnings("unchecked")
     @GetMapping(CITIES_GET_LIST)
-    public ResponseEntity<List<CityDto>> findByKeywords(@RequestParam(name = KEYWORDS) final String keywords) {
+    public ResponseEntity<?> findByKeywords(@RequestParam(name = KEYWORDS) final String keywords) {
 
         List<City> entities = cityGetListUseCase.findByKeywords(keywords);
 
         List<CityDto> dtos = cityDtoMapper.fromDomainObjectListToDtoList(entities);
 
-        return (ResponseEntity<List<CityDto>>) controllerUtil.ok(dtos);
+        // @formatter:off
+        return dtos.isEmpty() ? 
+                controllerUtil.notFound("message.cities.not.found")
+                : controllerUtil.ok(dtos);
+        // @formatter:on
     }
 }

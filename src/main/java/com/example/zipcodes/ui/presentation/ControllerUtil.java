@@ -49,6 +49,11 @@ public final class ControllerUtil {
         return new ResponseEntity<>(errorResponse, jsonHttpHeaders(), httpStatus);
     }
 
+    public ResponseEntity<GeneralErrorObject> notFound(final String messageCode) {
+
+        return generalErrorResponseEntity(messageCode, null, HttpStatus.NOT_FOUND);
+    }
+
     public ResponseEntity<GeneralErrorObject> notFound(final String messageCode, @Nullable Object[] messageArgs) {
 
         return generalErrorResponseEntity(messageCode, messageArgs, HttpStatus.NOT_FOUND);

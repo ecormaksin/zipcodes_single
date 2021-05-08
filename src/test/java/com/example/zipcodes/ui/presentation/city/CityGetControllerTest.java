@@ -61,7 +61,7 @@ class CityGetControllerTest {
 
         // @formatter:off
         final String expectedString = "{"
-                + "\"errorMessage\":\"地方自治体コード: 99999 に対応する情報はありません。\"" 
+                + "\"errorMessage\":\"地方自治体コード: 99999 に該当する市区町村はありません。\"" 
                 + "}";
         // @formatter:on
 

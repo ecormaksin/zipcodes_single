@@ -10,6 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
@@ -89,6 +90,27 @@ class CityGetListControllerTest {
         mockMvc.perform(get(CITIES_GET_LIST + String.format("?%s=%s", KEYWORDS, keywords)))
             .andExpect(status().isOk())
             .andExpect(content().string(objectMapper.writeValueAsString(dtos)));
+        // @formatter:on
+    }
+
+    @Test
+    @DisplayName("都道府県コード指定なし、かつ、検索キーワードに該当する市区町村が存在しない時は404エラーが返ってくる")
+    void findByKeywordsNotFound() throws Exception {
+
+        // @formatter:off
+        final String expectedString = "{"
+                + "\"errorMessage\":\"該当する市区町村はありません。\"" 
+                + "}";
+        // @formatter:on
+
+        final String keywords = "あいうえお";
+        when(cityGetListUseCase.findByKeywords(keywords)).thenReturn(Collections.emptyList());
+
+        // @formatter:off
+        mockMvc.perform(get(CITIES_GET_LIST + String.format("?%s=%s", KEYWORDS, keywords)))
+            .andExpect(status().isNotFound())
+            .andExpect(content().string(expectedString))
+            .andDo(print());
         // @formatter:on
     }
 

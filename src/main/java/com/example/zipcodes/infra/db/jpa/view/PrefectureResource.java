@@ -13,7 +13,7 @@ import javax.persistence.Table;
  * 
  */
 @Entity(name = "Prefecture")
-@Table(name = "PREFECTURES")
+@Table(schema = "ZIP_CODE", name = "PREFECTURES")
 @NamedQuery(name = "Prefecture.findAll", query = "SELECT p FROM Prefecture p")
 public class PrefectureResource implements Serializable {
     private static final long serialVersionUID = 1L;

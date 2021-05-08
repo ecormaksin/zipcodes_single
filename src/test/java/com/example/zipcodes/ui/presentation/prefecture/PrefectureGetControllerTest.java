@@ -61,7 +61,7 @@ class PrefectureGetControllerTest {
 
         // @formatter:off
         final String expectedString = "{"
-                + "\"errorMessage\":\"都道府県コード: 99 に対応する情報はありません。\"" 
+                + "\"errorMessage\":\"都道府県コード: 99 に該当する都道府県はありません。\"" 
                 + "}";
         // @formatter:on
 
