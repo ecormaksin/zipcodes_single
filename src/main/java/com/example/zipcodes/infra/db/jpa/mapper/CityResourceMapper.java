@@ -20,20 +20,20 @@ import com.ibm.icu.text.Transliterator;
 @Mapper(injectionStrategy = InjectionStrategy.CONSTRUCTOR)
 public interface CityResourceMapper {
 
-    default City fromEntityToDomainObject(CityResource cityResource) {
+    default City fromEntityToDomainObject(CityResource entity) {
 
         final Transliterator hiraganaTransliterator = Transliterator.getInstance("Katakana-Hiragana");
         final Transliterator katakanaTransliterator = Transliterator.getInstance("Halfwidth-Fullwidth");
 
-        final String kanaHalfwidth = cityResource.getCityNameKana();
+        final String kanaHalfwidth = entity.getCityNameKana();
         final String kanaFullwidth = katakanaTransliterator.transliterate(kanaHalfwidth);
         final String hiragana = hiraganaTransliterator.transliterate(kanaFullwidth);
 
         // @formatter:off
 		return City.builder()
-				.prefectureCode(new PrefectureCode(cityResource.getPrefectureCode()))
-	            .japaneseLocalGovernmentCode(new JapaneseLocalGovernmentCode(cityResource.getJapaneseLocalGovermentCode()))
-	            .kanjiName(new CityKanjiName(cityResource.getCityName()))
+				.prefectureCode(new PrefectureCode(entity.getPrefectureCode()))
+	            .japaneseLocalGovernmentCode(new JapaneseLocalGovernmentCode(entity.getJapaneseLocalGovermentCode()))
+	            .kanjiName(new CityKanjiName(entity.getCityName()))
 	            .hiraganaName(new CityHiraganaName(hiragana))
 	            .katakanaFullwidthName(new CityKatakanaFullwidthName(kanaFullwidth))
 	            .katakanaHalfwidthName(new CityKatakanaHalfwidthName(kanaHalfwidth))
@@ -41,5 +41,5 @@ public interface CityResourceMapper {
 		// @formatter:on
     }
 
-    List<City> fromEntityListToDomainObjectList(List<CityResource> entityList);
+    List<City> fromEntityListToDomainObjectList(List<CityResource> entities);
 }

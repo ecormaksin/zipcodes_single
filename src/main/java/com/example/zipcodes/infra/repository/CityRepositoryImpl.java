@@ -15,7 +15,6 @@ import com.example.zipcodes.domain.model.prefecture.PrefectureCode;
 import com.example.zipcodes.infra.db.jpa.mapper.CityResourceMapper;
 import com.example.zipcodes.infra.db.jpa.view.CityResource;
 import com.example.zipcodes.infra.db.jpa.view.QCityResource;
-import com.ibm.icu.text.Transliterator;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
@@ -72,25 +71,13 @@ public class CityRepositoryImpl implements CityRepository {
     @Override
     public List<City> findByKeywords(final String keywords) {
 
-        final Transliterator hiraganaTransliterator = Transliterator.getInstance("Hiragana-Katakana");
-        final Transliterator katakanaTransliterator = Transliterator.getInstance("Fullwidth-Halfwidth");
-
-        final String[] keywordArray = keywords.split(" ");
-
-        BooleanBuilder cityNameCondition = new BooleanBuilder();
-        BooleanBuilder cityNameKanaCondition = new BooleanBuilder();
-        for (String keyword : keywordArray) {
-            cityNameCondition.and(qCity.cityName.like("%" + keyword + "%"));
-
-            final String katakanaKeyword = katakanaTransliterator
-                    .transliterate(hiraganaTransliterator.transliterate(keyword));
-            cityNameKanaCondition.and(qCity.cityNameKana.like("%" + katakanaKeyword + "%"));
-        }
+        final BooleanBuilder keywordCondition = KeywordsConditionBuilder.build(qCity.cityName, qCity.cityNameKana,
+                keywords);
 
         // @formatter:off
         List<CityResource> cities = queryFactory
                 .selectFrom(qCity)
-                .where( cityNameCondition.or(cityNameKanaCondition) )
+                .where( keywordCondition )
                 .orderBy( 
                         qCity.prefectureCode.asc()
                         , qCity.japaneseLocalGovermentCode.asc() 

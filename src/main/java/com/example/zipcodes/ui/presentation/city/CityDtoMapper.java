@@ -25,5 +25,5 @@ public interface CityDtoMapper {
         // @formatter:on
     }
 
-    List<CityDto> fromDomainObjectListToDtoList(List<City> entityList);
+    List<CityDto> fromDomainObjectListToDtoList(List<City> entities);
 }

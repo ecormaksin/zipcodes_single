@@ -8,4 +8,6 @@ public interface PrefectureRepository {
     List<Prefecture> findAll();
 
     Optional<Prefecture> findByPrefectureCode(PrefectureCode prefectureCode);
+
+    List<Prefecture> findByPrefectureCode(String keywords);
 }

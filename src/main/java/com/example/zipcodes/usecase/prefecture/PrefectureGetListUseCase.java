@@ -19,4 +19,9 @@ public class PrefectureGetListUseCase {
 
         return prefectureRepository.findAll();
     }
+
+    public List<Prefecture> findByKeywords(final String keywords) {
+
+        return prefectureRepository.findByPrefectureCode(keywords);
+    }
 }

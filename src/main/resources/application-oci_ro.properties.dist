@@ -1,3 +1,3 @@
-spring.datasource.url=jdbc:log4jdbc:oracle:thin:@zipcodes_tpurgent?TNS_ADMIN=C:\\opt\\zipcodes\\Wallet_ZIPCODES
-spring.datasource.username=ZIP_CODE_RO
-spring.datasource.password=Password1234
+spring.datasource.url=jdbc:log4jdbc:oracle:thin:@<service>?TNS_ADMIN=<wallet_zip_file_path>
+spring.datasource.username=<user_name>
+spring.datasource.password=<password>

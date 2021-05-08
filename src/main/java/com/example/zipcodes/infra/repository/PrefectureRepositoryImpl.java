@@ -14,6 +14,7 @@ import com.example.zipcodes.domain.model.prefecture.PrefectureRepository;
 import com.example.zipcodes.infra.db.jpa.mapper.PrefectureResourceMapper;
 import com.example.zipcodes.infra.db.jpa.view.PrefectureResource;
 import com.example.zipcodes.infra.db.jpa.view.QPrefectureResource;
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import lombok.RequiredArgsConstructor;
@@ -38,28 +39,46 @@ public class PrefectureRepositoryImpl implements PrefectureRepository {
     public List<Prefecture> findAll() {
 
         // @formatter:off
-        List<PrefectureResource> entityList = queryFactory
+        List<PrefectureResource> resources = queryFactory
                 .selectFrom(qPrefecture)
                 .orderBy(qPrefecture.prefectureCode.asc())
                 .fetch();
         // @formatter:on
 
-        return prefectureResourceMapper.fromEntityListToDomainObjectList(entityList);
+        return prefectureResourceMapper.fromEntityListToDomainObjectList(resources);
     }
 
     @Override
     public Optional<Prefecture> findByPrefectureCode(final PrefectureCode prefectureCode) {
 
         // @formatter:off
-        PrefectureResource prefecture = queryFactory
+        PrefectureResource entity = queryFactory
                 .selectFrom(qPrefecture)
                 .where( qPrefecture.prefectureCode.eq(prefectureCode.getValue()) )
                 .fetchOne();
 
-        return null == prefecture ? 
+        return null == entity ? 
                 Optional.empty()
-                : Optional.of(prefectureResourceMapper.fromEntityToDomainObject(prefecture));
+                : Optional.of(prefectureResourceMapper.fromEntityToDomainObject(entity));
         // @formatter:on
 
+    }
+
+    @Override
+    public List<Prefecture> findByPrefectureCode(final String keywords) {
+
+        final BooleanBuilder keywordCondition = KeywordsConditionBuilder.build(qPrefecture.prefectureName,
+                qPrefecture.prefectureNameKana, keywords);
+
+        // @formatter:off
+        List<PrefectureResource> entities = queryFactory
+                .selectFrom(qPrefecture)
+                .where( keywordCondition )
+                .orderBy( 
+                        qPrefecture.prefectureCode.asc()
+                ).fetch();
+        // @formatter:on
+
+        return prefectureResourceMapper.fromEntityListToDomainObjectList(entities);
     }
 }

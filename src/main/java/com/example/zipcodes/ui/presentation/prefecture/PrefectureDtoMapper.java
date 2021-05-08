@@ -25,5 +25,5 @@ public interface PrefectureDtoMapper {
 		// @formatter:on
     }
 
-    List<PrefectureDto> fromDomainObjectListToDtoList(List<Prefecture> entityList);
+    List<PrefectureDto> fromDomainObjectListToDtoList(List<Prefecture> entities);
 }

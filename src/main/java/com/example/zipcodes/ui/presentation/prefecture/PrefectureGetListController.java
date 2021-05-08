@@ -1,11 +1,14 @@
 package com.example.zipcodes.ui.presentation.prefecture;
 
 import static com.example.zipcodes.ui.presentation.EndpointUrls.PREFECTURES_GET_LIST;
+import static com.example.zipcodes.ui.presentation.Names.KEYWORDS;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.zipcodes.domain.model.prefecture.Prefecture;
@@ -22,14 +25,21 @@ public class PrefectureGetListController {
     private final PrefectureDtoMapper prefectureDtoMapper;
     private final ControllerUtil controllerUtil;
 
-    @SuppressWarnings("unchecked")
     @GetMapping(PREFECTURES_GET_LIST)
-    public ResponseEntity<List<PrefectureDto>> findAll() {
+    public ResponseEntity<?> findByKeywords(@RequestParam(name = KEYWORDS) final Optional<String> optionalKeywords) {
 
-        List<Prefecture> entities = prefectureGetListUseCase.findAll();
+        // @formatter:off
+        List<Prefecture> entities = optionalKeywords.isPresent() ?
+                prefectureGetListUseCase.findByKeywords(optionalKeywords.get())
+                : prefectureGetListUseCase.findAll();
+        // @formatter:on
 
         List<PrefectureDto> dtos = prefectureDtoMapper.fromDomainObjectListToDtoList(entities);
 
-        return (ResponseEntity<List<PrefectureDto>>) controllerUtil.ok(dtos);
+        // @formatter:off
+        return dtos.isEmpty() ?
+                controllerUtil.notFound("message.prefectures.not.found")
+                : controllerUtil.ok(dtos);
+        // @formatter:on
     }
 }
