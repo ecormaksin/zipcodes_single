@@ -138,7 +138,7 @@ GRANT UNLIMITED TABLESPACE TO ZIP_CODE;
 
 ```
 sudo groupadd spring
-sudo useradd -g spring spring
+sudo adduser --shell /sbin/nologin --disabled-login --disabled-password --quiet spring
 ```
 
 # アプリケーション用ディレクトリの作成
