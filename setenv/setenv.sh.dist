@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# Copy this file and rename `setenv.sh`, and change values appropriately in the environment.
+
+export SPRING_DATASOURCE_URL=jdbc:log4jdbc:oracle:thin:@<service>?TNS_ADMIN=<wallet_zip_dir_path>
+export SPRING_DATASOURCE_USERNAME=<username>
+export SPRING_DATASOURCE_PASSWORD=<password>
+export LOGGING_FILE_NAME=<logfile_path>

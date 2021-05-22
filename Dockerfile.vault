@@ -1,8 +1,0 @@
-FROM vault:1.5.3
-
-COPY ./vault_passwd /vault/
-COPY ./vault/setup_vault.sh /vault/
-
-RUN chmod +x /vault/setup_vault.sh
-
-ENTRYPOINT ["/vault/setup_vault.sh"]
