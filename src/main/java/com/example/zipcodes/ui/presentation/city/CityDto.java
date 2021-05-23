@@ -1,10 +1,10 @@
 package com.example.zipcodes.ui.presentation.city;
 
-import static com.example.zipcodes.ui.presentation.Names.HIRAGANA_NAME;
-import static com.example.zipcodes.ui.presentation.Names.JAPANESE_LOCAL_GOVERNMENT_CODE;
-import static com.example.zipcodes.ui.presentation.Names.KANJI_NAME;
-import static com.example.zipcodes.ui.presentation.Names.KATAKANA_FULLWIDTH_NAME;
-import static com.example.zipcodes.ui.presentation.Names.KATAKANA_HALFWIDTH_NAME;
+import static com.example.zipcodes.ui.presentation.KeyNames.HIRAGANA_NAME;
+import static com.example.zipcodes.ui.presentation.KeyNames.JAPANESE_LOCAL_GOVERNMENT_CODE;
+import static com.example.zipcodes.ui.presentation.KeyNames.KANJI_NAME;
+import static com.example.zipcodes.ui.presentation.KeyNames.KATAKANA_FULLWIDTH_NAME;
+import static com.example.zipcodes.ui.presentation.KeyNames.KATAKANA_HALFWIDTH_NAME;
 
 import java.io.Serializable;
 

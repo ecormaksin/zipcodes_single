@@ -1,7 +1,7 @@
 package com.example.zipcodes.ui.presentation.prefecture;
 
-import static com.example.zipcodes.ui.presentation.EndpointUrls.PREFECTURES_GET_LIST;
-import static com.example.zipcodes.ui.presentation.Names.KEYWORDS;
+import static com.example.zipcodes.ui.presentation.EndpointUrls.PREFECTURES;
+import static com.example.zipcodes.ui.presentation.KeyNames.KEYWORDS;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -56,7 +56,7 @@ class PrefectureGetListControllerTest {
 
         ObjectMapper objectMapper = new ObjectMapper();
         // @formatter:off
-        mockMvc.perform(get(PREFECTURES_GET_LIST))
+        mockMvc.perform(get(PREFECTURES))
             .andExpect(status().isOk())
             .andExpect(content().string(objectMapper.writeValueAsString(dtos)));
         // @formatter:on
@@ -80,7 +80,7 @@ class PrefectureGetListControllerTest {
 
         ObjectMapper objectMapper = new ObjectMapper();
         // @formatter:off
-        mockMvc.perform(get(PREFECTURES_GET_LIST + String.format("?%s=%s", KEYWORDS, keywords)))
+        mockMvc.perform(get(PREFECTURES + String.format("?%s=%s", KEYWORDS, keywords)))
             .andExpect(status().isOk())
             .andExpect(content().string(objectMapper.writeValueAsString(dtos)));
         // @formatter:on
@@ -100,7 +100,7 @@ class PrefectureGetListControllerTest {
         when(prefectureGetListUseCase.findByKeywords(keywords)).thenReturn(Collections.emptyList());
 
         // @formatter:off
-        mockMvc.perform(get(PREFECTURES_GET_LIST + String.format("?%s=%s", KEYWORDS, keywords)))
+        mockMvc.perform(get(PREFECTURES + String.format("?%s=%s", KEYWORDS, keywords)))
             .andExpect(status().isNotFound())
             .andExpect(content().string(expectedString))
             .andDo(print());

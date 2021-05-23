@@ -1,11 +1,12 @@
 package com.example.zipcodes.ui.presentation.city;
 
-import static com.example.zipcodes.ui.presentation.EndpointUrls.CITIES_GET_LIST;
-import static com.example.zipcodes.ui.presentation.EndpointUrls.PREFECTURE_GET;
-import static com.example.zipcodes.ui.presentation.Names.KEYWORDS;
-import static com.example.zipcodes.ui.presentation.Names.PREFECTURE_CODE;
+import static com.example.zipcodes.ui.presentation.EndpointUrls.CITIES;
+import static com.example.zipcodes.ui.presentation.EndpointUrls.CITIES_WITH_PREFECTURES;
+import static com.example.zipcodes.ui.presentation.KeyNames.KEYWORDS;
+import static com.example.zipcodes.ui.presentation.KeyNames.PREFECTURE_CODE;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,24 +29,32 @@ public class CityGetListController {
     private final CityDtoMapper cityDtoMapper;
     private final ControllerUtil controllerUtil;
 
-    @SuppressWarnings("unchecked")
-    @GetMapping(PREFECTURE_GET + CITIES_GET_LIST)
-    public ResponseEntity<List<CityDto>> findByPrefectureCode(
-            @PathVariable(name = PREFECTURE_CODE) final String prefectureCodeStr) {
+    @GetMapping(CITIES_WITH_PREFECTURES)
+    public ResponseEntity<?> findByPrefectureCode(@PathVariable(name = PREFECTURE_CODE) final String prefectureCodeStr,
+            @RequestParam(name = KEYWORDS) final Optional<String> optKeywords) {
 
-        List<City> entities = cityGetListUseCase.findByPrefectureCode(new PrefectureCode(prefectureCodeStr));
+        final PrefectureCode prefectureCode = new PrefectureCode(prefectureCodeStr);
 
-        List<CityDto> dtos = cityDtoMapper.fromDomainObjectListToDtoList(entities);
+        // @formatter:off
+        List<City> entities = optKeywords.isPresent() ?
+                cityGetListUseCase.findByPrefectureCodeKeywords(prefectureCode, optKeywords.get())
+                : cityGetListUseCase.findByPrefectureCode(prefectureCode);
+        // @formatter:on
 
-        return (ResponseEntity<List<CityDto>>) controllerUtil.ok(dtos);
+        return responseEntity(entities);
     }
 
-    @GetMapping(CITIES_GET_LIST)
+    @GetMapping(CITIES)
     public ResponseEntity<?> findByKeywords(@RequestParam(name = KEYWORDS) final String keywords) {
 
         List<City> entities = cityGetListUseCase.findByKeywords(keywords);
 
-        List<CityDto> dtos = cityDtoMapper.fromDomainObjectListToDtoList(entities);
+        return responseEntity(entities);
+    }
+
+    private ResponseEntity<?> responseEntity(List<City> entities) {
+
+        List<CityDto> dtos = cityDtoMapper.fromDomainObjectsToDtos(entities);
 
         // @formatter:off
         return dtos.isEmpty() ? 

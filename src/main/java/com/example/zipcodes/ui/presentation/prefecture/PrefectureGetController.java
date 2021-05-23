@@ -1,7 +1,7 @@
 package com.example.zipcodes.ui.presentation.prefecture;
 
-import static com.example.zipcodes.ui.presentation.EndpointUrls.PREFECTURE_GET;
-import static com.example.zipcodes.ui.presentation.Names.PREFECTURE_CODE;
+import static com.example.zipcodes.ui.presentation.EndpointUrls.PREFECTURE;
+import static com.example.zipcodes.ui.presentation.KeyNames.PREFECTURE_CODE;
 
 import java.util.Optional;
 
@@ -25,7 +25,7 @@ public class PrefectureGetController {
     private final PrefectureDtoMapper prefectureDtoMapper;
     private final ControllerUtil controllerUtil;
 
-    @GetMapping(PREFECTURE_GET)
+    @GetMapping(PREFECTURE)
     public ResponseEntity<?> get(@PathVariable(name = PREFECTURE_CODE) final String prefectureCodeStr) {
 
         Optional<Prefecture> optionalPrefecture = prefectureGetUseCase.get(new PrefectureCode(prefectureCodeStr));

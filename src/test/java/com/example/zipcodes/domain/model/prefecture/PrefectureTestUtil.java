@@ -3,8 +3,10 @@ package com.example.zipcodes.domain.model.prefecture;
 public final class PrefectureTestUtil {
 
     public static final PrefectureCode PREFECTURE_CODE_TOKYO = new PrefectureCode("13");
+    public static final String PREFECTURE_CODE_TOKYO_STR = PREFECTURE_CODE_TOKYO.getValue();
     public static final PrefectureCode PREFECTURE_CODE_KYOTO = new PrefectureCode("26");
     public static final PrefectureCode PREFECTURE_CODE_NOT_EXIST = new PrefectureCode("99");
+    public static final String PREFECTURE_CODE_NOT_EXIST_STR = PREFECTURE_CODE_NOT_EXIST.getValue();
 
     public static Prefecture tokyoto() {
 

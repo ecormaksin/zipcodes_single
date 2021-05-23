@@ -1,6 +1,6 @@
 package com.example.zipcodes.ui.presentation;
 
-public final class Names {
+public final class KeyNames {
 
     public static final String HIRAGANA_NAME = "hiraganaName";
     public static final String JAPANESE_LOCAL_GOVERNMENT_CODE = "japaneseLocalGovernmentCode";

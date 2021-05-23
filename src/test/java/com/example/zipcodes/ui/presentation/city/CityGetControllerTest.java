@@ -1,6 +1,6 @@
 package com.example.zipcodes.ui.presentation.city;
 
-import static com.example.zipcodes.ui.presentation.EndpointUrls.CITIES_GET_LIST;
+import static com.example.zipcodes.ui.presentation.EndpointUrls.CITIES;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -49,7 +49,7 @@ class CityGetControllerTest {
         when(cityGetUseCase.get(JP_LOCAL_GOV_CODE_SHINJUKUKU)).thenReturn(Optional.of(CityTestUtil.shinjukuku()));
 
         // @formatter:off
-        mockMvc.perform(get(CITIES_GET_LIST + "/" + JP_LOCAL_GOV_CODE_SHINJUKUKU.getValue()))
+        mockMvc.perform(get(CITIES + "/" + JP_LOCAL_GOV_CODE_SHINJUKUKU.getValue()))
             .andExpect(status().isOk())
             .andExpect(content().string(expectedString))
             .andDo(print());
@@ -69,7 +69,7 @@ class CityGetControllerTest {
         when(cityGetUseCase.get(JP_LOCAL_GOV_CODE_NOT_EXIST)).thenReturn(Optional.empty());
 
         // @formatter:off
-        mockMvc.perform(get(CITIES_GET_LIST + "/" + JP_LOCAL_GOV_CODE_NOT_EXIST.getValue()))
+        mockMvc.perform(get(CITIES + "/" + JP_LOCAL_GOV_CODE_NOT_EXIST.getValue()))
             .andExpect(status().isNotFound())
             .andExpect(content().string(expectedString))
             .andDo(print());

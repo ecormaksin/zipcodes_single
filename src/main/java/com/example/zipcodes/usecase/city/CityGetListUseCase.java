@@ -26,4 +26,9 @@ public class CityGetListUseCase {
         return cityRepository.findByKeywords(keywords);
     }
 
+    public List<City> findByPrefectureCodeKeywords(final PrefectureCode prefectureCodeTokyo, final String keywords) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }

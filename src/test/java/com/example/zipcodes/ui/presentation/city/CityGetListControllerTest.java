@@ -1,8 +1,5 @@
 package com.example.zipcodes.ui.presentation.city;
 
-import static com.example.zipcodes.ui.presentation.EndpointUrls.CITIES_GET_LIST;
-import static com.example.zipcodes.ui.presentation.EndpointUrls.PREFECTURES_GET_LIST;
-import static com.example.zipcodes.ui.presentation.Names.KEYWORDS;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -33,6 +30,32 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Import(value = { CityDtoMapperImpl.class, ControllerUtil.class })
 class CityGetListControllerTest {
 
+    private static final PrefectureCode PREFECTURE_CODE_TOKYO = PrefectureTestUtil.PREFECTURE_CODE_TOKYO;
+    private static final PrefectureCode PREFECTURE_CODE_NOT_EXIST = PrefectureTestUtil.PREFECTURE_CODE_NOT_EXIST;
+
+    // 便宜的に東京都の地方自治体コード昇順上位4件をサンプルとして返す
+    // @formatter:off
+    private static final List<City> resCities = Arrays.asList(
+            CityTestUtil.chiyodaku()
+            , CityTestUtil.chuoku()
+            , CityTestUtil.minatoku()
+            , CityTestUtil.shinjukuku()
+            );
+    // @formatter:on
+
+    // 便宜的に東京都新宿1件をサンプルとして返す
+    // @formatter:off
+    private static final List<City> resCity = Arrays.asList(
+            CityTestUtil.shinjukuku()
+            );
+    // @formatter:on
+
+    // @formatter:off
+    private static final String resNotFound = "{"
+            + "\"errorMessage\":\"該当する市区町村はありません。\"" 
+            + "}";
+    // @formatter:on
+
     @Autowired
     private MockMvc mockMvc;
 
@@ -46,26 +69,62 @@ class CityGetListControllerTest {
     @DisplayName("都道府県コード指定あり、かつ、検索キーワード指定なしの時は都道府県内のすべての市区町村が返ってくる")
     void findByPrefectureCode() throws Exception {
 
-        // 便宜的に東京都の地方自治体コード昇順上位4件をサンプルとして返す
-        // @formatter:off
-        List<City> cities = Arrays.asList(
-                CityTestUtil.chiyodaku()
-                , CityTestUtil.chuoku()
-                , CityTestUtil.minatoku()
-                , CityTestUtil.shinjukuku()
-                );
-        // @formatter:on
-
-        List<CityDto> dtos = cityDtoMapper.fromDomainObjectListToDtoList(cities);
-
-        final PrefectureCode PREFECTURE_CODE_TOKYO = PrefectureTestUtil.PREFECTURE_CODE_TOKYO;
-        when(cityGetListUseCase.findByPrefectureCode(PREFECTURE_CODE_TOKYO)).thenReturn(cities);
+        when(cityGetListUseCase.findByPrefectureCode(PREFECTURE_CODE_TOKYO)).thenReturn(resCities);
 
         ObjectMapper objectMapper = new ObjectMapper();
+        List<CityDto> dtos = cityDtoMapper.fromDomainObjectsToDtos(resCities);
+
         // @formatter:off
-        mockMvc.perform(get(PREFECTURES_GET_LIST + "/" + PREFECTURE_CODE_TOKYO.getValue() + CITIES_GET_LIST))
+        mockMvc.perform(get("/prefectures/13/cities"))
             .andExpect(status().isOk())
             .andExpect(content().string(objectMapper.writeValueAsString(dtos)));
+        // @formatter:on
+    }
+
+    @Test
+    @DisplayName("存在しない都道府県コードを指定した時は404エラーが返ってくる")
+    void findByPrefectureCodeNotFound() throws Exception {
+
+        when(cityGetListUseCase.findByPrefectureCode(PREFECTURE_CODE_NOT_EXIST)).thenReturn(Collections.emptyList());
+
+        // @formatter:off
+        mockMvc.perform(get("/prefectures/99/cities"))
+            .andExpect(status().isNotFound())
+            .andExpect(content().string(resNotFound))
+            .andDo(print());
+        // @formatter:on
+    }
+
+    @Test
+    @DisplayName("都道府県コード指定あり、かつ、検索キーワード指定ありの時はキーワードに該当する市区町村が返ってくる")
+    void findByPrefectureCodeKeywords() throws Exception {
+
+        final String keywords = "新 宿";
+        when(cityGetListUseCase.findByPrefectureCodeKeywords(PREFECTURE_CODE_TOKYO, keywords)).thenReturn(resCity);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<CityDto> dtos = cityDtoMapper.fromDomainObjectsToDtos(resCity);
+
+        // @formatter:off
+        mockMvc.perform(get("/prefectures/13/cities?keywords=" + keywords))
+            .andExpect(status().isOk())
+            .andExpect(content().string(objectMapper.writeValueAsString(dtos)));
+        // @formatter:on
+    }
+
+    @Test
+    @DisplayName("都道府県コード指定あり、かつ、検索キーワードに該当する市区町村が存在しない時は404エラーが返ってくる")
+    void findByPrefectureCodeKeywordsNotFound() throws Exception {
+
+        final String keywords = "あいうえお";
+        when(cityGetListUseCase.findByPrefectureCodeKeywords(PREFECTURE_CODE_TOKYO, keywords))
+                .thenReturn(Collections.emptyList());
+
+        // @formatter:off
+        mockMvc.perform(get("/prefectures/33/cities?keywords=" + keywords))
+            .andExpect(status().isNotFound())
+            .andExpect(content().string(resNotFound))
+            .andDo(print());
         // @formatter:on
     }
 
@@ -73,21 +132,14 @@ class CityGetListControllerTest {
     @DisplayName("都道府県コード指定なし、かつ、検索キーワード指定ありの時はキーワードに該当する市区町村が返ってくる")
     void findByKeywords() throws Exception {
 
-        // 便宜的に東京都新宿1件をサンプルとして返す
-        // @formatter:off
-        List<City> cities = Arrays.asList(
-                CityTestUtil.shinjukuku()
-                );
-        // @formatter:on
-
-        List<CityDto> dtos = cityDtoMapper.fromDomainObjectListToDtoList(cities);
-
         final String keywords = "新 宿";
-        when(cityGetListUseCase.findByKeywords(keywords)).thenReturn(cities);
+        when(cityGetListUseCase.findByKeywords(keywords)).thenReturn(resCity);
 
         ObjectMapper objectMapper = new ObjectMapper();
+        List<CityDto> dtos = cityDtoMapper.fromDomainObjectsToDtos(resCity);
+
         // @formatter:off
-        mockMvc.perform(get(CITIES_GET_LIST + String.format("?%s=%s", KEYWORDS, keywords)))
+        mockMvc.perform(get("/cities?keywords=" + keywords))
             .andExpect(status().isOk())
             .andExpect(content().string(objectMapper.writeValueAsString(dtos)));
         // @formatter:on
@@ -97,19 +149,13 @@ class CityGetListControllerTest {
     @DisplayName("都道府県コード指定なし、かつ、検索キーワードに該当する市区町村が存在しない時は404エラーが返ってくる")
     void findByKeywordsNotFound() throws Exception {
 
-        // @formatter:off
-        final String expectedString = "{"
-                + "\"errorMessage\":\"該当する市区町村はありません。\"" 
-                + "}";
-        // @formatter:on
-
         final String keywords = "あいうえお";
         when(cityGetListUseCase.findByKeywords(keywords)).thenReturn(Collections.emptyList());
 
         // @formatter:off
-        mockMvc.perform(get(CITIES_GET_LIST + String.format("?%s=%s", KEYWORDS, keywords)))
+        mockMvc.perform(get("/cities?keywords=" + keywords))
             .andExpect(status().isNotFound())
-            .andExpect(content().string(expectedString))
+            .andExpect(content().string(resNotFound))
             .andDo(print());
         // @formatter:on
     }
@@ -125,7 +171,7 @@ class CityGetListControllerTest {
         // @formatter:on
 
         // @formatter:off
-        mockMvc.perform(get(CITIES_GET_LIST))
+        mockMvc.perform(get("/cities"))
             .andExpect(status().isBadRequest())
             .andExpect(content().string(expectedString))
             .andDo(print());

@@ -1,7 +1,7 @@
 package com.example.zipcodes.ui.presentation.city;
 
-import static com.example.zipcodes.ui.presentation.EndpointUrls.CITY_GET;
-import static com.example.zipcodes.ui.presentation.Names.JAPANESE_LOCAL_GOVERNMENT_CODE;
+import static com.example.zipcodes.ui.presentation.EndpointUrls.CITY;
+import static com.example.zipcodes.ui.presentation.KeyNames.JAPANESE_LOCAL_GOVERNMENT_CODE;
 
 import java.util.Optional;
 
@@ -25,7 +25,7 @@ public class CityGetController {
     private final CityDtoMapper cityDtoMapper;
     private final ControllerUtil controllerUtil;
 
-    @GetMapping(CITY_GET)
+    @GetMapping(CITY)
     public ResponseEntity<?> get(@PathVariable(name = JAPANESE_LOCAL_GOVERNMENT_CODE) final String jpLocalGovCodeStr) {
 
         Optional<City> optionalCity = cityGetUseCase.get(new JapaneseLocalGovernmentCode(jpLocalGovCodeStr));

@@ -1,7 +1,7 @@
 package com.example.zipcodes.ui.presentation.prefecture;
 
-import static com.example.zipcodes.ui.presentation.EndpointUrls.PREFECTURES_GET_LIST;
-import static com.example.zipcodes.ui.presentation.Names.KEYWORDS;
+import static com.example.zipcodes.ui.presentation.EndpointUrls.PREFECTURES;
+import static com.example.zipcodes.ui.presentation.KeyNames.KEYWORDS;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,7 +25,7 @@ public class PrefectureGetListController {
     private final PrefectureDtoMapper prefectureDtoMapper;
     private final ControllerUtil controllerUtil;
 
-    @GetMapping(PREFECTURES_GET_LIST)
+    @GetMapping(PREFECTURES)
     public ResponseEntity<?> findByKeywords(@RequestParam(name = KEYWORDS) final Optional<String> optionalKeywords) {
 
         // @formatter:off
