@@ -1,5 +1,5 @@
-rem Copy this file and rename `setenv.bat`, and change values appropriately in the environment.
 @echo off
+rem Copy this file and rename `setenv.bat`, and change values appropriately in the environment.
 
 set SPRING_DATASOURCE_URL=jdbc:log4jdbc:oracle:thin:@<service>?TNS_ADMIN=<wallet_zip_dir_path>
 set SPRING_DATASOURCE_USERNAME=<username>

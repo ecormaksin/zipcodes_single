@@ -12,9 +12,9 @@ import javax.persistence.Table;
  * The persistent class for the PREFECTURES database table.
  * 
  */
-@Entity(name = "Prefecture")
+@Entity
 @Table(schema = "ZIP_CODE", name = "PREFECTURES")
-@NamedQuery(name = "Prefecture.findAll", query = "SELECT p FROM Prefecture p")
+@NamedQuery(name = "PrefectureResource.findAll", query = "SELECT p FROM PrefectureResource p")
 public class PrefectureResource implements Serializable {
     private static final long serialVersionUID = 1L;
 

@@ -12,9 +12,9 @@ import javax.persistence.Table;
  * The persistent class for the CITIES database table.
  * 
  */
-@Entity(name = "City")
+@Entity
 @Table(schema = "ZIP_CODE", name = "CITIES")
-@NamedQuery(name = "City.findAll", query = "SELECT c FROM City c")
+@NamedQuery(name = "CityResource.findAll", query = "SELECT c FROM CityResource c")
 public class CityResource implements Serializable {
     private static final long serialVersionUID = 1L;
 

@@ -10,37 +10,42 @@ import javax.persistence.Table;
 
 /**
  * The persistent class for the TOWN_AREAS database table.
- *
+ * 
  */
-@Entity(name = "TownArea")
+@Entity
 @Table(schema = "ZIP_CODE", name = "TOWN_AREAS")
-@NamedQuery(name = "TownArea.findAll", query = "SELECT a FROM TownArea a")
+@NamedQuery(name = "TownAreaResource.findAll", query = "SELECT t FROM TownAreaResource t")
 public class TownAreaResource implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @Column(insertable = false, updatable = false)
-    private Long id;
-
-    @Column(name = "CITY_NAME", insertable = false, updatable = false)
+    @Column(name = "CITY_NAME")
     private String cityName;
 
-    @Column(name = "CITY_NAME_KANA", insertable = false, updatable = false)
+    @Column(name = "CITY_NAME_KANA")
     private String cityNameKana;
 
-    @Column(name = "PREFECTURE_NAME", insertable = false, updatable = false)
+    @Id
+    private Long id;
+
+    @Column(name = "JAPANESE_LOCAL_GOVERMENT_CODE")
+    private String japaneseLocalGovermentCode;
+
+    @Column(name = "PREFECTURE_CODE")
+    private String prefectureCode;
+
+    @Column(name = "PREFECTURE_NAME")
     private String prefectureName;
 
-    @Column(name = "PREFECTURE_NAME_KANA", insertable = false, updatable = false)
+    @Column(name = "PREFECTURE_NAME_KANA")
     private String prefectureNameKana;
 
-    @Column(name = "TOWN_NAME", insertable = false, updatable = false)
+    @Column(name = "TOWN_NAME")
     private String townName;
 
-    @Column(name = "TOWN_NAME_KANA", insertable = false, updatable = false)
+    @Column(name = "TOWN_NAME_KANA")
     private String townNameKana;
 
-    @Column(name = "ZIP_CODE", insertable = false, updatable = false)
+    @Column(name = "ZIP_CODE")
     private String zipCode;
 
     public TownAreaResource() {
@@ -68,6 +73,22 @@ public class TownAreaResource implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getJapaneseLocalGovermentCode() {
+        return this.japaneseLocalGovermentCode;
+    }
+
+    public void setJapaneseLocalGovermentCode(String japaneseLocalGovermentCode) {
+        this.japaneseLocalGovermentCode = japaneseLocalGovermentCode;
+    }
+
+    public String getPrefectureCode() {
+        return this.prefectureCode;
+    }
+
+    public void setPrefectureCode(String prefectureCode) {
+        this.prefectureCode = prefectureCode;
     }
 
     public String getPrefectureName() {
