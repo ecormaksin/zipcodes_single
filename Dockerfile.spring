@@ -10,6 +10,7 @@ COPY gradlew* ./
 
 COPY src src
 COPY libs libs
+COPY oracle.osdt oracle.osdt
 
 RUN ./gradlew -q bootJar -x test
 COPY build/libs/*.jar app.jar
@@ -20,11 +21,9 @@ FROM openjdk:8-jre-alpine
 WORKDIR /app
 VOLUME /tmp
 
-COPY ./docker/vault_passwd .
-COPY ./docker/spring/Wallet_ZIPCODES082901 ./Wallet_ZIPCODES082901
-COPY ./docker/spring/secrets.json .
+COPY ./docker/spring/Wallet_ZIPCODES ./Wallet_ZIPCODES
+COPY ./docker/spring/setenv.sh .
 COPY ./docker/spring/start_app.sh .
-COPY ./docker/spring/vault /usr/bin/
 
 RUN chmod +x /app/start_app.sh
 RUN mkdir -p ./logs

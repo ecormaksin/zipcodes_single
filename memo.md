@@ -152,38 +152,11 @@ sudo chown -R spring:spring /opt/zipcodes
 
 任意のディレクトリへアップロードする
 
-# Vault
-
-## インストール
-
-https://learn.hashicorp.com/tutorials/vault/getting-started-install
-
-```
-sudo yum install -y yum-utils
-sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
-sudo yum -y install vault
-```
-
-```
-docker network create zipcodes-network
-
-docker build -t zipcodes-vault:1.0.0 -f ./Dockerfile.vault ./docker/
-docker run --cap-add=IPC_LOCK -d -p 8200:8200 --name=zipcodes-vault --network=zipcodes-network zipcodes-vault:1.0.0
-
-export VAULT_ADDR='http://127.0.0.1:8200'
-export VAULT_TOKEN=`cat ./docker/vault_passwd`
-
-docker logs zipcodes-vault
-
-# ★リセット用
-docker stop zipcodes-vault
-docker rm zipcodes-vault
-docker rmi zipcodes-vault:1.0.0
-```
+# Dockerコンテナ作成
 
 ```
 docker build -t zipcodes-spring:1.0.0 -f ./Dockerfile.spring .
-docker run -d -p 8080:8080 --name=zipcodes-spring --network=zipcodes-network -v /opt/zipcodes/logs:/app/logs zipcodes-spring:1.0.0 --spring.profiles.active=docker_vault
+docker run -d -p 8080:8080 --name=zipcodes-spring -v /opt/zipcodes/logs:/app/logs zipcodes-spring:1.0.0
 
 docker logs zipcodes-spring
 
