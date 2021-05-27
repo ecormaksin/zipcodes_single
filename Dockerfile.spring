@@ -1,18 +1,19 @@
 FROM openjdk:8-jdk-alpine as build
 WORKDIR /workspace/app
 
-COPY .gradle .gradle
+#COPY .gradle .gradle
 COPY gradle gradle
 COPY build.gradle .
 COPY gradle.properties .
 COPY settings.gradle .
-COPY gradlew* ./
+COPY gradlew .
 
 COPY src src
 COPY libs libs
 COPY oracle.osdt oracle.osdt
 
 RUN ./gradlew -q bootJar -x test
+RUN ls -al ./build/libs
 COPY build/libs/*.jar app.jar
 RUN java -Djarmode=layertools -jar app.jar extract
 #RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../../build/libs/*.jar)
@@ -22,7 +23,7 @@ WORKDIR /app
 VOLUME /tmp
 
 COPY ./docker/spring/Wallet_ZIPCODES ./Wallet_ZIPCODES
-COPY ./docker/spring/setenv.sh .
+#COPY ./docker/spring/setenv.sh .
 COPY ./docker/spring/start_app.sh .
 
 RUN chmod +x /app/start_app.sh
