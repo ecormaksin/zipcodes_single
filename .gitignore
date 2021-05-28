@@ -35,8 +35,7 @@ out/
 .vscode/
 
 ### added ###
-/docker/secrets.json
 /eclipse.log
-application-oci_ro.properties
 /setenv/setenv.bat
 /setenv/setenv.sh
+/docker-compose/.env

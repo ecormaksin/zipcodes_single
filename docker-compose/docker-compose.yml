@@ -1,0 +1,14 @@
+version: "3"
+services:
+  zipcodes-spring:
+    image: "zipcodes-spring:1.0.0"
+    container_name: "zipcodes-spring"
+    ports: 
+      - "8080:8080"
+    volumes:
+      - "/opt/zipcodes/logs:/app/logs"
+    environment:
+      - SPRING_DATASOURCE_URL="${SPRING_DATASOURCE_URL}"
+      - SPRING_DATASOURCE_USERNAME="${SPRING_DATASOURCE_USERNAME}"
+      - SPRING_DATASOURCE_PASSWORD="${SPRING_DATASOURCE_PASSWORD}"
+      - LOGGING_FILE_NAME="${LOGGING_FILE_NAME}"

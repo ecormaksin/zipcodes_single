@@ -154,10 +154,8 @@ sudo chown -R spring:spring /opt/zipcodes
 
 # Dockerコンテナ作成
 
-**リポジトリをクローンした際、1度 `./gradlew -q bootJar -x test` を実行して `.gradle` ディレクトリが生成されている必要がある。 **
-
 ```
-docker build -t zipcodes-spring:1.0.0 -f ./Dockerfile.spring .
+DOCKER_BUILDKIT=1 docker build -t zipcodes-spring:1.0.0 -f ./Dockerfile.spring .
 docker run -d -p 8080:8080 --name=zipcodes-spring -v /opt/zipcodes/logs:/app/logs zipcodes-spring:1.0.0
 
 docker logs zipcodes-spring
