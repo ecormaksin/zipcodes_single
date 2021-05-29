@@ -1,0 +1,26 @@
+version: "3"
+services:
+  zipcodes-spring:
+    image: "zipcodes-spring:latest"
+    # container_name: "zipcodes-spring"
+    # build:
+      # context: ../
+      # dockerfile: Dockerfile.spring
+    networks:
+      - network-bridge
+    ports: 
+      - "8080:8080"
+    volumes:
+      - "named-volume-logs:/app/logs"
+    environment:
+      - SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE}
+      - SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL}
+      - SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
+      - LOGGING_FILE_NAME=${LOGGING_FILE_NAME}
+
+networks:
+  network-bridge:
+
+volumes:
+  named-volume-logs:
