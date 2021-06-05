@@ -167,7 +167,7 @@ docker rmi zipcodes-spring:latest
 #### Docker CLI で起動する場合
 
 ```shell
-docker run -d -e SPRING_PROFILES_ACTIVE=<アクティブにするプロファイル（`production`でDBクエリログは出力されなくしている）> -e SPRING_DATASOURCE_URL=jdbc:log4jdbc:oracle:thin:@<ネットワーク エイリアス>?TNS_ADMIN=<Oracle Walletのzipファイルを展開したディレクトリのパス> -e SPRING_DATASOURCE_USERNAME=<DBユーザー名> -e SPRING_DATASOURCE_PASSWORD=<DBパスワード> -e LOGGING_FILE_NAME=<Dockerコンテナ内のログのパス> -p 8080:8080 --name=zipcodes-spring -v /opt/zipcodes/logs:/app/logs zipcodes-spring:1.0.0
+docker run -d -e SPRING_PROFILES_ACTIVE=<アクティブにするプロファイル（`production`でDBクエリログを出力しない）> -e SPRING_DATASOURCE_URL=jdbc:log4jdbc:oracle:thin:@<ネットワーク エイリアス>?TNS_ADMIN=<Oracle Walletのzipファイルを展開したディレクトリのパス> -e SPRING_DATASOURCE_USERNAME=<DBユーザー名> -e SPRING_DATASOURCE_PASSWORD=<DBパスワード> -e LOGGING_FILE_NAME=<Dockerコンテナ内のログのパス> -p 8080:8080 --name=zipcodes-spring -v /opt/zipcodes/logs:/app/logs zipcodes-spring:1.0.0
 
 docker logs zipcodes-spring
 
