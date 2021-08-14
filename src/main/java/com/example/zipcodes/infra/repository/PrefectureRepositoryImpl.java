@@ -11,9 +11,9 @@ import org.springframework.stereotype.Component;
 import com.example.zipcodes.domain.model.prefecture.Prefecture;
 import com.example.zipcodes.domain.model.prefecture.PrefectureCode;
 import com.example.zipcodes.domain.model.prefecture.PrefectureRepository;
+import com.example.zipcodes.infra.db.jpa.entity.PrefectureResource;
+import com.example.zipcodes.infra.db.jpa.entity.QPrefectureResource;
 import com.example.zipcodes.infra.db.jpa.mapper.PrefectureResourceMapper;
-import com.example.zipcodes.infra.db.jpa.view.PrefectureResource;
-import com.example.zipcodes.infra.db.jpa.view.QPrefectureResource;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 

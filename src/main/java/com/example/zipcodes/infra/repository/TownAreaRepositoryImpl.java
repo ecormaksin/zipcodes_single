@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import com.example.zipcodes.infra.db.jpa.view.TownAreaResource;
+import com.example.zipcodes.infra.db.jpa.entity.TownAreaResource;
 
 import lombok.RequiredArgsConstructor;
 

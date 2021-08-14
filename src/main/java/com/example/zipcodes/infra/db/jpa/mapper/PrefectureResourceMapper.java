@@ -12,7 +12,7 @@ import com.example.zipcodes.domain.model.prefecture.PrefectureHiraganaName;
 import com.example.zipcodes.domain.model.prefecture.PrefectureKanjiName;
 import com.example.zipcodes.domain.model.prefecture.PrefectureKatakanaFullwidthName;
 import com.example.zipcodes.domain.model.prefecture.PrefectureKatakanaHalfwidthName;
-import com.example.zipcodes.infra.db.jpa.view.PrefectureResource;
+import com.example.zipcodes.infra.db.jpa.entity.PrefectureResource;
 import com.ibm.icu.text.Transliterator;
 
 @Component

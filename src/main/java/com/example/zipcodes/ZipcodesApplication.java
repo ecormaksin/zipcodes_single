@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class ZipcodesApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(ZipcodesApplication.class, args);
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(ZipcodesApplication.class, args);
+	}
 
 }

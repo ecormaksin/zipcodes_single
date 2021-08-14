@@ -12,9 +12,9 @@ import com.example.zipcodes.domain.model.city.City;
 import com.example.zipcodes.domain.model.city.CityRepository;
 import com.example.zipcodes.domain.model.city.JapaneseLocalGovernmentCode;
 import com.example.zipcodes.domain.model.prefecture.PrefectureCode;
+import com.example.zipcodes.infra.db.jpa.entity.CityResource;
+import com.example.zipcodes.infra.db.jpa.entity.QCityResource;
 import com.example.zipcodes.infra.db.jpa.mapper.CityResourceMapper;
-import com.example.zipcodes.infra.db.jpa.view.CityResource;
-import com.example.zipcodes.infra.db.jpa.view.QCityResource;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 

@@ -39,3 +39,4 @@ out/
 /setenv/setenv.bat
 /setenv/setenv.sh
 .env
+zipcodes.log*

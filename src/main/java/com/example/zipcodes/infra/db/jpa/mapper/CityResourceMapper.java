@@ -13,7 +13,7 @@ import com.example.zipcodes.domain.model.city.CityKatakanaFullwidthName;
 import com.example.zipcodes.domain.model.city.CityKatakanaHalfwidthName;
 import com.example.zipcodes.domain.model.city.JapaneseLocalGovernmentCode;
 import com.example.zipcodes.domain.model.prefecture.PrefectureCode;
-import com.example.zipcodes.infra.db.jpa.view.CityResource;
+import com.example.zipcodes.infra.db.jpa.entity.CityResource;
 import com.ibm.icu.text.Transliterator;
 
 @Component

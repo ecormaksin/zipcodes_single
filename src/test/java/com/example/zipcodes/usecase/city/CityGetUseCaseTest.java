@@ -20,22 +20,22 @@ import com.example.zipcodes.domain.model.city.CityTestUtil;
 @AutoConfigureTestEntityManager
 class CityGetUseCaseTest {
 
-    @Autowired
-    private CityGetUseCase cityGetUseCase;
+	@Autowired
+	private CityGetUseCase cityGetUseCase;
 
-    @Test
-    void 地方自治体コード13104を指定した場合は東京都新宿区が返ってくる() throws Exception {
+	@Test
+	void 地方自治体コード13104を指定した場合は東京都新宿区が返ってくる() throws Exception {
 
-        Optional<City> actual = cityGetUseCase.get(CityTestUtil.JP_LOCAL_GOV_CODE_SHINJUKUKU);
+		Optional<City> actual = cityGetUseCase.get(CityTestUtil.JP_LOCAL_GOV_CODE_SHINJUKUKU);
 
-        assertTrue(actual.get().equals(CityTestUtil.shinjukuku()));
-    }
+		assertTrue(actual.get().equals(CityTestUtil.shinjukuku()));
+	}
 
-    @Test
-    void 存在しない地方自治体コードを指定した場合は空が返ってくる() {
+	@Test
+	void 存在しない地方自治体コードを指定した場合は空が返ってくる() {
 
-        Optional<City> actual = cityGetUseCase.get(CityTestUtil.JP_LOCAL_GOV_CODE_NOT_EXIST);
+		Optional<City> actual = cityGetUseCase.get(CityTestUtil.JP_LOCAL_GOV_CODE_NOT_EXIST);
 
-        assertFalse(actual.isPresent());
-    }
+		assertFalse(actual.isPresent());
+	}
 }
