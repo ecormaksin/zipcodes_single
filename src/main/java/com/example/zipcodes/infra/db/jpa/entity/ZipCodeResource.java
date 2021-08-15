@@ -1,6 +1,7 @@
 package com.example.zipcodes.infra.db.jpa.entity;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,51 +25,69 @@ public class ZipCodeResource implements Serializable {
 	@Id
 	@Column(name = "ID", nullable = false, insertable = false, updatable = false)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "zipcode_id_seq")
-	@SequenceGenerator(name = "zipcode_id_seq", sequenceName = "ZIPCODE_ID_SEQ", allocationSize = 1)
-	private Long id;
+	@SequenceGenerator(name = "zipcode_id_seq", sequenceName = "ZIP_CODES_SEQ", allocationSize = 1)
+	private BigInteger id;
 
-	@Column(name = "JAPANESE_LOCAL_GOVERMENT_CODE", nullable = false, length = 5, columnDefinition = "全国地方公共団体コード	 JIS X0401、X0402")
+	/** 全国地方公共団体コード JIS X0401、X0402 */
+	@Column(name = "JAPANESE_LOCAL_GOVERMENT_CODE", nullable = false, length = 5)
 	private String japaneseLocalGovermentCode;
 
-	@Column(name = "OLD_ZIP_CODE", nullable = false, length = 5, columnDefinition = "旧郵便番号")
+	/** 旧郵便番号 */
+	@Column(name = "OLD_ZIP_CODE", nullable = false, length = 5)
 	private String oldZipCode;
 
-	@Column(name = "ZIP_CODE", nullable = false, length = 7, columnDefinition = "郵便番号")
+	/** 郵便番号 */
+	@Column(name = "ZIP_CODE", nullable = false, length = 7)
 	private String zipCode;
 
-	@Column(name = "PREFECTURE_NAME_KANA", nullable = false, length = 10, columnDefinition = "都道府県名カナ 半角カタカナ（コード順に掲載）")
+	/** 都道府県名カナ 半角カタカナ（コード順に掲載） */
+	@Column(name = "PREFECTURE_NAME_KANA", nullable = false, length = 10)
 	private String prefectureNameKana;
 
-	@Column(name = "CITY_NAME_KANA", nullable = false, length = 30, columnDefinition = "市区町村名カナ 半角カタカナ（コード順に掲載）")
+	/** 市区町村名カナ 半角カタカナ（コード順に掲載） */
+	@Column(name = "CITY_NAME_KANA", nullable = false, length = 30)
 	private String cityNameKana;
 
-	@Column(name = "TOWN_NAME_KANA", nullable = false, length = 100, columnDefinition = "町域名カナ 半角カタカナ（五十音順に掲載）")
+	/** 町域名カナ 半角カタカナ（五十音順に掲載） */
+	@Column(name = "TOWN_NAME_KANA", nullable = false, length = 100)
 	private String townNameKana;
 
-	@Column(name = "PREFECTURE_NAME", nullable = false, length = 5, columnDefinition = "都道府県名 漢字（コード順に掲載）")
+	/** 都道府県名 漢字（コード順に掲載） */
+	@Column(name = "PREFECTURE_NAME", nullable = false, length = 5)
 	private String prefectureName;
 
-	@Column(name = "CITY_NAME", nullable = false, length = 20, columnDefinition = "市区町村名 漢字（コード順に掲載）")
+	/** 市区町村名 漢字（コード順に掲載） */
+	@Column(name = "CITY_NAME", nullable = false, length = 20)
 	private String cityName;
 
-	@Column(name = "TOWN_NAME", nullable = false, length = 20, columnDefinition = "町域名 漢字（五十音順に掲載）")
+	/** 町域名 漢字（五十音順に掲載） */
+	@Column(name = "TOWN_NAME", nullable = false, length = 20)
 	private String townName;
 
-	@Column(name = "TOWN_DEVIDED_FLAG", nullable = false, length = 1, columnDefinition = "複数番号付与町域フラグ 一町域が二以上の郵便番号で表される場合の表示（「1」は該当、「0」は該当せず）")
+	/** 複数番号付与町域フラグ 一町域が二以上の郵便番号で表される場合の表示（「1」は該当、「0」は該当せず） */
+	@Column(name = "TOWN_DEVIDED_FLAG", nullable = false, length = 1)
 	private String townDevidedFlag;
 
-	@Column(name = "ISSUED_PER_KOAZA_FLAG", nullable = false, length = 1, columnDefinition = "小字毎番号付与フラグ 小字毎に番地が起番されている町域の表示（「1」は該当、「0」は該当せず）")
+	/** 小字毎番号付与フラグ 小字毎に番地が起番されている町域の表示（「1」は該当、「0」は該当せず） */
+	@Column(name = "ISSUED_PER_KOAZA_FLAG", nullable = false, length = 1)
 	private String issuedPerKoazaFlag;
 
-	@Column(name = "CHOME_TOWN_FLAG", nullable = false, length = 1, columnDefinition = "丁目保有町域フラグ 丁目を有する町域の場合の表示（「1」は該当、「0」は該当せず）")
+	/** 丁目保有町域フラグ 丁目を有する町域の場合の表示（「1」は該当、「0」は該当せず） */
+	@Column(name = "CHOME_TOWN_FLAG", nullable = false, length = 1)
 	private String chomeTownFlag;
 
-	@Column(name = "HAS_MULTIPLE_TOWN_FLAG", nullable = false, length = 1, columnDefinition = "複数町域保有フラグ 一つの郵便番号で二以上の町域を表す場合の表示（「1」は該当、「0」は該当せず）")
+	/** 複数町域保有フラグ 一つの郵便番号で二以上の町域を表す場合の表示（「1」は該当、「0」は該当せず） */
+	@Column(name = "HAS_MULTIPLE_TOWN_FLAG", nullable = false, length = 1)
 	private String hasMultipleTownFlag;
 
-	@Column(name = "UPDATE_DISPLAY_FLAG", nullable = false, length = 1, columnDefinition = "更新の表示 「0」は変更なし、「1」は変更あり、「2」廃止（廃止データのみ使用）")
+	/** 更新の表示 「0」は変更なし、「1」は変更あり、「2」廃止（廃止データのみ使用） */
+	@Column(name = "UPDATE_DISPLAY_FLAG", nullable = false, length = 1)
 	private String updateDisplayFlag;
 
-	@Column(name = "CHANGE_REASON_FLAG", nullable = false, length = 1, columnDefinition = "変更理由	「0」は変更なし、「1」市政・区政・町政・分区・政令指定都市施行、「2」住居表示の実施、「3」区画整理、「4」郵便区調整等、「5」訂正、「6」廃止（廃止データのみ使用）")
+	/**
+	 * 変更理由
+	 * 「0」は変更なし、「1」市政・区政・町政・分区・政令指定都市施行、「2」住居表示の実施、「3」区画整理、「4」郵便区調整等、「5」訂正、「6」廃止（廃止データのみ使用）
+	 */
+	@Column(name = "CHANGE_REASON_FLAG", nullable = false, length = 1)
 	private String changeReasonFlag;
 }
