@@ -1,4 +1,4 @@
-package com.example.zipcodes.ui.presentation.city;
+package com.example.zipcodes.presentation.controller.city;
 
 import java.util.List;
 

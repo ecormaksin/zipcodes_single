@@ -1,7 +1,7 @@
-package com.example.zipcodes.ui.presentation.prefecture;
+package com.example.zipcodes.presentation.controller.prefecture;
 
-import static com.example.zipcodes.ui.presentation.EndpointUrls.PREFECTURE;
-import static com.example.zipcodes.ui.presentation.KeyNames.PREFECTURE_CODE;
+import static com.example.zipcodes.presentation.controller.EndpointUrls.PREFECTURE;
+import static com.example.zipcodes.presentation.controller.KeyNames.PREFECTURE_CODE;
 
 import java.util.Optional;
 
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.zipcodes.domain.model.prefecture.Prefecture;
 import com.example.zipcodes.domain.model.prefecture.PrefectureCode;
-import com.example.zipcodes.ui.presentation.ControllerUtil;
+import com.example.zipcodes.presentation.controller.ControllerUtil;
 import com.example.zipcodes.usecase.prefecture.PrefectureGetUseCase;
 
 import lombok.RequiredArgsConstructor;

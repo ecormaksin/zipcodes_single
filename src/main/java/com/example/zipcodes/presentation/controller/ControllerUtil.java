@@ -1,4 +1,4 @@
-package com.example.zipcodes.ui.presentation;
+package com.example.zipcodes.presentation.controller;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;

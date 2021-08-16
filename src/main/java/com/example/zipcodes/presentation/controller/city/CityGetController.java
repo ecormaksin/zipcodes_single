@@ -1,7 +1,7 @@
-package com.example.zipcodes.ui.presentation.city;
+package com.example.zipcodes.presentation.controller.city;
 
-import static com.example.zipcodes.ui.presentation.EndpointUrls.CITY;
-import static com.example.zipcodes.ui.presentation.KeyNames.JAPANESE_LOCAL_GOVERNMENT_CODE;
+import static com.example.zipcodes.presentation.controller.EndpointUrls.CITY;
+import static com.example.zipcodes.presentation.controller.KeyNames.JAPANESE_LOCAL_GOVERNMENT_CODE;
 
 import java.util.Optional;
 
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.zipcodes.domain.model.city.City;
 import com.example.zipcodes.domain.model.city.JapaneseLocalGovernmentCode;
-import com.example.zipcodes.ui.presentation.ControllerUtil;
+import com.example.zipcodes.presentation.controller.ControllerUtil;
 import com.example.zipcodes.usecase.city.CityGetUseCase;
 
 import lombok.RequiredArgsConstructor;

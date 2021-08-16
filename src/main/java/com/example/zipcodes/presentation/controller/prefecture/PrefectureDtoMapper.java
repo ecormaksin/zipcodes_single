@@ -1,4 +1,4 @@
-package com.example.zipcodes.ui.presentation.prefecture;
+package com.example.zipcodes.presentation.controller.prefecture;
 
 import java.util.List;
 

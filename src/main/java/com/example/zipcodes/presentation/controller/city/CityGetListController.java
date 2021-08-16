@@ -1,9 +1,9 @@
-package com.example.zipcodes.ui.presentation.city;
+package com.example.zipcodes.presentation.controller.city;
 
-import static com.example.zipcodes.ui.presentation.EndpointUrls.CITIES;
-import static com.example.zipcodes.ui.presentation.EndpointUrls.CITIES_WITH_PREFECTURES;
-import static com.example.zipcodes.ui.presentation.KeyNames.KEYWORDS;
-import static com.example.zipcodes.ui.presentation.KeyNames.PREFECTURE_CODE;
+import static com.example.zipcodes.presentation.controller.EndpointUrls.CITIES;
+import static com.example.zipcodes.presentation.controller.EndpointUrls.CITIES_WITH_PREFECTURES;
+import static com.example.zipcodes.presentation.controller.KeyNames.KEYWORDS;
+import static com.example.zipcodes.presentation.controller.KeyNames.PREFECTURE_CODE;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.zipcodes.domain.model.city.City;
 import com.example.zipcodes.domain.model.prefecture.PrefectureCode;
-import com.example.zipcodes.ui.presentation.ControllerUtil;
+import com.example.zipcodes.presentation.controller.ControllerUtil;
 import com.example.zipcodes.usecase.city.CityGetListUseCase;
 
 import lombok.RequiredArgsConstructor;

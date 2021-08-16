@@ -1,6 +1,6 @@
-package com.example.zipcodes.ui.presentation.prefecture;
+package com.example.zipcodes.presentation.controller.prefecture;
 
-import static com.example.zipcodes.ui.presentation.EndpointUrls.PREFECTURES;
+import static com.example.zipcodes.presentation.controller.EndpointUrls.PREFECTURES;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -18,7 +18,9 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.example.zipcodes.domain.model.prefecture.PrefectureCode;
 import com.example.zipcodes.domain.model.prefecture.PrefectureTestUtil;
-import com.example.zipcodes.ui.presentation.ControllerUtil;
+import com.example.zipcodes.presentation.controller.ControllerUtil;
+import com.example.zipcodes.presentation.controller.prefecture.PrefectureGetController;
+import com.example.zipcodes.ui.presentation.prefecture.PrefectureDtoMapperImpl;
 import com.example.zipcodes.usecase.prefecture.PrefectureGetUseCase;
 
 @WebMvcTest(PrefectureGetController.class)

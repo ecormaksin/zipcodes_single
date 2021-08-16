@@ -1,7 +1,7 @@
-package com.example.zipcodes.ui.presentation;
+package com.example.zipcodes.presentation.controller;
 
-import static com.example.zipcodes.ui.presentation.ControllerUtil.jsonHttpHeaders;
-import static com.example.zipcodes.ui.presentation.KeyNames.KEYWORDS;
+import static com.example.zipcodes.presentation.controller.ControllerUtil.jsonHttpHeaders;
+import static com.example.zipcodes.presentation.controller.KeyNames.KEYWORDS;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

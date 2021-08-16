@@ -1,4 +1,4 @@
-package com.example.zipcodes.ui.presentation.city;
+package com.example.zipcodes.presentation.controller.city;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -22,7 +22,11 @@ import com.example.zipcodes.domain.model.city.City;
 import com.example.zipcodes.domain.model.city.CityTestUtil;
 import com.example.zipcodes.domain.model.prefecture.PrefectureCode;
 import com.example.zipcodes.domain.model.prefecture.PrefectureTestUtil;
-import com.example.zipcodes.ui.presentation.ControllerUtil;
+import com.example.zipcodes.presentation.controller.ControllerUtil;
+import com.example.zipcodes.presentation.controller.city.CityDto;
+import com.example.zipcodes.presentation.controller.city.CityDtoMapper;
+import com.example.zipcodes.presentation.controller.city.CityGetListController;
+import com.example.zipcodes.ui.presentation.city.CityDtoMapperImpl;
 import com.example.zipcodes.usecase.city.CityGetListUseCase;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
