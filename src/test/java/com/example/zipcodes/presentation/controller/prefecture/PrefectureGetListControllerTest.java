@@ -23,10 +23,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.example.zipcodes.domain.model.prefecture.Prefecture;
 import com.example.zipcodes.domain.model.prefecture.PrefectureTestUtil;
 import com.example.zipcodes.presentation.controller.ControllerUtil;
-import com.example.zipcodes.presentation.controller.prefecture.PrefectureDto;
-import com.example.zipcodes.presentation.controller.prefecture.PrefectureDtoMapper;
-import com.example.zipcodes.presentation.controller.prefecture.PrefectureGetListController;
-import com.example.zipcodes.ui.presentation.prefecture.PrefectureDtoMapperImpl;
 import com.example.zipcodes.usecase.prefecture.PrefectureGetListUseCase;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -34,80 +30,80 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Import(value = { PrefectureDtoMapperImpl.class, ControllerUtil.class })
 class PrefectureGetListControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;
+	@Autowired
+	private MockMvc mockMvc;
 
-    @MockBean
-    private PrefectureGetListUseCase prefectureGetListUseCase;
+	@MockBean
+	private PrefectureGetListUseCase prefectureGetListUseCase;
 
-    @Autowired
-    private PrefectureDtoMapper prefectureDtoMapper;
+	@Autowired
+	private PrefectureDtoMapper prefectureDtoMapper;
 
-    @Test
-    void 都道府県コード指定なしの時はリストが返ってくる() throws Exception {
+	@Test
+	void 都道府県コード指定なしの時はリストが返ってくる() throws Exception {
 
-        // 便宜的に東西の都を2件サンプルとして返す
-        // @formatter:off
+		// 便宜的に東西の都を2件サンプルとして返す
+		// @formatter:off
         List<Prefecture> prefectures = Arrays.asList(
                 PrefectureTestUtil.tokyoto()
                 , PrefectureTestUtil.kyotofu()
                 );
         // @formatter:on
 
-        List<PrefectureDto> dtos = prefectureDtoMapper.fromDomainObjectListToDtoList(prefectures);
+		List<PrefectureDto> dtos = prefectureDtoMapper.fromDomainObjectListToDtoList(prefectures);
 
-        when(prefectureGetListUseCase.findAll()).thenReturn(prefectures);
+		when(prefectureGetListUseCase.findAll()).thenReturn(prefectures);
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        // @formatter:off
+		ObjectMapper objectMapper = new ObjectMapper();
+		// @formatter:off
         mockMvc.perform(get(PREFECTURES))
             .andExpect(status().isOk())
             .andExpect(content().string(objectMapper.writeValueAsString(dtos)));
         // @formatter:on
-    }
+	}
 
-    @Test
-    @DisplayName("検索キーワード指定ありの時はキーワードに該当する都道府県が返ってくる")
-    void findByKeywords() throws Exception {
+	@Test
+	@DisplayName("検索キーワード指定ありの時はキーワードに該当する都道府県が返ってくる")
+	void findByKeywords() throws Exception {
 
-        // 便宜的に東京都を1件サンプルとして返す
-        // @formatter:off
+		// 便宜的に東京都を1件サンプルとして返す
+		// @formatter:off
         List<Prefecture> prefectures = Arrays.asList(
                 PrefectureTestUtil.tokyoto()
                 );
         // @formatter:on
 
-        List<PrefectureDto> dtos = prefectureDtoMapper.fromDomainObjectListToDtoList(prefectures);
+		List<PrefectureDto> dtos = prefectureDtoMapper.fromDomainObjectListToDtoList(prefectures);
 
-        final String keywords = "東 京";
-        when(prefectureGetListUseCase.findByKeywords(keywords)).thenReturn(prefectures);
+		final String keywords = "東 京";
+		when(prefectureGetListUseCase.findByKeywords(keywords)).thenReturn(prefectures);
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        // @formatter:off
+		ObjectMapper objectMapper = new ObjectMapper();
+		// @formatter:off
         mockMvc.perform(get(PREFECTURES + String.format("?%s=%s", KEYWORDS, keywords)))
             .andExpect(status().isOk())
             .andExpect(content().string(objectMapper.writeValueAsString(dtos)));
         // @formatter:on
-    }
+	}
 
-    @Test
-    @DisplayName("検索キーワードに該当する都道府県が存在しない時は404エラーが返ってくる")
-    void findByKeywordsNotFound() throws Exception {
+	@Test
+	@DisplayName("検索キーワードに該当する都道府県が存在しない時は404エラーが返ってくる")
+	void findByKeywordsNotFound() throws Exception {
 
-        // @formatter:off
+		// @formatter:off
         final String expectedString = "{"
                 + "\"errorMessage\":\"該当する都道府県はありません。\"" 
                 + "}";
         // @formatter:on
 
-        final String keywords = "あいうえお";
-        when(prefectureGetListUseCase.findByKeywords(keywords)).thenReturn(Collections.emptyList());
+		final String keywords = "あいうえお";
+		when(prefectureGetListUseCase.findByKeywords(keywords)).thenReturn(Collections.emptyList());
 
-        // @formatter:off
+		// @formatter:off
         mockMvc.perform(get(PREFECTURES + String.format("?%s=%s", KEYWORDS, keywords)))
             .andExpect(status().isNotFound())
             .andExpect(content().string(expectedString))
             .andDo(print());
         // @formatter:on
-    }
+	}
 }

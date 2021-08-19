@@ -19,25 +19,23 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.example.zipcodes.domain.model.prefecture.PrefectureCode;
 import com.example.zipcodes.domain.model.prefecture.PrefectureTestUtil;
 import com.example.zipcodes.presentation.controller.ControllerUtil;
-import com.example.zipcodes.presentation.controller.prefecture.PrefectureGetController;
-import com.example.zipcodes.ui.presentation.prefecture.PrefectureDtoMapperImpl;
 import com.example.zipcodes.usecase.prefecture.PrefectureGetUseCase;
 
 @WebMvcTest(PrefectureGetController.class)
 @Import(value = { PrefectureDtoMapperImpl.class, ControllerUtil.class })
 class PrefectureGetControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;
+	@Autowired
+	private MockMvc mockMvc;
 
-    @MockBean
-    private PrefectureGetUseCase prefectureGetUseCase;
+	@MockBean
+	private PrefectureGetUseCase prefectureGetUseCase;
 
-    @Test
-    void 都道府県コード13を指定した場合は東京都1件が返ってくる() throws Exception {
+	@Test
+	void 都道府県コード13を指定した場合は東京都1件が返ってくる() throws Exception {
 
-        // 便宜的に首都1件をサンプルとして返す
-        // @formatter:off
+		// 便宜的に首都1件をサンプルとして返す
+		// @formatter:off
         final String expectedString = "{"
                 + "\"prefectureCode\":\"13\"" 
                 + ",\"kanjiName\":\"東京都\""
@@ -47,34 +45,34 @@ class PrefectureGetControllerTest {
                 + "}";
         // @formatter:on
 
-        final PrefectureCode PREFECTURE_CODE_TOKYO = PrefectureTestUtil.PREFECTURE_CODE_TOKYO;
-        when(prefectureGetUseCase.get(PREFECTURE_CODE_TOKYO)).thenReturn(Optional.of(PrefectureTestUtil.tokyoto()));
+		final PrefectureCode PREFECTURE_CODE_TOKYO = PrefectureTestUtil.PREFECTURE_CODE_TOKYO;
+		when(prefectureGetUseCase.get(PREFECTURE_CODE_TOKYO)).thenReturn(Optional.of(PrefectureTestUtil.tokyoto()));
 
-        // @formatter:off
+		// @formatter:off
 		mockMvc.perform(get(PREFECTURES + "/" + PREFECTURE_CODE_TOKYO.getValue()))
 			.andExpect(status().isOk())
 			.andExpect(content().string(expectedString))
 			.andDo(print());
 		// @formatter:on
-    }
+	}
 
-    @Test
-    void 存在しない都道府県コードを指定した場合は404エラーが返ってくる() throws Exception {
+	@Test
+	void 存在しない都道府県コードを指定した場合は404エラーが返ってくる() throws Exception {
 
-        // @formatter:off
+		// @formatter:off
         final String expectedString = "{"
                 + "\"errorMessage\":\"都道府県コード: 99 に該当する都道府県はありません。\"" 
                 + "}";
         // @formatter:on
 
-        final PrefectureCode PREFECTURE_CODE_NOT_EXIST = PrefectureTestUtil.PREFECTURE_CODE_NOT_EXIST;
-        when(prefectureGetUseCase.get(PREFECTURE_CODE_NOT_EXIST)).thenReturn(Optional.empty());
+		final PrefectureCode PREFECTURE_CODE_NOT_EXIST = PrefectureTestUtil.PREFECTURE_CODE_NOT_EXIST;
+		when(prefectureGetUseCase.get(PREFECTURE_CODE_NOT_EXIST)).thenReturn(Optional.empty());
 
-        // @formatter:off
+		// @formatter:off
         mockMvc.perform(get(PREFECTURES + "/" + PREFECTURE_CODE_NOT_EXIST.getValue()))
             .andExpect(status().isNotFound())
             .andExpect(content().string(expectedString))
             .andDo(print());
         // @formatter:on
-    }
+	}
 }

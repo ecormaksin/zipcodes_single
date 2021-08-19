@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
 import com.example.zipcodes.domain.model.prefecture.Prefecture;
@@ -23,35 +24,37 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PrefectureRepositoryImpl implements PrefectureRepository {
 
-    private final EntityManager entityManager;
-    private final PrefectureResourceMapper prefectureResourceMapper;
+	private final EntityManager entityManager;
+	private final PrefectureResourceMapper prefectureResourceMapper;
 
-    private JPAQueryFactory queryFactory;
+	private JPAQueryFactory queryFactory;
 
-    private QPrefectureResource qPrefecture = QPrefectureResource.prefectureResource;
+	private QPrefectureResource qPrefecture = QPrefectureResource.prefectureResource;
 
-    @PostConstruct
-    void postConstruct() {
-        queryFactory = new JPAQueryFactory(entityManager);
-    }
+	@PostConstruct
+	void postConstruct() {
+		queryFactory = new JPAQueryFactory(entityManager);
+	}
 
-    @Override
-    public List<Prefecture> findAll() {
+	@Override
+	@Cacheable("prefectures")
+	public List<Prefecture> findAll() {
 
-        // @formatter:off
+		// @formatter:off
         List<PrefectureResource> resources = queryFactory
                 .selectFrom(qPrefecture)
                 .orderBy(qPrefecture.prefectureCode.asc())
                 .fetch();
         // @formatter:on
 
-        return prefectureResourceMapper.fromEntityListToDomainObjectList(resources);
-    }
+		return prefectureResourceMapper.fromEntityListToDomainObjectList(resources);
+	}
 
-    @Override
-    public Optional<Prefecture> findByPrefectureCode(final PrefectureCode prefectureCode) {
+	@Override
+	@Cacheable("prefecture")
+	public Optional<Prefecture> findByPrefectureCode(final PrefectureCode prefectureCode) {
 
-        // @formatter:off
+		// @formatter:off
         PrefectureResource entity = queryFactory
                 .selectFrom(qPrefecture)
                 .where( qPrefecture.prefectureCode.eq(prefectureCode.getValue()) )
@@ -62,15 +65,16 @@ public class PrefectureRepositoryImpl implements PrefectureRepository {
                 : Optional.of(prefectureResourceMapper.fromEntityToDomainObject(entity));
         // @formatter:on
 
-    }
+	}
 
-    @Override
-    public List<Prefecture> findByPrefectureCode(final String keywords) {
+	@Override
+	@Cacheable("prefectures")
+	public List<Prefecture> findByPrefectureCode(final String keywords) {
 
-        final BooleanBuilder keywordCondition = KeywordsConditionBuilder.build(qPrefecture.prefectureName,
-                qPrefecture.prefectureNameKana, keywords);
+		final BooleanBuilder keywordCondition = KeywordsConditionBuilder.build(qPrefecture.prefectureName,
+				qPrefecture.prefectureNameKana, keywords);
 
-        // @formatter:off
+		// @formatter:off
         List<PrefectureResource> entities = queryFactory
                 .selectFrom(qPrefecture)
                 .where( keywordCondition )
@@ -79,6 +83,6 @@ public class PrefectureRepositoryImpl implements PrefectureRepository {
                 ).fetch();
         // @formatter:on
 
-        return prefectureResourceMapper.fromEntityListToDomainObjectList(entities);
-    }
+		return prefectureResourceMapper.fromEntityListToDomainObjectList(entities);
+	}
 }
