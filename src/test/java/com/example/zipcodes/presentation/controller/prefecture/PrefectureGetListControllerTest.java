@@ -19,6 +19,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 
 import com.example.zipcodes.domain.model.prefecture.Prefecture;
 import com.example.zipcodes.domain.model.prefecture.PrefectureTestUtil;
@@ -80,7 +81,7 @@ class PrefectureGetListControllerTest {
 
 		ObjectMapper objectMapper = new ObjectMapper();
 		// @formatter:off
-        mockMvc.perform(get(PREFECTURES + String.format("?%s=%s", KEYWORDS, keywords)))
+		getListWithKeywords(keywords)
             .andExpect(status().isOk())
             .andExpect(content().string(objectMapper.writeValueAsString(dtos)));
         // @formatter:on
@@ -100,10 +101,15 @@ class PrefectureGetListControllerTest {
 		when(prefectureGetListUseCase.findByKeywords(keywords)).thenReturn(Collections.emptyList());
 
 		// @formatter:off
-        mockMvc.perform(get(PREFECTURES + String.format("?%s=%s", KEYWORDS, keywords)))
+		getListWithKeywords(keywords)
             .andExpect(status().isNotFound())
             .andExpect(content().string(expectedString))
             .andDo(print());
         // @formatter:on
+	}
+
+	private ResultActions getListWithKeywords(String keywords) throws Exception {
+
+		return mockMvc.perform(get(PREFECTURES + String.format("?%s=%s", KEYWORDS, keywords)));
 	}
 }
