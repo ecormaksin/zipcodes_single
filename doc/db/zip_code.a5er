@@ -1,7 +1,7 @@
-﻿# A5:ER FORMAT:14
+﻿# A5:ER FORMAT:15
 # A5:ER ENCODING:UTF8
-# A5:ER Mk-1 Copyright (C)2007 m.matsubara
-# A5:SQL Mk-2 Copyright (C)1997 m.matsubara
+# A5:ER Mk-1 Copyright © 2007 m.matsubara
+# A5:SQL Mk-2 Version 2.16.1 Copyright © 1997 - 2021 m.matsubara
 #  https://a5m2.mmatsubara.com
 
 [Manager]
@@ -13,6 +13,8 @@ Page=Main
 PageInfo="Main",2,"A3Landscape",$FFFFFF
 Domain=ID=@DECIMAL(11,0)
 DomainInfo="ID","@DECIMAL(11,0)","ドメイン特定の知識のない、レコードのID"
+Domain=フラグ=@VARCHAR(1)
+DomainInfo="フラグ","@VARCHAR(1)",""
 Domain=全国地方公共団体コード=@VARCHAR(5)
 DomainInfo="全国地方公共団体コード","@VARCHAR(5)",""
 Domain=旧郵便番号=@VARCHAR(5)
@@ -31,8 +33,16 @@ Domain=市区町村名=@VARCHAR(20 CHAR)
 DomainInfo="市区町村名","@VARCHAR(20 CHAR)",""
 Domain=町域名=@VARCHAR(50 CHAR)
 DomainInfo="町域名","@VARCHAR(50 CHAR)",""
-Domain=フラグ=@VARCHAR(1)
-DomainInfo="フラグ","@VARCHAR(1)",""
+Domain=小字名_丁目_番地_等=@VARCHAR(124 CHAR)
+DomainInfo="小字名_丁目_番地_等","@VARCHAR(124 CHAR)",""
+Domain=大口事業所所在地JISコード=@VARCHAR(5)
+DomainInfo="大口事業所所在地JISコード","@VARCHAR(5)",""
+Domain=大口事業所名カナ=@VARCHAR(100 CHAR)
+DomainInfo="大口事業所名カナ","@VARCHAR(100 CHAR)",""
+Domain=大口事業所名=@VARCHAR(160 CHAR)
+DomainInfo="大口事業所名","@VARCHAR(160 CHAR)",""
+Domain=取扱局=@VARCHAR(40 CHAR)
+DomainInfo="取扱局","@VARCHAR(40 CHAR)",""
 LogicalView=1
 DecodeDomain=0
 ViewModePageIndividually=1
@@ -137,7 +147,7 @@ Top=600
 
 [Entity]
 PName=ZIP_CODES_WORK
-LName=郵便番号ワーク
+LName=郵便番号_ワーク
 Comment=郵便局が提供している郵便番号データ\nhttps://www.post.japanpost.jp/zipcode/dl/readme.html\ncsvファイルをインポートするためのワークテーブル
 TableOption=
 Page=MAIN
@@ -162,7 +172,7 @@ EffectMode=None
 Tag=住所
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20200816075326
+ModifiedDateTime=20210829174739
 Position="MAIN",200,300
 ZOrder=77
 
@@ -181,3 +191,32 @@ ZOrder=78
 Page=MAIN
 Left=1800
 Top=950
+
+[Entity]
+PName=OFFICE_ZIP_CODES_WORK
+LName=事業所_個別_郵便番号_ワーク
+Comment=郵便局が提供している大口事業所個別の郵便番号データ\nhttps://www.post.japanpost.jp/zipcode/dl/jigyosyo/readme.html
+TableOption=
+Page=MAIN
+Left=200
+Top=1300
+Field="大口事業所の所在地のJISコード","JIS_CODE_OF_LOCATION","*大口事業所所在地JISコード",,,"","",$FFFFFFFF,""
+Field="大口事業所名カナ","OFFICE_NAME_KANA","*大口事業所名カナ",,,"","",$FFFFFFFF,""
+Field="大口事業所名","OFFICE_NAME","*大口事業所名",,,"","",$FFFFFFFF,""
+Field="都道府県名","PREFECTURE_NAME","*都道府県名",,,"","",$FFFFFFFF,""
+Field="市区町村名","CITY_NAME","*市区町村名",,,"","",$FFFFFFFF,""
+Field="町域名","TOWN_AREA_NAME","*町域名",,,"","",$FFFFFFFF,""
+Field="小字名_丁目_番地_等","REST_PART_OF_ADDRESS","*小字名_丁目_番地_等",,,"","",$FFFFFFFF,""
+Field="大口事業所個別番号","OFFICE_ZIP_CODE","*郵便番号",,,"","",$FFFFFFFF,""
+Field="旧郵便番号","OLD_ZIP_CODE","*旧郵便番号",,,"","",$FFFFFFFF,""
+Field="取扱局","DISTRIBUTOR","*取扱局",,,"","",$FFFFFFFF,""
+Field="個別番号種別","ZIP_CODE_TYPE","*フラグ",,,"","個別番号の種別の表示 「0」大口事業所 「1」私書箱",$FFFFFFFF,""
+Field="複数番号有無フラグ","MULTIPLE_CODE_EXISTS_FLAG","*フラグ",,,"","複数番号の有無 「0」複数番号無し 「1」複数番号を設定している場合の個別番号の1 「2」複数番号を設定している場合の個別番号の2 「3」複数番号を設定している場合の個別番号の3  一つの事業所が同一種別の個別番号を複数持つ場合に複数番号を設定しているものとします。 従って、一つの事業所で大口事業所、私書箱の個別番号をそれぞれ一つづつ設定している場合は「0」となります。",$FFFFFFFF,""
+Field="修正コード","REVISION_CODE","*フラグ",,,"","修正コード 「0」修正なし 「1」新規追加 「5」廃止",$FFFFFFFF,""
+EffectMode=None
+Tag=住所
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20210829191043
+Position="MAIN",200,1300
+ZOrder=79

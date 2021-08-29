@@ -1,0 +1,3 @@
+truncate TABLE OFFICE_ZIP_CODES;
+
+EXIT

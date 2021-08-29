@@ -2,7 +2,7 @@
 
 cd `dirname $0`
 
-ACCOUNT_STRING=ZIP_CODE/Password1234
+#ACCOUNT_STRING=ZIP_CODE/Password1234
 
 sqlldr USERID="${ACCOUNT_STRING}" CONTROL='import.ctl'
 
