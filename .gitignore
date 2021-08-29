@@ -40,3 +40,6 @@ out/
 /setenv/setenv.sh
 .env
 zipcodes.log*
+JIGYOSYO.CSV
+KEN_ALL.CSV
+
