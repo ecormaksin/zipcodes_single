@@ -4,6 +4,6 @@
         <class>com.example.zipcodes.infra.db.jpa.entity.ZipCodeResource</class>
         <class>com.example.zipcodes.infra.db.jpa.entity.TownAreaResource</class>
         <class>com.example.zipcodes.infra.db.jpa.entity.CityResource</class>
-        <class>com.example.zipcodes.infra.db.jpa.entity.PrefectureResource</class>
+        <class>com.example.zipcodes.infra.db.jpa.mappedsuperclass.PrefectureResource</class>
 	</persistence-unit>
 </persistence>
